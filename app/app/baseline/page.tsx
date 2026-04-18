@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
-import { buildClarityResponse } from "@/lib/clarity-engine";
+import { buildClarityResponse } from "@/lib/clarity-scaffold";
 
 export default function BaselinePage() {
   const [input, setInput] = useState("");
