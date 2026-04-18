@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
+import { routes } from "@/lib/routes";
 import { siteCopy } from "@/lib/site-copy";
 
 export default function PricingPage() {
@@ -22,7 +24,7 @@ export default function PricingPage() {
               <div className="space-y-1">
                 <h2 className="text-xl font-semibold">{tier.name}</h2>
                 <p className="text-sm text-neutral-500">{tier.tagline}</p>
-                {tier.badge && (
+                {"badge" in tier && tier.badge && (
                   <span className="text-xs text-neutral-400">
                     {tier.badge}
                   </span>
@@ -35,9 +37,12 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              <button className="w-full px-4 py-2 border rounded-lg">
+              <Link
+                href={routes.start}
+                className="block w-full px-4 py-2 border rounded-lg text-center"
+              >
                 {tier.cta}
-              </button>
+              </Link>
             </div>
           ))}
         </div>

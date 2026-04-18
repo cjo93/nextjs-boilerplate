@@ -72,8 +72,7 @@ Return JSON with summary and sections.`;
       input: prompt,
     });
 
-    // SAFE ACCESS: avoid strict typing issues from OpenAI SDK
-    const text = (res as any)?.output_text || "";
+    const text = typeof res.output_text === "string" ? res.output_text : "";
 
     return {
       ...fallback(req),
