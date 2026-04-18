@@ -25,10 +25,25 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const parsedBody = body as Omit<ClarityRequest, "mode">;
+  const {
+    input: rawInput,
+    counterpart,
+    context,
+  } = body as Partial<Omit<ClarityRequest, "mode">>;
+
+  const input = typeof rawInput === "string" ? rawInput : "";
+
+  if (!input.trim()) {
+    return NextResponse.json(
+      { error: "Input must not be blank." },
+      { status: 400 }
+    );
+  }
 
   const result = await generateClarity({
-    ...parsedBody,
+    input,
+    counterpart,
+    context,
     mode: "now",
   });
 

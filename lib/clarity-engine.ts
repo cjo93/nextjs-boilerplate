@@ -3,8 +3,50 @@ import "server-only";
 import {
   ClarityRequest,
   ClarityResponse,
+  ClaritySection,
 } from "./defrag-types";
 import { buildClarityResponse } from "./clarity-scaffold";
+
+function isClaritySections(value: unknown): value is ClaritySection[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (section) =>
+        section &&
+        typeof section === "object" &&
+        typeof (section as { title?: unknown }).title === "string" &&
+        typeof (section as { body?: unknown }).body === "string"
+    )
+  );
+}
+
+function parseClarityResponse(
+  output: string,
+  fallback: ClarityResponse
+): ClarityResponse {
+  try {
+    const parsed = JSON.parse(output) as {
+      summary?: unknown;
+      sections?: unknown;
+    };
+
+    if (
+      typeof parsed.summary === "string" &&
+      isClaritySections(parsed.sections)
+    ) {
+      return {
+        ...fallback,
+        summary: parsed.summary,
+        sections: parsed.sections,
+        generatedWith: "openai",
+      };
+    }
+  } catch {
+    return fallback;
+  }
+
+  return fallback;
+}
 
 export async function generateClarity(
   req: ClarityRequest
@@ -30,12 +72,8 @@ Return JSON with summary and sections.`;
     });
 
     const text = typeof res.output_text === "string" ? res.output_text : "";
-
-    return {
-      ...buildClarityResponse(req),
-      summary: text.slice(0, 300),
-      generatedWith: "openai",
-    };
+    const fallback = buildClarityResponse(req);
+    return text ? parseClarityResponse(text, fallback) : fallback;
   } catch {
     return buildClarityResponse(req);
   }
