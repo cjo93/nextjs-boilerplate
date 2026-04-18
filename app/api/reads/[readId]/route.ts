@@ -1,14 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 
 export const dynamic = "force-dynamic";
 
-type Params = { params: { readId: string } };
+type RouteContext = { params: Promise<{ readId: string }> };
 
-export async function GET(_req: Request, { params }: Params) {
+export async function GET(_req: NextRequest, context: RouteContext) {
   try {
+    const { readId } = await context.params;
+
     const read = await prisma.workspaceRead.findUnique({
-      where: { id: params.readId },
+      where: { id: readId },
     });
 
     if (!read) {
