@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import { nowInputSchema } from "@/lib/ai/schemas/now";
 import { generateNow } from "@/lib/ai/orchestrator/now";
