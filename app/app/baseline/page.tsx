@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
-import { ThreeLens } from "@/components/artifacts/three-lens";
-import { ClarifiedOutput } from "@/components/artifacts/clarified-output";
+import { buildClarityResponse } from "@/lib/clarity-engine";
 
 export default function BaselinePage() {
   const [input, setInput] = useState("");
   const hasInput = input.trim().length > 0;
+  const response = buildClarityResponse({ mode: "baseline", input });
 
   return (
     <PageShell>
@@ -30,16 +30,14 @@ export default function BaselinePage() {
 
       {hasInput && (
         <SectionShell className="space-y-8">
-          <ThreeLens
-            baseline="You tend to move quickly toward resolution and clarity."
-            now="You may currently be reacting to pressure or urgency."
-            relationships="Others may experience this as intensity or urgency."
-          />
-
-          <ClarifiedOutput
-            summary="Your baseline favors speed and clarity, but pressure can amplify intensity."
-            guidance="Slow pacing slightly to maintain clarity without increasing perceived pressure."
-          />
+          <div className="grid gap-6 md:grid-cols-2">
+            {response.sections.map((section) => (
+              <div key={section.title} className="rounded-xl border p-6 space-y-2">
+                <h2 className="text-lg font-medium">{section.title}</h2>
+                <p className="text-sm text-neutral-500">{section.body}</p>
+              </div>
+            ))}
+          </div>
         </SectionShell>
       )}
     </PageShell>

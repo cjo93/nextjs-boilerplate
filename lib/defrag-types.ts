@@ -12,6 +12,11 @@ export type ClaritySection = {
   body: string;
 };
 
+export type ClaritySectionTemplate = {
+  title: string;
+  scaffold: string;
+};
+
 export type ClarityResponse = {
   mode: ReadMode;
   summary: string;
