@@ -2,19 +2,27 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { baselineInputSchema } from "@/lib/ai/schemas/baseline";
 import { generateBaseline } from "@/lib/ai/orchestrator/baseline";
+import { auth } from "@/lib/auth/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const session = await auth();
+    const userId = session?.user?.id;
+
+    if (!userId) {
+      return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
-    const input = baselineInputSchema.parse(body);
+    const input = baselineInputSchema.parse({ ...body, userId });
 
     const output = await generateBaseline(input);
 
     const record = await prisma.workspaceRead.create({
       data: {
-        userId: input.userId,
+        userId,
         type: "BASELINE",
         inputPayload: input,
         outputPayload: output,
