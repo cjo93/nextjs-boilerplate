@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getReadSummary } from "@/lib/utils/get-read-summary";
 
 type Read = {
   id: string;
@@ -47,29 +48,32 @@ export default function HistoryPage() {
       )}
 
       <div className="space-y-4">
-        {reads.map((read) => (
-          <div
-            key={read.id}
-            className="border border-neutral-800 rounded-lg p-4 bg-neutral-900 space-y-3"
-          >
-            <div className="text-xs text-neutral-400">
-              {new Date(read.createdAt).toLocaleString()} — {read.type}
-            </div>
+        {reads.map((read) => {
+          const summary = getReadSummary(read);
+          return (
+            <div
+              key={read.id}
+              className="border border-neutral-800 rounded-lg p-4 bg-neutral-900 space-y-3"
+            >
+              <div className="text-xs text-neutral-400">
+                {new Date(read.createdAt).toLocaleString()} — {summary.typeLabel}
+              </div>
 
-            <div className="text-sm text-neutral-200">
-              {read.outputPayload?.currentRead || "No summary"}
-            </div>
+              <div className="text-sm text-neutral-200">
+                {summary.summary}
+              </div>
 
-            <div className="flex gap-3 text-sm">
-              <Link href={`/app/history/${read.id}`} className="underline underline-offset-4">
-                View details
-              </Link>
-              <Link href={`/app/learn?readId=${read.id}`} className="underline underline-offset-4">
-                Explain
-              </Link>
+              <div className="flex gap-3 text-sm">
+                <Link href={`/app/history/${read.id}`} className="underline underline-offset-4">
+                  View details
+                </Link>
+                <Link href={`/app/learn?readId=${read.id}`} className="underline underline-offset-4">
+                  Explain
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
