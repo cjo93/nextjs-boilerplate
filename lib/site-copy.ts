@@ -57,6 +57,23 @@ export const siteCopy = {
     heroTitle: "One system. Three ways to find clarity.",
     heroBody:
       "DEFRAG is organized around the three questions people most often need help with: how they work, what is happening right now, and what may be happening between themselves and another person.",
+    overviewTitle: "A product organized around real-life needs.",
+    overviewBody:
+      "Instead of giving you more undifferentiated input, DEFRAG gives you a structured way to understand yourself, read the moment, and make better sense of relationship dynamics.",
+    sections: [
+      {
+        title: "Baseline",
+        body: "See how you naturally work, what pressure tends to do to you, and what helps you come back into alignment.",
+      },
+      {
+        title: "Now",
+        body: "Get a clearer read on what may be active in this moment so you can choose the response that fits best.",
+      },
+      {
+        title: "Relationships",
+        body: "Understand what may be happening in the dynamic between you and another person so you can move with more precision.",
+      },
+    ],
     closingTitle: "Move into the part of the system that matches the moment.",
     closingBody:
       "Start with the lens that fits your need now, then go deeper as your understanding becomes more precise.",
