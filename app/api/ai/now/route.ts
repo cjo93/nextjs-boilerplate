@@ -31,14 +31,14 @@ export async function POST(req: NextRequest) {
     context,
   } = body as Partial<Omit<ClarityRequest, "mode">>;
 
-  const input = typeof rawInput === "string" ? rawInput : "";
-
-  if (!input.trim()) {
+  if (typeof rawInput !== "string" || !rawInput.trim()) {
     return NextResponse.json(
       { error: "Input must not be blank." },
       { status: 400 }
     );
   }
+
+  const input = rawInput;
 
   const result = await generateClarity({
     input,

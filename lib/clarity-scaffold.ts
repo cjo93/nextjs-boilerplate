@@ -132,16 +132,12 @@ const claritySectionTemplates: Record<ReadMode, ClaritySectionTemplate[]> = {
 };
 
 export function buildClarityResponse(req: Partial<ClarityRequest> & Pick<ClarityRequest, "mode">): ClarityResponse {
-  const safeInput = typeof req.input === "string" ? req.input : "";
-  const inputPreview = safeInput.trim().slice(0, 120);
-  const contextSuffix = inputPreview ? ` Context: ${inputPreview}.` : "";
-
   return {
     mode: req.mode,
     summary: "This is a simplified clarity read based on your input.",
     sections: claritySectionTemplates[req.mode].map((section) => ({
       title: section.title,
-      body: `${section.scaffold}${contextSuffix}`,
+      body: section.scaffold,
     })),
     ctaLabel: "Save This Read",
     generatedWith: "fallback",
