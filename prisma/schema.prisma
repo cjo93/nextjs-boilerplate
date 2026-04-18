@@ -19,6 +19,7 @@ model User {
 model WorkspaceRead {
   id            String   @id @default(cuid())
   userId        String
+  user          User     @relation(fields: [userId], references: [id])
   type          String
   inputPayload  Json
   outputPayload Json
