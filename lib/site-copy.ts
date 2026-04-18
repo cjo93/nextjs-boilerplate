@@ -1,3 +1,5 @@
+import { routes } from "@/lib/routes";
+
 export const siteCopy = {
   brand: {
     name: "DEFRAG",
@@ -33,24 +35,61 @@ export const siteCopy = {
   },
   productCards: [
     {
-      href: "/app/baseline",
+      href: routes.appBaseline,
       title: "Baseline",
       body: "How you tend to work, what pressure does to you, and what helps you return to clarity.",
       cta: "Explore Baseline",
     },
     {
-      href: "/app/now",
+      href: routes.appNow,
       title: "Now",
       body: "A clear read on what may be most active right now and what move fits best.",
       cta: "Explore Now",
     },
     {
-      href: "/app/relationships",
+      href: routes.appRelationships,
       title: "Relationships",
       body: "A clearer view of what may be happening between you and another person.",
       cta: "Explore Relationships",
     },
   ],
+  productPage: {
+    heroTitle: "One system. Three ways to find clarity.",
+    heroBody:
+      "DEFRAG is organized around the three questions people most often need help with: how they work, what is happening right now, and what may be happening between themselves and another person.",
+    closingTitle: "Move into the part of the system that matches the moment.",
+    closingBody:
+      "Start with the lens that fits your need now, then go deeper as your understanding becomes more precise.",
+  },
+  howItWorksPage: {
+    heroTitle: "How DEFRAG works",
+    heroBody:
+      "DEFRAG turns complexity into structured, plain-language clarity. It helps you understand your baseline, read what may be active in the moment, and make better sense of relationship dynamics.",
+    sections: [
+      {
+        title: "Baseline",
+        body: "Understand how you tend to work, what pressure does to you, and what helps you return to clarity.",
+      },
+      {
+        title: "Now",
+        body: "Read what may be active in the moment so you can respond with better timing and less confusion.",
+      },
+      {
+        title: "Relationships",
+        body: "Make better sense of what may be happening between you and another person.",
+      },
+    ],
+  },
+  useCasesPage: {
+    heroTitle: "Where people use DEFRAG",
+    heroBody:
+      "DEFRAG is designed for the moments when interpretation matters more than more information.",
+    items: [
+      "Understanding yourself before you repeat a familiar pattern",
+      "Getting clearer on what may be shaping a difficult moment",
+      "Reading the real dynamic beneath a relationship conflict",
+    ],
+  },
   pricing: [
     {
       name: "Baseline",
@@ -96,5 +135,27 @@ export const siteCopy = {
     entryTitle: "Choose the layer of clarity you need.",
     entryBody:
       "Move into the part of the system that matches the moment: your baseline, what is active right now, a relationship dynamic, or the explanation layer behind the read.",
+    entryCards: [
+      {
+        href: routes.appNow,
+        title: "Now",
+        body: "A clearer read on what may be shaping this moment.",
+      },
+      {
+        href: routes.appBaseline,
+        title: "Baseline",
+        body: "Understand how you tend to work and what pressure does to you.",
+      },
+      {
+        href: routes.appRelationships,
+        title: "Relationships",
+        body: "Understand what may be happening between you and another person.",
+      },
+      {
+        href: routes.appLearn,
+        title: "Learn",
+        body: "Understand how the read was generated and how to use it.",
+      },
+    ],
   },
 } as const;
