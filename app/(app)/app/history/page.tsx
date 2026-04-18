@@ -20,7 +20,7 @@ export default function HistoryPage() {
   useEffect(() => {
     const fetchReads = async () => {
       try {
-        const res = await fetch("/api/reads?userId=demo-user");
+        const res = await fetch("/api/reads");
         const json = await res.json();
 
         if (!json.ok) throw new Error(json.error);
