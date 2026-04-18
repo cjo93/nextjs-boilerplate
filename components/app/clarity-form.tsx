@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import type { ClarityResponse, ClaritySection } from "@/lib/defrag-types";
 
 export function ClarityForm({ mode }: { mode: string }) {
   const [input, setInput] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<ClarityResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
@@ -35,7 +36,7 @@ export function ClarityForm({ mode }: { mode: string }) {
       {result && (
         <div className="space-y-4 mt-6">
           <p className="text-sm text-neutral-500">{result.summary}</p>
-          {result.sections.map((s: any) => (
+          {result.sections.map((s: ClaritySection) => (
             <div key={s.title}>
               <h3 className="font-medium">{s.title}</h3>
               <p className="text-sm text-neutral-500">{s.body}</p>
