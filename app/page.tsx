@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Stage } from "@/components/site/chrome";
 import { siteCopy } from "@/lib/site-copy";
+import { routes } from "@/lib/routes";
 
 export default function Home() {
   return (
@@ -15,10 +16,10 @@ export default function Home() {
             {siteCopy.brand.description}
           </p>
           <div className="flex gap-4">
-            <Link href="/start" className="px-5 py-3 bg-black text-white rounded-lg">
+            <Link href={routes.start} className="px-5 py-3 bg-black text-white rounded-lg">
               Start Your Baseline
             </Link>
-            <Link href="/how-it-works" className="px-5 py-3 border rounded-lg">
+            <Link href={routes.howItWorks} className="px-5 py-3 border rounded-lg">
               See How It Works
             </Link>
           </div>
@@ -92,10 +93,10 @@ export default function Home() {
       <section className="text-center space-y-4">
         <h2 className="text-2xl font-semibold">A clearer way to understand yourself.</h2>
         <div className="flex justify-center gap-4">
-          <Link href="/start" className="px-5 py-3 bg-black text-white rounded-lg">
+          <Link href={routes.start} className="px-5 py-3 bg-black text-white rounded-lg">
             Start Your Baseline
           </Link>
-          <Link href="/pricing" className="px-5 py-3 border rounded-lg">
+          <Link href={routes.pricing} className="px-5 py-3 border rounded-lg">
             View Pricing
           </Link>
         </div>
