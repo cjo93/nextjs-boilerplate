@@ -2,12 +2,14 @@ import Link from "next/link";
 import { Stage } from "@/components/site/chrome";
 import { siteCopy } from "@/lib/site-copy";
 import { routes } from "@/lib/routes";
+import { PageShell } from "@/components/system/page-shell";
+import { SectionShell } from "@/components/system/section-shell";
+import { CtaRow } from "@/components/system/cta-row";
 
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-20 space-y-24">
-      {/* Hero */}
-      <section className="grid md:grid-cols-2 gap-12 items-center">
+    <PageShell>
+      <SectionShell className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h1 className="text-4xl font-semibold tracking-tight">
             {siteCopy.brand.title}
@@ -15,14 +17,14 @@ export default function Home() {
           <p className="text-lg text-neutral-600 dark:text-neutral-400">
             {siteCopy.brand.description}
           </p>
-          <div className="flex gap-4">
+          <CtaRow>
             <Link href={routes.start} className="px-5 py-3 bg-black text-white rounded-lg">
               Start Your Baseline
             </Link>
             <Link href={routes.howItWorks} className="px-5 py-3 border rounded-lg">
               See How It Works
             </Link>
-          </div>
+          </CtaRow>
           <p className="text-sm text-neutral-500">
             {siteCopy.homepage.microcopy}
           </p>
@@ -37,10 +39,9 @@ export default function Home() {
             <p className="text-neutral-500">The moment may be a meaning split, not intent mismatch.</p>
           </div>
         </Stage>
-      </section>
+      </SectionShell>
 
-      {/* Value */}
-      <section className="grid md:grid-cols-2 gap-12">
+      <SectionShell className="grid md:grid-cols-2 gap-12">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">{siteCopy.homepage.valueTitle}</h2>
           <p className="text-neutral-600 dark:text-neutral-400">
@@ -55,10 +56,9 @@ export default function Home() {
         <Stage>
           <p className="text-sm text-neutral-500">Pattern · Pressure · Landing · Response</p>
         </Stage>
-      </section>
+      </SectionShell>
 
-      {/* Product */}
-      <section className="space-y-6">
+      <SectionShell>
         <h2 className="text-2xl font-semibold">Three ways DEFRAG helps</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {siteCopy.productCards.map((card) => (
@@ -69,28 +69,25 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </section>
+      </SectionShell>
 
-      {/* Why */}
-      <section className="space-y-4">
+      <SectionShell>
         <h2 className="text-2xl font-semibold">{siteCopy.homepage.whyTitle}</h2>
         <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl">
           {siteCopy.homepage.whyBody}
         </p>
-      </section>
+      </SectionShell>
 
-      {/* Use cases */}
-      <section className="space-y-4">
+      <SectionShell>
         <h2 className="text-2xl font-semibold">Made for the moments that matter.</h2>
         <ul className="grid md:grid-cols-2 gap-2 text-sm">
           {siteCopy.homepage.useCases.map((u) => (
             <li key={u}>• {u}</li>
           ))}
         </ul>
-      </section>
+      </SectionShell>
 
-      {/* CTA */}
-      <section className="text-center space-y-4">
+      <SectionShell className="text-center">
         <h2 className="text-2xl font-semibold">A clearer way to understand yourself.</h2>
         <div className="flex justify-center gap-4">
           <Link href={routes.start} className="px-5 py-3 bg-black text-white rounded-lg">
@@ -101,7 +98,7 @@ export default function Home() {
           </Link>
         </div>
         <p className="text-sm text-neutral-500">No jargon. No diagnosis. No generic advice.</p>
-      </section>
-    </div>
+      </SectionShell>
+    </PageShell>
   );
 }
