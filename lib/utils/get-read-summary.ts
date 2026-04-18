@@ -1,6 +1,6 @@
 type ReadLike = {
   type?: string;
-  outputPayload?: Record<string, unknown> | null;
+  outputPayload?: unknown;
 };
 
 export type ReadSummary = {
@@ -23,8 +23,12 @@ const PRIMARY_FIELDS: Record<string, string[]> = {
   RELATIONSHIP: ["whatsHappening", "bestNextMove", "whatMayHelp"],
 };
 
-function getFirstMeaningfulString(payload: Record<string, unknown> | null | undefined) {
-  if (!payload) return null;
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function getFirstMeaningfulString(payload: unknown) {
+  if (!isRecord(payload)) return null;
   for (const value of Object.values(payload)) {
     if (typeof value === "string" && value.trim()) return value.trim();
     if (Array.isArray(value)) {
@@ -37,7 +41,7 @@ function getFirstMeaningfulString(payload: Record<string, unknown> | null | unde
 
 export function getReadSummary(read: ReadLike): ReadSummary {
   const type = read.type ?? "UNKNOWN";
-  const payload = read.outputPayload ?? null;
+  const payload = isRecord(read.outputPayload) ? read.outputPayload : null;
   const typeLabel = TYPE_LABELS[type] ?? "Read";
 
   const candidates = PRIMARY_FIELDS[type] ?? [];
