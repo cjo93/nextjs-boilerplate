@@ -34,7 +34,6 @@ export default function NowPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: "demo-user",
           moment,
           urgency,
           tags: tags
@@ -55,7 +54,6 @@ export default function NowPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Now Read</h1>
         <p className="mt-1 text-sm text-neutral-400">
@@ -63,7 +61,6 @@ export default function NowPage() {
         </p>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-2">
           <label className="block text-sm font-medium text-neutral-300">
@@ -98,8 +95,7 @@ export default function NowPage() {
 
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-neutral-300">
-              Tags{" "}
-              <span className="text-neutral-500">(comma separated)</span>
+              Tags <span className="text-neutral-500">(comma separated)</span>
             </label>
             <input
               type="text"
@@ -120,14 +116,12 @@ export default function NowPage() {
         </button>
       </form>
 
-      {/* Error */}
       {error && (
         <div className="rounded-lg border border-red-800 bg-red-950/40 px-4 py-3 text-sm text-red-300">
           {error}
         </div>
       )}
 
-      {/* Result */}
       {result && (
         <div className="space-y-4">
           <h2 className="text-lg font-semibold tracking-tight">Your Read</h2>
