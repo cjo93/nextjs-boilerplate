@@ -82,6 +82,9 @@ export const siteCopy = {
     heroTitle: "How DEFRAG works",
     heroBody:
       "DEFRAG turns complexity into structured, plain-language clarity. It helps you understand your baseline, read what may be active in the moment, and make better sense of relationship dynamics.",
+    introTitle: "A simple structure beneath the surface.",
+    introBody:
+      "DEFRAG does not ask you to sort through more noise. It organizes what may matter into a small set of useful lenses, then returns that read in language you can actually use.",
     sections: [
       {
         title: "Baseline",
@@ -96,6 +99,16 @@ export const siteCopy = {
         body: "Make better sense of what may be happening between you and another person.",
       },
     ],
+    principlesTitle: "Built for clarity, not complexity.",
+    principles: [
+      "Plain-language reads instead of framework-heavy outputs",
+      "A small number of lenses instead of more undifferentiated input",
+      "Guidance organized around what may matter now",
+      "Support that helps you move, not just reflect",
+    ],
+    closingTitle: "A calmer way to work with what is happening.",
+    closingBody:
+      "Whether you need self-understanding, timing support, or relationship clarity, DEFRAG is designed to help you move with more precision and less confusion.",
   },
   useCasesPage: {
     heroTitle: "Where people use DEFRAG",
