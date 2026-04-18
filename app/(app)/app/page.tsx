@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/db/prisma";
+import { redirect } from "next/navigation";
+import { getReadSummary } from "@/lib/utils/get-read-summary";
 
 export const dynamic = "force-dynamic";
 
@@ -20,32 +22,20 @@ async function getDashboardData(userId: string) {
   };
 }
 
-function getSummary(read: any) {
-  if (!read) return null;
-  if (read.type === "NOW") return read.outputPayload?.currentRead;
-  if (read.type === "LEARN") return read.outputPayload?.whyThisFits;
-  if (read.type === "BASELINE") return read.outputPayload?.howYouTendToWork;
-  if (read.type === "RELATIONSHIP") return read.outputPayload?.whatsHappening;
-  return null;
-}
-
 export default async function DashboardPage() {
   const session = await auth();
   const userId = session?.user?.id;
 
   if (!userId) {
-    return (
-      <div className="p-6 space-y-4">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <p className="text-neutral-400">Sign in to view your dashboard.</p>
-        <Link href="/api/auth/signin" className="underline underline-offset-4">
-          Sign in
-        </Link>
-      </div>
-    );
+    redirect("/api/auth/signin");
   }
 
   const data = await getDashboardData(userId);
+
+  // First-run redirect
+  if (data.reads.length === 0) {
+    redirect("/app/now");
+  }
 
   const cards = [
     { title: "Latest Now", read: data.latestNow, href: "/app/now" },
@@ -64,31 +54,33 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {cards.map((card) => (
-          <div key={card.title} className="rounded-lg border border-neutral-800 bg-neutral-900 p-4 space-y-3">
-            <div className="text-xs uppercase tracking-widest text-neutral-500">{card.title}</div>
-            <div className="text-sm text-neutral-100">
-              {getSummary(card.read) || "No reads yet."}
+        {cards.map((card) => {
+          const summary = card.read ? getReadSummary(card.read) : null;
+          return (
+            <div key={card.title} className="rounded-lg border border-neutral-800 bg-neutral-900 p-4 space-y-3">
+              <div className="text-xs uppercase tracking-widest text-neutral-500">{card.title}</div>
+              <div className="text-sm text-neutral-100">
+                {summary?.summary || "No reads yet."}
+              </div>
+              <Link href={card.href} className="text-sm underline underline-offset-4">
+                Open
+              </Link>
             </div>
-            <Link href={card.href} className="text-sm underline underline-offset-4">
-              Open
-            </Link>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="space-y-3">
         <h2 className="text-lg font-semibold">Recent Reads</h2>
-        {data.reads.length === 0 ? (
-          <div className="text-neutral-500">No reads yet.</div>
-        ) : (
-          <div className="space-y-3">
-            {data.reads.map((read) => (
+        <div className="space-y-3">
+          {data.reads.map((read) => {
+            const summary = getReadSummary(read);
+            return (
               <div key={read.id} className="rounded-lg border border-neutral-800 bg-neutral-900 p-4 space-y-2">
                 <div className="text-xs text-neutral-500">
-                  {new Date(read.createdAt).toLocaleString()} — {read.type}
+                  {new Date(read.createdAt).toLocaleString()} — {summary.typeLabel}
                 </div>
-                <div className="text-sm text-neutral-100">{getSummary(read) || "No summary"}</div>
+                <div className="text-sm text-neutral-100">{summary.summary}</div>
                 <div className="flex gap-4 text-sm">
                   <Link href={`/app/history/${read.id}`} className="underline underline-offset-4">
                     View
@@ -98,9 +90,9 @@ export default async function DashboardPage() {
                   </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
       </div>
 
       <div className="grid gap-3 md:grid-cols-4">
