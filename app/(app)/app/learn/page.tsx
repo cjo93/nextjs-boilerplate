@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function LearnPage() {
-  const [readId, setReadId] = useState("");
+  const searchParams = useSearchParams();
+  const initialReadId = searchParams.get("readId") || "";
+
+  const [readId, setReadId] = useState(initialReadId);
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (overrideReadId?: string) => {
+    const targetReadId = overrideReadId || readId;
+    if (!targetReadId) return;
+
     setLoading(true);
     setError(null);
 
@@ -16,7 +23,7 @@ export default function LearnPage() {
       const res = await fetch("/api/ai/learn", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ readId }),
+        body: JSON.stringify({ readId: targetReadId }),
       });
 
       const json = await res.json();
@@ -30,6 +37,13 @@ export default function LearnPage() {
     }
   };
 
+  useEffect(() => {
+    if (initialReadId) {
+      setReadId(initialReadId);
+      handleSubmit(initialReadId);
+    }
+  }, [initialReadId]);
+
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-semibold">Learn</h1>
@@ -42,7 +56,7 @@ export default function LearnPage() {
           className="w-full p-2 bg-neutral-900 border border-neutral-700 rounded"
         />
         <button
-          onClick={handleSubmit}
+          onClick={() => handleSubmit()}
           disabled={loading}
           className="px-4 py-2 bg-white text-black rounded"
         >
