@@ -1,11 +1,7 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const LEARN_LABELS: Record<string, string> = {
@@ -23,7 +19,7 @@ function humanizeKey(key: string) {
     .replace(/^./, (s) => s.toUpperCase());
 }
 
-export default function LearnPage() {
+function LearnContent() {
   const searchParams = useSearchParams();
   const initialReadId = searchParams.get("readId") || "";
 
@@ -135,5 +131,13 @@ export default function LearnPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function LearnPage() {
+  return (
+    <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <LearnContent />
+    </Suspense>
   );
 }
