@@ -55,7 +55,7 @@ export default function BaselinePage() {
       {hasInput && (
         <SectionShell className="space-y-8">
           <div className="grid gap-6 md:grid-cols-2">
-            {response.sections.map((section) => (
+            {sections.map((section) => (
               <div key={section.title} className="rounded-xl border p-6 space-y-2">
                 <h2 className="text-lg font-medium">{section.title}</h2>
                 <p className="text-sm text-neutral-500">{section.body}</p>
