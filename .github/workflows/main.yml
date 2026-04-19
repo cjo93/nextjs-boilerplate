@@ -1,0 +1,104 @@
+name: Create DEFRAG Route PRs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create branches, empty commits, and draft PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BASE: main
+        run: |
+          set -euo pipefail
+
+          cat > PR_BODY.md <<'EOF'
+          ## Summary
+          Implements DEFRAG public-site visual refinement route-by-route using `DEFRAG_VISUAL_IMPLEMENTATION_HANDOFF.md` as the source of truth.
+
+          ## Scope
+          - Route-by-route public-site implementation
+          - Desktop + iOS/mobile responsive behavior
+          - Copy alignment to DEFRAG wedge
+          - Reuse of existing repo primitives and route/copy registries
+          - No repo restructuring or unrelated refactors
+
+          ## Execution order
+          - [ ] `/`
+          - [ ] `/product`
+          - [ ] `/how-it-works`
+          - [ ] `/use-cases`
+          - [ ] `/pricing`
+          - [ ] `/start`
+
+          ## Progress reporting format
+          After each route:
+          - Summary of changes
+          - Files changed
+          - Acceptance check result
+          - PR link
+
+          ## Guardrails
+          - Minimal complete diff only
+          - Use `lib/routes.ts` for CTA paths
+          - Use `lib/site-copy.ts` for shared route copy where appropriate
+          - Reuse existing shared primitives
+          - `npm run ci` required after each route
+          EOF
+
+          declare -a ENTRIES=(
+            "feat/defrag-visual-route-home|feat(public-site): refine DEFRAG landing page visual implementation"
+            "feat/defrag-visual-route-product|feat(public-site): refine DEFRAG product page visual implementation"
+            "feat/defrag-visual-route-how-it-works|feat(public-site): refine DEFRAG how-it-works page visual implementation"
+            "feat/defrag-visual-route-use-cases|feat(public-site): refine DEFRAG use-cases page visual implementation"
+            "feat/defrag-visual-route-pricing|feat(public-site): refine DEFRAG pricing page visual implementation"
+            "feat/defrag-visual-route-start|feat(public-site): refine DEFRAG start page visual implementation"
+          )
+
+          for item in "${ENTRIES[@]}"; do
+            BRANCH="${item%%|*}"
+            TITLE="${item#*|}"
+
+            # Create/update branch from main with empty commit
+            git checkout -B "$BRANCH" "$BASE"
+            git commit --allow-empty -m "chore(pr): initialize ${BRANCH}" || true
+            git push -u origin "$BRANCH" --force-with-lease
+
+            # Create draft PR if one doesn't already exist
+            EXISTING=$(gh pr list --repo "$REPO" --head "$BRANCH" --base "$BASE" --state open --json number --jq '.[0].number // empty')
+            if [ -z "$EXISTING" ]; then
+              gh pr create \
+                --repo "$REPO" \
+                --base "$BASE" \
+                --head "$BRANCH" \
+                --title "$TITLE" \
+                --body-file PR_BODY.md \
+                --draft
+              echo "Created PR for $BRANCH"
+            else
+              echo "PR already exists for $BRANCH (#$EXISTING)"
+            fi
+          done
+
+      - name: List open PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: gh pr list --repo "$REPO" --state open
