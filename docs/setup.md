@@ -16,6 +16,11 @@
 - Review PR
 - Merge → Vercel auto deploy
 
+## Local validation
+- Use Node 22 (`.nvmrc`)
+- Install: `npm install`
+- Validate: `npm run ci`
+
 ## 5. Branch protection
 - Require PR
 - Require CI checks
