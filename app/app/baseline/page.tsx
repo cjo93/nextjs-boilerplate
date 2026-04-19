@@ -3,12 +3,36 @@
 import { useState } from "react";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
-import { buildClarityResponse } from "@/lib/clarity-scaffold";
 
 export default function BaselinePage() {
   const [input, setInput] = useState("");
   const hasInput = input.trim().length > 0;
-  const response = buildClarityResponse({ mode: "baseline", input });
+  const sections = [
+    {
+      title: "How You Tend to Work",
+      body: "You appear to move toward resolution quickly and look for structure that reduces ambiguity.",
+    },
+    {
+      title: "Under Pressure",
+      body: "Pressure may make your pace sharper and turn your need for clarity into urgency.",
+    },
+    {
+      title: "At Your Best",
+      body: "You tend to be strongest when you can stay direct, steady, and clear without needing to force the moment.",
+    },
+    {
+      title: "What Throws You Off",
+      body: "Repeated uncertainty, mixed signals, or a stalled response can make you push harder than the moment can hold.",
+    },
+    {
+      title: "What Helps",
+      body: "Clear framing, realistic pacing, and enough room to distinguish signal from noise help you stay grounded.",
+    },
+    {
+      title: "What Brings You Back",
+      body: "A brief pause, a cleaner read of the pattern, and a narrower next move help you return to clarity.",
+    },
+  ] as const;
 
   return (
     <PageShell>

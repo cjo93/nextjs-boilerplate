@@ -3,12 +3,36 @@
 import { useState } from "react";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
-import { buildClarityResponse } from "@/lib/clarity-scaffold";
 
 export default function NowPage() {
   const [input, setInput] = useState("");
   const hasInput = input.trim().length > 0;
-  const response = buildClarityResponse({ mode: "now", input });
+  const sections = [
+    {
+      title: "Current Read",
+      body: "The moment looks more like a pressure event than a final conclusion about what is true.",
+    },
+    {
+      title: "Pressure",
+      body: "Urgency, uncertainty, or a perceived mismatch may be amplifying the intensity of the read.",
+    },
+    {
+      title: "Drift Risk",
+      body: "If you keep reacting at the current pace, the moment may harden into a more confused or escalated exchange.",
+    },
+    {
+      title: "Timing",
+      body: "This looks like a moment where slowing slightly would improve the quality of the next move.",
+    },
+    {
+      title: "Best Posture",
+      body: "Stay clear, reduce interpretive overreach, and respond from observation rather than urgency.",
+    },
+    {
+      title: "Best Next Step",
+      body: "Name what seems active, narrow the response, and choose the smallest action that keeps the moment workable.",
+    },
+  ] as const;
 
   return (
     <PageShell>
@@ -31,7 +55,7 @@ export default function NowPage() {
       {hasInput && (
         <SectionShell className="space-y-8">
           <div className="grid gap-6 md:grid-cols-2">
-            {response.sections.map((section) => (
+            {sections.map((section) => (
               <div key={section.title} className="rounded-xl border p-6 space-y-2">
                 <h2 className="text-lg font-medium">{section.title}</h2>
                 <p className="text-sm text-neutral-500">{section.body}</p>
