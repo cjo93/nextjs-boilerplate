@@ -1,59 +1,89 @@
-import { ClarityRequest, ClarityResponse } from "./defrag-types";
+import "server-only";
 
-const fallback = (req: ClarityRequest): ClarityResponse => {
-  const base = "This is a simplified clarity read based on your input.";
+import {
+  ClarityRequest,
+  ClarityResponse,
+  ClaritySection,
+} from "./defrag-types";
+import { buildClarityResponse } from "./clarity-scaffold";
 
-  const sectionsMap = {
-    now: [
-      "Current Read",
-      "Pressure",
-      "Drift Risk",
-      "Timing",
-      "Best Posture",
-      "Best Next Step",
-    ],
-    baseline: [
-      "How You Tend to Work",
-      "Under Pressure",
-      "At Your Best",
-      "What Throws You Off",
-      "What Helps",
-      "What Brings You Back",
-    ],
-    relationships: [
-      "What’s Happening",
-      "You in the Dynamic",
-      "The Other Person",
-      "The Pattern",
-      "What May Help",
-      "Best Next Move",
-    ],
-    learn: [
-      "Why this fits",
-      "What may be active",
-      "Pattern vs. pressure",
-      "Why this response",
-      "How to use this",
-    ],
-  } as const;
+function isClaritySections(value: unknown): value is ClaritySection[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (section) =>
+        section &&
+        typeof section === "object" &&
+        typeof (section as { title?: unknown }).title === "string" &&
+        typeof (section as { body?: unknown }).body === "string"
+    )
+  );
+}
 
-  return {
-    mode: req.mode,
-    summary: base,
-    sections: sectionsMap[req.mode].map((title) => ({
-      title,
-      body: `${title}: ${req.input.slice(0, 120)}...`,
-    })),
-    ctaLabel: "Save This Read",
-    generatedWith: "fallback",
-  };
-};
+function parseClarityResponse(
+  output: string,
+  fallback: ClarityResponse
+): ClarityResponse {
+  const normalized = output.trim();
+  const fencedMatch = normalized.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  const wrappedJson =
+    normalized.includes("{") && normalized.includes("}")
+      ? normalized.slice(
+          normalized.indexOf("{"),
+          normalized.lastIndexOf("}") + 1
+        )
+      : "";
+  const candidate = fencedMatch?.[1] ?? (wrappedJson || normalized);
+
+  try {
+    const parsed = JSON.parse(candidate) as {
+      summary?: unknown;
+      sections?: unknown;
+    };
+
+    if (
+      typeof parsed.summary === "string" &&
+      isClaritySections(parsed.sections)
+    ) {
+      return {
+        ...fallback,
+        summary: parsed.summary,
+        sections: parsed.sections,
+        generatedWith: "openai",
+      };
+    }
+  } catch {
+    return fallback;
+  }
+
+  return fallback;
+}
+
+function extractResponseText(response: {
+  output?: Array<{
+    type?: string;
+    content?: Array<{
+      type?: string;
+      text?: string;
+    }>;
+  }>;
+}): string {
+  const texts =
+    response.output
+      ?.filter((item) => item.type === "message")
+      .flatMap((item) => item.content ?? [])
+      .filter((content) => content.type === "output_text")
+      .map((content) => content.text ?? "")
+      .filter(Boolean) ?? [];
+
+  return texts.join("").trim();
+}
 
 export async function generateClarity(
   req: ClarityRequest
 ): Promise<ClarityResponse> {
   if (!process.env.OPENAI_API_KEY) {
-    return fallback(req);
+    return buildClarityResponse(req);
   }
 
   try {
@@ -72,14 +102,10 @@ Return JSON with summary and sections.`;
       input: prompt,
     });
 
-    const text = typeof res.output_text === "string" ? res.output_text : "";
-
-    return {
-      ...fallback(req),
-      summary: text.slice(0, 300),
-      generatedWith: "openai",
-    };
+    const text = extractResponseText(res);
+    const fallback = buildClarityResponse(req);
+    return text ? parseClarityResponse(text, fallback) : fallback;
   } catch {
-    return fallback(req);
+    return buildClarityResponse(req);
   }
 }
