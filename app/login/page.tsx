@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { sanitizeRedirectTo } from "@/lib/supabase/redirects";
 import { LoginPanel } from "./panel";
 
 export default async function LoginPage({
@@ -11,10 +12,7 @@ export default async function LoginPage({
 }) {
   const params = (await searchParams) ?? {};
   const redirectToRaw = params.redirectTo;
-  const redirectTo =
-    typeof redirectToRaw === "string" && redirectToRaw.startsWith("/")
-      ? redirectToRaw
-      : "/app";
+  const redirectTo = sanitizeRedirectTo(redirectToRaw, "/app");
 
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
@@ -37,4 +35,3 @@ export default async function LoginPage({
     </PageShell>
   );
 }
-

@@ -13,7 +13,7 @@ export function LoginPanel({ redirectTo }: { redirectTo: string }) {
     setMessage(null);
 
     startTransition(async () => {
-      const result = await requestMagicLink(email.trim());
+      const result = await requestMagicLink(email.trim(), redirectTo);
       setMessage(result.message);
     });
   };
@@ -36,9 +36,7 @@ export function LoginPanel({ redirectTo }: { redirectTo: string }) {
       >
         {pending ? "Sending…" : "Send sign-in link"}
       </button>
-      <input type="hidden" name="redirectTo" value={redirectTo} />
       {message ? <p className="text-sm text-neutral-600">{message}</p> : null}
     </form>
   );
 }
-

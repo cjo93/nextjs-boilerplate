@@ -1,16 +1,16 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import type { CookieOptions } from "@supabase/ssr";
+import { getSupabaseConfig } from "@/lib/supabase/config";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
+  const { url, anonKey } = getSupabaseConfig();
   if (!url || !anonKey) {
-    return NextResponse.redirect(
-      new URL(`/login?redirectTo=${encodeURIComponent(pathname + search)}`, request.url)
+    return new NextResponse(
+      "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+      { status: 500, headers: { "content-type": "text/plain; charset=utf-8" } }
     );
   }
 

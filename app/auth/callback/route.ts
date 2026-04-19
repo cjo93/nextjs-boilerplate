@@ -2,11 +2,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import type { CookieOptions } from "@supabase/ssr";
 import { getSupabaseConfig } from "@/lib/supabase/config";
+import { sanitizeRedirectTo } from "@/lib/supabase/redirects";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const code = searchParams.get("code");
-  const redirectTo = searchParams.get("redirectTo") ?? "/app";
+  const redirectTo = sanitizeRedirectTo(searchParams.get("redirectTo"), "/app");
 
   if (!code) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -18,7 +19,7 @@ export async function GET(request: NextRequest) {
   }
 
   const response = NextResponse.redirect(
-    new URL(redirectTo.startsWith("/") ? redirectTo : "/app", origin)
+    new URL(redirectTo, origin)
   );
 
   const supabase = createServerClient(url, anonKey, {
