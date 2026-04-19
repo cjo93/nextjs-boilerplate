@@ -48,6 +48,26 @@ function parseClarityResponse(
   return fallback;
 }
 
+function extractResponseText(response: {
+  output?: Array<{
+    type?: string;
+    content?: Array<{
+      type?: string;
+      text?: string;
+    }>;
+  }>;
+}): string {
+  const texts =
+    response.output
+      ?.filter((item) => item.type === "message")
+      .flatMap((item) => item.content ?? [])
+      .filter((content) => content.type === "output_text")
+      .map((content) => content.text ?? "")
+      .filter(Boolean) ?? [];
+
+  return texts.join("\n").trim();
+}
+
 export async function generateClarity(
   req: ClarityRequest
 ): Promise<ClarityResponse> {
@@ -71,7 +91,7 @@ Return JSON with summary and sections.`;
       input: prompt,
     });
 
-    const text = typeof res.output_text === "string" ? res.output_text : "";
+    const text = extractResponseText(res);
     const fallback = buildClarityResponse(req);
     return text ? parseClarityResponse(text, fallback) : fallback;
   } catch {
