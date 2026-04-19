@@ -24,8 +24,19 @@ function parseClarityResponse(
   output: string,
   fallback: ClarityResponse
 ): ClarityResponse {
+  const normalized = output.trim();
+  const fencedMatch = normalized.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  const wrappedJson =
+    normalized.includes("{") && normalized.includes("}")
+      ? normalized.slice(
+          normalized.indexOf("{"),
+          normalized.lastIndexOf("}") + 1
+        )
+      : "";
+  const candidate = fencedMatch?.[1] ?? (wrappedJson || normalized);
+
   try {
-    const parsed = JSON.parse(output) as {
+    const parsed = JSON.parse(candidate) as {
       summary?: unknown;
       sections?: unknown;
     };
@@ -65,7 +76,7 @@ function extractResponseText(response: {
       .map((content) => content.text ?? "")
       .filter(Boolean) ?? [];
 
-  return texts.join("\n").trim();
+  return texts.join("").trim();
 }
 
 export async function generateClarity(
