@@ -79,6 +79,8 @@ function extractResponseText(response: {
   return texts.join("").trim();
 }
 
+const openaiPromise = import("openai");
+
 export async function generateClarity(
   req: ClarityRequest
 ): Promise<ClarityResponse> {
@@ -87,7 +89,7 @@ export async function generateClarity(
   }
 
   try {
-    const { OpenAI } = await import("openai");
+    const { OpenAI } = await openaiPromise;
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const prompt = `You are DEFRAG. Produce a clarity read in plain language.
