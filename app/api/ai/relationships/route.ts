@@ -5,6 +5,18 @@ import type { ClarityRequest, ClarityResponse } from "@/lib/defrag-types";
 export async function POST(req: NextRequest) {
   const supabase = await createSupabaseServerClient();
 
+  // Use getUser() to validate auth and trigger token refresh if needed.
+  // This matches what middleware.ts does and ensures the session cookie is fresh.
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // After getUser() validates/refreshes, getSession() returns the fresh token.
   const {
     data: { session },
   } = await supabase.auth.getSession();
