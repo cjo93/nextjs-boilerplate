@@ -3,8 +3,8 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { sanitizeRedirectTo } from "@/lib/supabase/redirects";
 
-export async function requestMagicLink(
-  email: string,
+export async function requestSmsOtp(
+  phone: string,
   redirectTo: string
 ): Promise<{
   ok: boolean;
@@ -12,21 +12,52 @@ export async function requestMagicLink(
 }> {
   const supabase = await createSupabaseServerClient();
   const safeRedirectTo = sanitizeRedirectTo(redirectTo, "/app");
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+  // Normalize phone to E.164 — strip spaces/dashes, ensure leading +
+  const normalized = phone.trim().replace(/[\s\-().]/g, "");
+  const e164 = normalized.startsWith("+") ? normalized : `+1${normalized}`;
 
   const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: `${appUrl}/auth/callback?redirectTo=${encodeURIComponent(safeRedirectTo)}`,
-    },
+    phone: e164,
   });
 
   if (error) {
     return {
       ok: false,
-      message: "We couldn’t send a sign-in link. Try again in a moment.",
+      message: "We couldn't send a code. Check your number and try again.",
     };
   }
 
-  return { ok: true, message: "Check your email for a sign-in link." };
+  return { ok: true, message: "Code sent! Check your texts." };
+}
+
+export async function verifySmsOtp(
+  phone: string,
+  token: string,
+  redirectTo: string
+): Promise<{
+  ok: boolean;
+  message: string;
+  redirectTo?: string;
+}> {
+  const supabase = await createSupabaseServerClient();
+  const safeRedirectTo = sanitizeRedirectTo(redirectTo, "/app");
+
+  const normalized = phone.trim().replace(/[\s\-().]/g, "");
+  const e164 = normalized.startsWith("+") ? normalized : `+1${normalized}`;
+
+  const { error } = await supabase.auth.verifyOtp({
+    phone: e164,
+    token: token.trim(),
+    type: "sms",
+  });
+
+  if (error) {
+    return {
+      ok: false,
+      message: "Invalid or expired code. Please try again.",
+    };
+  }
+
+  return { ok: true, message: "Verified!", redirectTo: safeRedirectTo };
 }
