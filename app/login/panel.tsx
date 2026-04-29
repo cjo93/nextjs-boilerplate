@@ -2,92 +2,86 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { requestSmsOtp, verifySmsOtp } from "./actions";
+import { requestMagicLink, signInWithApple } from "./actions";
 
 export function LoginPanel({ redirectTo }: { redirectTo: string }) {
   const router = useRouter();
-  const [phone, setPhone] = useState("");
-  const [token, setToken] = useState("");
-  const [step, setStep] = useState<"phone" | "code">("phone");
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [applePending, startAppleTransition] = useTransition();
 
-  const onSubmitPhone = (e: React.FormEvent) => {
+  const onSubmitEmail = (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
     startTransition(async () => {
-      const result = await requestSmsOtp(phone.trim(), redirectTo);
+      const result = await requestMagicLink(email.trim(), redirectTo);
       setMessage(result.message);
-      if (result.ok) setStep("code");
+      if (result.ok) setSent(true);
     });
   };
 
-  const onSubmitCode = (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage(null);
-    startTransition(async () => {
-      const result = await verifySmsOtp(phone.trim(), token.trim(), redirectTo);
-      setMessage(result.message);
-      if (result.ok && result.redirectTo) {
-        router.push(result.redirectTo);
+  const onApple = () => {
+    startAppleTransition(async () => {
+      try {
+        const { url } = await signInWithApple(redirectTo);
+        router.push(url);
+      } catch {
+        setMessage("Apple sign-in is not available right now.");
       }
     });
   };
 
-  if (step === "code") {
-    return (
-      <form onSubmit={onSubmitCode} className="space-y-3">
-        <label className="block text-sm">Enter the code we texted you</label>
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          maxLength={6}
-          required
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          className="w-full border rounded-lg p-2 tracking-widest text-center text-lg"
-          placeholder="000000"
-          autoFocus
-        />
-        <button
-          type="submit"
-          disabled={pending}
-          className="px-5 py-3 bg-black text-white rounded-lg disabled:opacity-60"
-        >
-          {pending ? "Verifying…" : "Verify code"}
-        </button>
-        <button
-          type="button"
-          onClick={() => { setStep("phone"); setMessage(null); setToken(""); }}
-          className="block text-sm text-neutral-500 hover:underline"
-        >
-          Use a different number
-        </button>
-        {message ? <p className="text-sm text-neutral-600">{message}</p> : null}
-      </form>
-    );
-  }
-
   return (
-    <form onSubmit={onSubmitPhone} className="space-y-3">
-      <label className="block text-sm">Phone number</label>
-      <input
-        type="tel"
-        required
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="w-full border rounded-lg p-2"
-        placeholder="+1 (555) 000-0000"
-      />
+    <div className="space-y-5">
+      {/* Apple */}
       <button
-        type="submit"
-        disabled={pending}
-        className="px-5 py-3 bg-black text-white rounded-lg disabled:opacity-60"
+        type="button"
+        onClick={onApple}
+        disabled={applePending}
+        className="flex w-full items-center justify-center gap-3 rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-black shadow-sm hover:bg-neutral-50 disabled:opacity-60"
       >
-        {pending ? "Sending…" : "Send code"}
+        <svg viewBox="0 0 814 1000" className="h-5 w-5" fill="currentColor">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105-42.3-150.3-109.2c-52.5-75.6-96.7-192.5-96.7-304.2 0-200.4 130.3-306.2 258.4-306.2 66.6 0 122.2 43.6 163.8 43.6 39.5 0 101.2-46.1 174.6-46.1 28.2 0 128.1 2.6 194.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+        </svg>
+        {applePending ? "Redirecting…" : "Sign in with Apple"}
       </button>
-      {message ? <p className="text-sm text-neutral-600">{message}</p> : null}
-    </form>
+
+      {/* Divider */}
+      <div className="relative flex items-center">
+        <div className="flex-grow border-t border-neutral-200" />
+        <span className="mx-3 flex-shrink text-xs text-neutral-400">or continue with email</span>
+        <div className="flex-grow border-t border-neutral-200" />
+      </div>
+
+      {/* Email magic link */}
+      {sent ? (
+        <p className="rounded-lg bg-neutral-100 px-4 py-3 text-sm text-neutral-700">
+          {message ?? "Check your inbox for a sign-in link."}
+        </p>
+      ) : (
+        <form onSubmit={onSubmitEmail} className="space-y-3">
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black"
+            placeholder="you@example.com"
+          />
+          <button
+            type="submit"
+            disabled={pending}
+            className="w-full rounded-lg bg-black px-4 py-3 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-60"
+          >
+            {pending ? "Sending…" : "Email me a sign-in link"}
+          </button>
+          {message && !sent ? (
+            <p className="text-sm text-red-600">{message}</p>
+          ) : null}
+        </form>
+      )}
+    </div>
   );
 }
