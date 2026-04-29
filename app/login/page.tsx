@@ -25,7 +25,7 @@ export default async function LoginPage({
       <SectionShell>
         <h1 className="text-3xl font-semibold">Sign in</h1>
         <p className="text-neutral-600 max-w-2xl">
-          Use your email to get a sign-in link.
+      Enter your phone number to receive a sign-in code.
         </p>
       </SectionShell>
 
