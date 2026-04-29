@@ -1,12 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createServerClient } from "@supabase/ssr";
 import type { ClarityRequest, ClarityResponse } from "@/lib/defrag-types";
+import { getSupabaseConfig } from "@/lib/supabase/config";
 
 export async function POST(req: NextRequest) {
-  const supabase = await createSupabaseServerClient();
+  // Build a mutable response so we can write refreshed auth cookies back
+  // to the browser. This is required for @supabase/ssr in Route Handlers.
+  const res = NextResponse.next();
 
-  // Use getUser() to validate auth and trigger token refresh if needed.
-  // This matches what middleware.ts does and ensures the session cookie is fresh.
+  const { url, anonKey } = getSupabaseConfig();
+  if (!url || !anonKey) {
+    return NextResponse.json({ error: "Missing Supabase config." }, { status: 500 });
+  }
+
+  // Create the Supabase client wired to req cookies (read) and res cookies (write).
+  // This ensures any token refresh is committed back to the browser.
+  const supabase = createServerClient(url, anonKey, {
+    cookies: {
+      getAll() {
+        return req.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) => {
+          res.cookies.set(name, value, options);
+        });
+      },
+    },
+  });
+
+  // getUser() validates the token against Supabase Auth and refreshes if needed.
   const {
     data: { user },
     error: userError,
@@ -16,7 +38,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // After getUser() validates/refreshes, getSession() returns the fresh token.
+  // After getUser() refreshes, getSession() returns the now-valid access token.
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -74,5 +96,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return NextResponse.json(data);
+  // Return the AI response, with refreshed auth cookies applied to res
+  return NextResponse.json(data, {
+    headers: res.headers,
+  });
 }
