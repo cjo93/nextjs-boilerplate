@@ -3,43 +3,55 @@
 import { useState } from "react";
 import { PageShell } from "@/components/system/page-shell";
 import { SectionShell } from "@/components/system/section-shell";
+import type { ClarityResponse } from "@/lib/defrag-types";
 
 export default function RelationshipsPage() {
   const [input, setInput] = useState("");
+  const [counterpart, setCounterpart] = useState("");
+  const [context, setContext] = useState("");
+  const [result, setResult] = useState<ClarityResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const hasInput = input.trim().length > 0;
-  const sections = [
-    {
-      title: "What’s Happening",
-      body: "The dynamic looks shaped by interpretation pressure more than by fully clarified intent.",
-    },
-    {
-      title: "You in the Dynamic",
-      body: "Your side of the exchange may be pushing for resolution or clarity before the moment is stable enough to hold it.",
-    },
-    {
-      title: "The Other Person",
-      body: "They may be reacting from their own pressure, defensiveness, or incomplete read of what you mean.",
-    },
-    {
-      title: "The Pattern",
-      body: "The loop appears to be mutual misreading, where each response increases the other side’s certainty or strain.",
-    },
-    {
-      title: "What May Help",
-      body: "A slower pace, cleaner framing, and less certainty about intent can reduce distortion inside the exchange.",
-    },
-    {
-      title: "Best Next Move",
-      body: "Respond to the pattern, not just the latest line, and choose the smallest move that clarifies rather than escalates.",
-    },
-  ] as const;
+
+  async function handleSubmit() {
+    if (!hasInput) return;
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      const res = await fetch("/api/ai/relationships", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          input: input.trim(),
+          counterpart: counterpart.trim() || undefined,
+          context: context.trim() || undefined,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Unexpected error." }));
+        throw new Error(err?.error ?? "Something went wrong.");
+      }
+
+      const data: ClarityResponse = await res.json();
+      setResult(data);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Unexpected error.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <PageShell>
       <SectionShell>
-        <h1 className="text-3xl font-semibold">What’s happening between you?</h1>
+        <h1 className="text-3xl font-semibold">What's happening between you?</h1>
         <p className="text-neutral-500 max-w-2xl">
-          Describe the relationship or interaction. We’ll help you understand the dynamic more clearly.
+          Describe the interaction or relationship. We'll help you understand the dynamic more clearly.
         </p>
       </SectionShell>
 
@@ -50,12 +62,37 @@ export default function RelationshipsPage() {
           placeholder="Describe the interaction or relationship dynamic..."
           className="w-full border rounded-xl p-4 min-h-[120px]"
         />
+        <input
+          value={counterpart}
+          onChange={(e) => setCounterpart(e.target.value)}
+          placeholder="Who is the other person? (optional)"
+          className="w-full border rounded-xl p-3 mt-2"
+        />
+        <input
+          value={context}
+          onChange={(e) => setContext(e.target.value)}
+          placeholder="Any additional context? (optional)"
+          className="w-full border rounded-xl p-3 mt-2"
+        />
+        <button
+          onClick={handleSubmit}
+          disabled={!hasInput || loading}
+          className="mt-4 px-6 py-2 rounded-xl bg-black text-white disabled:opacity-40"
+        >
+          {loading ? "Analyzing..." : "Analyze"}
+        </button>
+        {error && (
+          <p className="mt-2 text-sm text-red-500">{error}</p>
+        )}
       </SectionShell>
 
-      {hasInput && (
-        <SectionShell className="space-y-8">
+      {result && (
+        <SectionShell>
+          {result.summary && (
+            <p className="text-neutral-700 mb-4">{result.summary}</p>
+          )}
           <div className="grid gap-6 md:grid-cols-2">
-            {sections.map((section) => (
+            {result.sections.map((section) => (
               <div key={section.title} className="rounded-xl border p-6 space-y-2">
                 <h2 className="text-lg font-medium">{section.title}</h2>
                 <p className="text-sm text-neutral-500">{section.body}</p>
