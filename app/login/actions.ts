@@ -3,8 +3,8 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { sanitizeRedirectTo } from "@/lib/supabase/redirects";
 
-export async function requestSmsOtp(
-  phone: string,
+export async function requestMagicLink(
+  email: string,
   redirectTo: string
 ): Promise<{
   ok: boolean;
@@ -12,52 +12,43 @@ export async function requestSmsOtp(
 }> {
   const supabase = await createSupabaseServerClient();
   const safeRedirectTo = sanitizeRedirectTo(redirectTo, "/app");
-
-  // Normalize phone to E.164 — strip spaces/dashes, ensure leading +
-  const normalized = phone.trim().replace(/[\s\-().]/g, "");
-  const e164 = normalized.startsWith("+") ? normalized : `+1${normalized}`;
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://defrag.app";
 
   const { error } = await supabase.auth.signInWithOtp({
-    phone: e164,
+    email,
+    options: {
+      emailRedirectTo: `${appUrl}/auth/callback?redirectTo=${encodeURIComponent(safeRedirectTo)}`,
+    },
   });
 
   if (error) {
     return {
       ok: false,
-      message: "We couldn't send a code. Check your number and try again.",
+      message: "We couldn't send a sign-in link. Try again in a moment.",
     };
   }
 
-  return { ok: true, message: "Code sent! Check your texts." };
+  return { ok: true, message: "Check your email for a sign-in link." };
 }
 
-export async function verifySmsOtp(
-  phone: string,
-  token: string,
+export async function signInWithApple(
   redirectTo: string
-): Promise<{
-  ok: boolean;
-  message: string;
-  redirectTo?: string;
-}> {
+): Promise<{ url: string }> {
   const supabase = await createSupabaseServerClient();
   const safeRedirectTo = sanitizeRedirectTo(redirectTo, "/app");
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://defrag.app";
 
-  const normalized = phone.trim().replace(/[\s\-().]/g, "");
-  const e164 = normalized.startsWith("+") ? normalized : `+1${normalized}`;
-
-  const { error } = await supabase.auth.verifyOtp({
-    phone: e164,
-    token: token.trim(),
-    type: "sms",
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "apple",
+    options: {
+      redirectTo: `${appUrl}/auth/callback?redirectTo=${encodeURIComponent(safeRedirectTo)}`,
+      skipBrowserRedirect: true,
+    },
   });
 
-  if (error) {
-    return {
-      ok: false,
-      message: "Invalid or expired code. Please try again.",
-    };
+  if (error || !data.url) {
+    throw new Error("Apple sign-in unavailable.");
   }
 
-  return { ok: true, message: "Verified!", redirectTo: safeRedirectTo };
+  return { url: data.url };
 }
