@@ -1,21 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import type { ClarityRequest, ClarityResponse } from "@/lib/defrag-types";
-import { getSupabaseConfig } from "@/lib/supabase/config";
 
 export async function POST(req: NextRequest) {
-  // Build a mutable response so we can write refreshed auth cookies back
-  // to the browser. This is required for @supabase/ssr in Route Handlers.
-  const res = NextResponse.next();
+  // Read env vars directly — avoids null type issues from getSupabaseConfig()
+  const supabaseUrl =
+    process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
-  const { url, anonKey } = getSupabaseConfig();
-  if (!url || !anonKey) {
+  if (!supabaseUrl || !supabaseAnonKey) {
     return NextResponse.json({ error: "Missing Supabase config." }, { status: 500 });
   }
 
-  // Create the Supabase client wired to req cookies (read) and res cookies (write).
-  // This ensures any token refresh is committed back to the browser.
-  const supabase = createServerClient(url, anonKey, {
+  // Build a mutable response so refreshed auth cookies are written back
+  // to the browser. Required for @supabase/ssr in Next.js 15 Route Handlers —
+  // await cookies() from next/headers is read-only and silently drops setAll().
+  const res = NextResponse.next();
+
+  // Wire the Supabase client directly to req cookies (read) + res cookies (write)
+  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
         return req.cookies.getAll();
@@ -28,7 +31,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // getUser() validates the token against Supabase Auth and refreshes if needed.
+  // getUser() validates + refreshes the token against Supabase Auth
   const {
     data: { user },
     error: userError,
@@ -38,7 +41,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // After getUser() refreshes, getSession() returns the now-valid access token.
+  // After getUser() refreshes, getSession() returns the now-valid access_token
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -66,11 +69,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "input is required." }, { status: 400 });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!supabaseUrl) {
-    return NextResponse.json({ error: "Missing Supabase URL." }, { status: 500 });
-  }
-
   const edgeRes = await fetch(
     `${supabaseUrl}/functions/v1/relational-synthesis`,
     {
@@ -96,7 +94,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Return the AI response, with refreshed auth cookies applied to res
+  // Return the AI response + write refreshed auth cookies back to browser
   return NextResponse.json(data, {
     headers: res.headers,
   });
