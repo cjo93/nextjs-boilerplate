@@ -23,9 +23,9 @@ export default async function LoginPage({
   return (
     <PageShell>
       <SectionShell>
-        <h1 className="text-3xl font-semibold">Sign in</h1>
+        <h1 className="text-3xl font-semibold">Sign in to DEFRAG</h1>
         <p className="text-neutral-600 max-w-2xl">
-      Enter your phone number to receive a sign-in code.
+  Sign in with Apple or your email.
         </p>
       </SectionShell>
 
