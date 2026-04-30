@@ -124,8 +124,8 @@ export function IconLanguage() {
 export function IconBaseline() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="rgba(240,240,240,0.3)" strokeWidth="1" />
-      <path d="M7 12h10M7 8h6M7 16h8" stroke="rgba(240,240,240,0.3)" strokeWidth="1" strokeLinecap="round" />
+      <rect x="3" y="3" width="18" height="18" rx="2" stroke="rgba(75,158,143,0.5)" strokeWidth="1" />
+      <path d="M7 12h10M7 8h6M7 16h8" stroke="rgba(75,158,143,0.5)" strokeWidth="1" strokeLinecap="round" />
     </svg>
   );
 }
@@ -133,8 +133,8 @@ export function IconBaseline() {
 export function IconNow() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden>
-      <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="rgba(240,240,240,0.3)" strokeWidth="1" strokeLinecap="round" />
-      <circle cx="12" cy="12" r="5" stroke="rgba(240,240,240,0.3)" strokeWidth="1" />
+      <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="rgba(75,158,143,0.5)" strokeWidth="1" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="5" stroke="rgba(75,158,143,0.5)" strokeWidth="1" />
     </svg>
   );
 }
@@ -142,9 +142,9 @@ export function IconNow() {
 export function IconConnection() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden>
-      <circle cx="7" cy="12" r="3" stroke="rgba(240,240,240,0.3)" strokeWidth="1" />
-      <circle cx="17" cy="12" r="3" stroke="rgba(240,240,240,0.3)" strokeWidth="1" />
-      <path d="M10 12h4" stroke="rgba(240,240,240,0.3)" strokeWidth="1" strokeDasharray="1.5 1.5" />
+      <circle cx="7" cy="12" r="3" stroke="rgba(75,158,143,0.5)" strokeWidth="1" />
+      <circle cx="17" cy="12" r="3" stroke="rgba(75,158,143,0.5)" strokeWidth="1" />
+      <path d="M10 12h4" stroke="rgba(75,158,143,0.5)" strokeWidth="1" strokeDasharray="1.5 1.5" />
     </svg>
   );
 }
