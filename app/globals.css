@@ -1,22 +1,44 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* ─────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────── */
 :root {
-  --background: #0a0a0a;
-  --surface:    #111111;
-  --surface-2:  #1a1a1a;
-  --foreground: #ededed;
-  --muted:      #888888;
-  --muted-2:    #555555;
-  --border:     #222222;
-  --border-2:   #2e2e2e;
-  --radius:     0.375rem;
+  /* Backgrounds */
+  --background:  #080808;
+  --surface:     #0f0f0f;
+  --surface-2:   #161616;
+  --surface-3:   #1e1e1e;
+
+  /* Text */
+  --foreground:  #f2f2f2;
+  --muted:       #8a8a8a;
+  --muted-2:     #4a4a4a;
+  --muted-3:     #2e2e2e;
+
+  /* Borders */
+  --border:      #1f1f1f;
+  --border-2:    #2a2a2a;
+  --border-3:    #363636;
+
+  /* Warm highlight — the only tint: barely-warm white */
+  --highlight:   rgba(255, 252, 245, 0.06);
+  --highlight-2: rgba(255, 252, 245, 0.03);
+
+  --radius:      6px;
+  --radius-lg:   12px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* ─────────────────────────────────────────
+   BASE
+───────────────────────────────────────── */
 html {
   background: var(--background);
   color: var(--foreground);
@@ -25,8 +47,9 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -34,78 +57,107 @@ a {
   text-decoration: none;
 }
 
-/* ── Typography ── */
+/* ─────────────────────────────────────────
+   TYPOGRAPHY
+───────────────────────────────────────── */
+
+/* Eyebrow label */
 .label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-2);
 }
 
-/* ── Buttons ── */
+/* ─────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 0 20px;
+  gap: 6px;
+  height: 42px;
+  padding: 0 22px;
   background: var(--foreground);
   color: var(--background);
   font-size: 14px;
   font-weight: 600;
+  letter-spacing: -0.01em;
   border-radius: var(--radius);
   border: 1px solid var(--foreground);
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease;
   white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0 0 0 rgba(242,242,242,0);
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
+  background: #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6), 0 0 20px rgba(242,242,242,0.07);
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 0 20px;
-  background: transparent;
+  gap: 6px;
+  height: 42px;
+  padding: 0 22px;
+  background: var(--surface-2);
   color: var(--foreground);
   font-size: 14px;
   font-weight: 500;
+  letter-spacing: -0.01em;
   border-radius: var(--radius);
   border: 1px solid var(--border-2);
   cursor: pointer;
-  transition: border-color 150ms ease, background 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease;
   white-space: nowrap;
 }
 
 .btn-secondary:hover {
-  background: var(--surface-2);
-  border-color: var(--muted-2);
+  background: var(--surface-3);
+  border-color: var(--border-3);
 }
 
-/* ── Cards ── */
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: border-color 200ms ease;
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .card:hover {
   border-color: var(--border-2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
-/* ── Nav ── */
+/* Inset grid cell — no rounded corners, flush */
+.cell {
+  background: var(--surface);
+  padding: 32px;
+  transition: background 200ms ease;
+}
+
+.cell:hover {
+  background: var(--surface-2);
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
 .nav-link {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 400;
   color: var(--muted);
   transition: color 150ms ease;
+  letter-spacing: -0.01em;
 }
 
 .nav-link:hover {
@@ -115,16 +167,47 @@ a {
 .brand-wordmark {
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--foreground);
 }
 
-/* ── Animations ── */
+/* ─────────────────────────────────────────
+   DIVIDERS
+───────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 .animate-fade-up {
-  animation: fade-up 0.45s ease-out both;
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d1 {
+  animation: fade-up 0.55s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d2 {
+  animation: fade-up 0.55s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d3 {
+  animation: fade-up 0.55s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.7s ease both;
 }
