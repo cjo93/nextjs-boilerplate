@@ -7,8 +7,158 @@
   --text-tertiary: #666666;
   --border-color: rgba(255, 255, 255, 0.1);
   --border-color-hover: rgba(255, 255, 255, 0.2);
+  --accent: #6200EA;
   --accent-purple: #a855f7;
   --accent-magenta: #ec4899;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hero typography – Stripe-style precision */
+.hero-headline {
+  font-size: clamp(56px, 8vw, 60px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--foreground);
+}
+
+.hero-subheadline {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  max-width: 600px;
+  color: var(--text-secondary);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Accent word treatment – minimal, sharp */
+.accent-word {
+  position: relative;
+  color: var(--foreground);
+}
+
+.accent-word::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(98, 0, 234, 0.6);
+}
+
+/* Precision instrument buttons */
+.btn-instrument {
+  height: 44px;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 1px solid;
+  border-radius: 0;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-instrument-primary {
+  @apply btn-instrument;
+  background: #000000;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-instrument-primary:hover {
+  box-shadow: inset 0 0 24px rgba(98, 0, 234, 0.3), 0 0 24px rgba(98, 0, 234, 0.4);
+  background: rgba(98, 0, 234, 0.08);
+}
+
+.btn-instrument-secondary {
+  @apply btn-instrument;
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--text-secondary);
+}
+
+.btn-instrument-secondary:hover {
+  color: var(--foreground);
+  border-color: var(--foreground);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+/* 8px grid spacing system */
+.spacing-xs { padding: 8px; }
+.spacing-sm { padding: 16px; }
+.spacing-md { padding: 24px; }
+.spacing-lg { padding: 32px; }
+.spacing-xl { padding: 40px; }
+.spacing-2xl { padding: 48px; }
+
+.gap-xs { gap: 8px; }
+.gap-sm { gap: 16px; }
+.gap-md { gap: 24px; }
+.gap-lg { gap: 32px; }
+
+/* Navigation refinements */
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #a0a0a0;
+  transition: color 300ms ease-out;
+  position: relative;
+  letter-spacing: -0.01em;
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--foreground);
+  transform: translateX(-50%);
+  transition: width 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.brand-wordmark {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--foreground);
 }
 
 @theme inline {

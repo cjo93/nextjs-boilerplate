@@ -8,7 +8,6 @@ import { routes } from "@/lib/routes";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [cta1Hovered, setCta1Hovered] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,52 +37,45 @@ export default function Home() {
         <div className="gradient-blob animate-blob-move absolute -bottom-32 right-1/4 w-96 h-96 pointer-events-none opacity-15" style={{ animationDelay: "2s" }} />
 
         {/* Main content */}
-        <SectionShell className="relative z-10 text-center max-w-3xl mx-auto space-y-8">
-          {/* Monospaced cursor blink + headline entrance */}
-          <div className="space-y-4">
+        <SectionShell className="relative z-10 text-center max-w-3xl mx-auto">
+          {/* Headline with precision spacing */}
+          <div className="space-y-6">
             {/* First line: fade in with 8px rise */}
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white animate-fade-in-up" style={{ animationDuration: "0.4s" }}>
+            <h1 className="hero-headline animate-fade-in-up" style={{ animationDuration: "0.4s" }}>
               Healing isn&apos;t optional.
             </h1>
             
-            {/* Second line: sharp downward slide with glow */}
+            {/* Second line: sharp downward slide with accent underline */}
             <h1 
-              className="text-5xl md:text-6xl font-bold tracking-tight text-white animate-fade-in-down"
+              className="hero-headline animate-fade-in-down"
               style={{ 
                 animationDuration: "0.5s",
-                animationDelay: "0.25s",
-                background: "linear-gradient(to right, #ffffff 0%, #a78bfa 100%)",
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent"
+                animationDelay: "0.25s"
               }}
             >
-              But the pain is.
+              But the <span className="accent-word">pain</span> is.
             </h1>
           </div>
 
-          <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          {/* Subheadline with premium spacing */}
+          <p className="hero-subheadline mt-8 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
             Life requires us to grow, but it doesn&apos;t require us to suffer through the friction of being misunderstood. DEFRAG is a personal clarity platform that helps you understand how you are made, read the tension in a moment, and finally see the world from the other person&apos;s side.
           </p>
 
-          {/* 2. CTA ALIGNMENT – "SYSTEM ONLINE" */}
+          {/* 2. CTA ALIGNMENT – "SYSTEM ONLINE" – Precision instruments */}
           <div 
-            className="flex flex-col sm:flex-row gap-3 justify-center pt-4 animate-fade-in-up" 
+            className="flex flex-col sm:flex-row gap-4 justify-center mt-12 animate-fade-in-up" 
             style={{ animationDelay: "0.6s" }}
-            onMouseEnter={() => setCta1Hovered(true)}
-            onMouseLeave={() => setCta1Hovered(false)}
           >
             <Link
               href={routes.start}
-              className={`relative px-6 py-3 bg-white text-black font-semibold rounded-lg transition-all duration-300 border border-white overflow-hidden group ${
-                cta1Hovered ? "bg-black text-white" : ""
-              }`}
+              className="btn-instrument-primary"
             >
-              <span className={`absolute inset-0 transition-all duration-500 ${cta1Hovered ? "shadow-lg shadow-purple-500/40" : "shadow-lg shadow-purple-500/10"}`} />
-              <span className="relative">Start Your Baseline</span>
+              Start Your Baseline
             </Link>
             <Link
               href={routes.howItWorks}
-              className="px-6 py-3 text-[var(--text-secondary)] bg-transparent border border-[var(--text-secondary)]/30 rounded-lg font-semibold hover:border-[var(--text-secondary)]/60 hover:text-white transition-all duration-300"
+              className="btn-instrument-secondary"
             >
               See How It Works
             </Link>
