@@ -97,6 +97,8 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -105,8 +107,7 @@ export default function Home() {
       <section className="border-b border-[var(--border-subtle)]" style={{ background: "var(--background)" }}>
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-20">
           <div className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-6 md:px-10 py-10 md:py-12">
-          <div className="mb-14 reveal">
-          <div className="mb-14 reveal">
+            <div className="mb-14 reveal">
             <h2
               className="font-serif"
               style={{
