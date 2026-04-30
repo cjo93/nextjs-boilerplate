@@ -30,10 +30,10 @@ export default function Home() {
         <div className="relative max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-32 md:pt-44 md:pb-44">
           <p className="label mb-8 animate-fade-up">Personal clarity platform</p>
           <h1
-            className="text-[clamp(44px,7vw,80px)] font-bold leading-[1.03] tracking-[-0.035em] text-[var(--foreground)] mb-8 max-w-3xl animate-fade-up-d1"
+            className="text-[clamp(44px,7vw,80px)] font-bold leading-[1.03] tracking-[-0.04em] text-[var(--foreground)] mb-8 max-w-3xl animate-fade-up-d1"
           >
             Healing isn&apos;t optional.<br />
-            <span style={{ color: "var(--muted)" }}>The suffering is.</span>
+            <span style={{ color: "rgba(240,240,240,0.28)", letterSpacing: "-0.04em" }}>The suffering is.</span>
           </h1>
           <p className="text-[17px] leading-[1.7] max-w-[500px] mb-12 animate-fade-up-d2" style={{ fontWeight: 400, color: "var(--muted)" }}>
             DEFRAG is a personal canvas — a working surface for understanding how you are made, reading what is actually happening in a moment, and seeing it from the other side before the damage is done.
@@ -48,11 +48,16 @@ export default function Home() {
             {[
               { label: "Three layers", value: "One canvas" },
               { label: "Precision baseline", value: "Derived once, applied everywhere" },
-              { label: "Output", value: "Plain language — no interpretation required" },
+              { label: "Output format", value: "Plain language — no interpretation required" },
             ].map((m) => (
-              <div key={m.label} className="flex items-baseline gap-2">
+              <div key={m.label} className="flex items-baseline gap-2.5">
                 <span className="label">{m.label}</span>
-                <span className="text-[12px] text-[var(--muted-2)]">{m.value}</span>
+                <span
+                  className="text-[11.5px] tracking-[-0.01em]"
+                  style={{ color: "var(--muted-2)" }}
+                >
+                  {m.value}
+                </span>
               </div>
             ))}
           </div>

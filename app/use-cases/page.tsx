@@ -52,18 +52,36 @@ export default function UseCasesPage() {
         </div>
       </section>
 
-      {/* ── USE CASES GRID ── */}
+      {/* ── USE CASES ROWS ── */}
       <section className="border-b border-[var(--border)]">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
-            {useCases.map((u) => (
-              <div key={u.n} className="cell bg-[var(--surface)] flex flex-col gap-4">
-                <span className="label tabular-nums">{u.n}</span>
-                <h3 className="text-[var(--foreground)] font-semibold text-[15px] tracking-tight leading-snug">{u.title}</h3>
-                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1">{u.body}</p>
+        <div className="max-w-5xl mx-auto px-6 md:px-12">
+          {useCases.map((u, i) => (
+            <div
+              key={u.n}
+              className="grid md:grid-cols-[80px_1fr_1fr] gap-8 md:gap-12 py-12 md:py-16 border-b border-[var(--border)] last:border-b-0 items-start group"
+            >
+              {/* Large index number */}
+              <div>
+                <span
+                  className="block font-bold tabular-nums leading-none tracking-[-0.04em] select-none"
+                  style={{
+                    fontSize: "clamp(36px,4vw,52px)",
+                    color: i === 0 ? "rgba(240,240,240,0.22)" : "rgba(240,240,240,0.08)",
+                  }}
+                >
+                  {u.n}
+                </span>
               </div>
-            ))}
-          </div>
+              {/* Title */}
+              <h3 className="text-[var(--foreground)] font-semibold text-[17px] leading-snug tracking-[-0.015em] md:pt-1">
+                {u.title}
+              </h3>
+              {/* Body */}
+              <p className="text-[var(--muted)] text-[15px] leading-[1.7] md:pt-1">
+                {u.body}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 

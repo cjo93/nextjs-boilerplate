@@ -39,13 +39,42 @@ export default function HowItWorksPage() {
 
       {/* ── STEPS ── */}
       <section className="border-b border-[var(--border)]">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
+
+          {/* Step connector — horizontal arrow SVG on md+ */}
+          <div className="hidden md:block w-full" aria-hidden>
+            <svg viewBox="0 0 960 32" fill="none" className="w-full">
+              {/* Step 01 anchor */}
+              <circle cx="160" cy="16" r="3" fill="rgba(240,240,240,0.35)" />
+              {/* Line 01→02 */}
+              <line x1="163" y1="16" x2="473" y2="16"
+                stroke="rgba(240,240,240,0.1)" strokeWidth="0.75" strokeDasharray="4 4" />
+              {/* Step 02 anchor */}
+              <circle cx="480" cy="16" r="3" fill="rgba(240,240,240,0.2)" />
+              {/* Line 02→03 */}
+              <line x1="483" y1="16" x2="793" y2="16"
+                stroke="rgba(240,240,240,0.07)" strokeWidth="0.75" strokeDasharray="4 4" />
+              {/* Step 03 anchor */}
+              <circle cx="800" cy="16" r="3" fill="rgba(240,240,240,0.12)" />
+              {/* Arrow tip */}
+              <polyline points="796,12 800,16 796,20"
+                stroke="rgba(240,240,240,0.12)" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
-            {steps.map((s) => (
+            {steps.map((s, i) => (
               <div key={s.n} className="cell bg-[var(--surface)] flex flex-col gap-5">
-                <span className="label tabular-nums">{s.n}</span>
-                <h3 className="text-[var(--foreground)] text-lg font-semibold tracking-tight">{s.title}</h3>
-                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1">{s.body}</p>
+                <div className="flex items-center justify-between">
+                  <span className="label tabular-nums">{s.n}</span>
+                  {/* Subtle step dot fading right */}
+                  <span
+                    className="block w-1.5 h-1.5 rounded-full"
+                    style={{ background: `rgba(240,240,240,${0.35 - i * 0.1})` }}
+                  />
+                </div>
+                <h3 className="text-[var(--foreground)] text-[17px] font-semibold tracking-[-0.015em]">{s.title}</h3>
+                <p className="text-[var(--muted)] text-[14px] leading-[1.7] flex-1">{s.body}</p>
               </div>
             ))}
           </div>

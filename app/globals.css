@@ -244,6 +244,32 @@ a {
 }
 
 /* ─────────────────────────────────────────
+   DISPLAY NUMBERS — large editorial indices
+───────────────────────────────────────── */
+.display-num {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(240,240,240,0.09);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* ─────────────────────────────────────────
+   SCENARIO COLUMN — mobile stacking fix
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .scenario-col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-col:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ─────────────────────────────────────────
    FORM INPUTS
 ───────────────────────────────────────── */
 input[type="date"],

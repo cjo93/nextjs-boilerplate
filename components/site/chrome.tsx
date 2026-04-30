@@ -9,8 +9,13 @@ export function SiteHeader() {
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12 h-[56px] flex items-center justify-between gap-8">
 
-        <Link href={routes.home} className="brand-wordmark shrink-0">
+        <Link href={routes.home} className="brand-wordmark shrink-0 flex items-center gap-1">
           DEFRAG
+          <span
+            className="block w-[5px] h-[5px] rounded-full shrink-0 mb-[1px]"
+            style={{ background: "rgba(240,240,240,0.35)" }}
+            aria-hidden
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 flex-1">
@@ -28,7 +33,7 @@ export function SiteHeader() {
             href={routes.login}
             className="nav-link hidden md:inline-flex"
           >
-            Sign In
+            Log in
           </Link>
           <Link
             href={routes.start}
