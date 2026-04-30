@@ -5,6 +5,7 @@ import { routes } from "@/lib/routes";
 const tiers = [
   {
     name: "Baseline",
+    layer: "Layer I",
     subtitle: "Your personal canvas, rendered in full. Understand how you were built to move through the world — your decision style, what steadies you, and what pulls you off center.",
     features: [
       "Your nature and decision style",
@@ -16,6 +17,7 @@ const tiers = [
   },
   {
     name: "Premium",
+    layer: "Layers I — II",
     subtitle: "Everything in Baseline, with the canvas extended into the present. Read what is actually happening in real time — before the moment becomes a regret.",
     features: [
       "Everything in Baseline",
@@ -28,6 +30,7 @@ const tiers = [
   },
   {
     name: "Signature",
+    layer: "Layers I — III",
     subtitle: "The complete canvas — yourself, the moment, and the person across from you — rendered simultaneously. For those doing the harder work of repair and connection.",
     features: [
       "Everything in Premium",
@@ -60,45 +63,44 @@ export default function PricingPage() {
       {/* ── TIERS ── */}
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4 items-stretch">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className="card flex flex-col h-full"
+                className="card flex flex-col h-full relative"
                 style={tier.featured ? {
                   borderColor: "var(--border-3)",
-                  boxShadow: "0 0 0 1px var(--border-3), 0 8px 32px rgba(0,0,0,0.5)"
+                  background: "var(--surface-2)",
+                  boxShadow: "0 0 0 1px var(--border-3), 0 12px 40px rgba(0,0,0,0.55), 0 1px 0 rgba(255,252,245,0.03) inset"
                 } : {}}
               >
-                {/* Badge */}
-                {tier.featured && (
-                  <div className="mb-5">
-                    <span className="label py-1 px-2 border border-[var(--border-3)] bg-[var(--surface-2)] text-[var(--foreground)] text-[10px] tracking-widest">
-                      Most Popular
+                {/* Layer scope */}
+                <div className="flex items-start justify-between mb-5">
+                  <p className="label">{tier.layer}</p>
+                  {tier.featured && (
+                    <span className="label py-0.5 px-2 border border-[var(--border-3)] bg-[var(--surface-3)] text-[var(--muted)] text-[9px] tracking-[0.14em]">
+                      RECOMMENDED
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                {/* Header */}
+                {/* Name + subtitle */}
                 <div className="mb-6">
-                  <h2 className="text-[var(--foreground)] text-xl font-bold tracking-tight mb-2">{tier.name}</h2>
-                  <p className="text-[var(--muted)] text-sm leading-relaxed">{tier.subtitle}</p>
+                  <h2 className="text-[var(--foreground)] text-2xl font-bold tracking-[-0.03em] mb-3">{tier.name}</h2>
+                  <p className="text-[var(--muted)] text-[13px] leading-[1.65]">{tier.subtitle}</p>
                 </div>
 
                 {/* Divider */}
                 <div className="h-px bg-[var(--border)] mb-6" />
 
-                {/* Features */}
-                <ul className="space-y-3 flex-1 mb-8">
-                  {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <svg className="w-4 h-4 shrink-0 mt-0.5 text-[var(--muted-2)]" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-sm text-[var(--muted)] leading-relaxed">{f}</span>
-                    </li>
+                {/* Features as concise lines — no icons, no bullets */}
+                <div className="space-y-2.5 flex-1 mb-8">
+                  {tier.features.map((f, i) => (
+                    <p key={f} className="text-[13px] leading-relaxed" style={{ color: i === 0 && tier.name !== "Baseline" ? "var(--muted-2)" : "var(--muted)" }}>
+                      {f}
+                    </p>
                   ))}
-                </ul>
+                </div>
 
                 {/* CTA */}
                 <Link

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
 import { routes } from "@/lib/routes";
+import { CanvasDiagram, LayerDiagram } from "@/components/site/canvas-diagram";
 
 export default function Home() {
   return (
@@ -41,21 +42,45 @@ export default function Home() {
             <Link href={routes.start} className="btn-primary">Establish Your Baseline</Link>
             <Link href={routes.product} className="btn-secondary">See the Platform</Link>
           </div>
+
+          {/* Metadata strip */}
+          <div className="flex flex-wrap items-center gap-6 pt-10 mt-10 border-t border-[var(--border)] animate-fade-up-d3">
+            {[
+              { label: "Three layers", value: "One canvas" },
+              { label: "Precision baseline", value: "Derived once, applied everywhere" },
+              { label: "Output", value: "Plain language — no interpretation required" },
+            ].map((m) => (
+              <div key={m.label} className="flex items-baseline gap-2">
+                <span className="label">{m.label}</span>
+                <span className="text-[12px] text-[var(--muted-2)]">{m.value}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── THE GAP ─────────────────────────── */}
       <section className="border-b border-[var(--border)]">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28">
 
-          <div className="space-y-4">
-            <p className="label">The canvas problem</p>
-            <h2 className="text-2xl md:text-[32px] font-semibold tracking-[-0.02em] text-[var(--foreground)] max-w-2xl leading-snug">
-              Most conflict happens because two people are painting on the same canvas without knowing it.
-            </h2>
-            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-xl">
-              You see your strokes. They see theirs. Neither of you is wrong about what you painted. You are just standing at different angles.
-            </p>
+          <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center mb-14">
+            <div className="space-y-5">
+              <p className="label">The canvas problem</p>
+              <h2 className="text-2xl md:text-[32px] font-semibold tracking-[-0.02em] text-[var(--foreground)] leading-snug">
+                Most conflict happens because two people are painting on the same canvas without knowing it.
+              </h2>
+              <p className="text-[15px] text-[var(--muted)] leading-relaxed">
+                You see your strokes. They see theirs. Neither of you is wrong about what you painted — you are just standing at different angles, reading the same surface as if it were two separate ones.
+              </p>
+              <p className="text-[var(--muted-2)] text-[13px]">
+                DEFRAG gives you the angle they are standing at.
+              </p>
+            </div>
+            {/* Canvas diagram */}
+            <div className="flex items-center justify-center">
+              <CanvasDiagram className="w-full max-w-[420px] opacity-90" />
+            </div>
           </div>
 
           {/* 3-column grid strip */}
@@ -72,9 +97,6 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="text-[var(--muted-2)] text-sm">
-            DEFRAG gives you the angle they are standing at.
-          </p>
         </div>
       </section>
 
@@ -82,14 +104,19 @@ export default function Home() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-12">
 
-          <div className="space-y-4">
-            <p className="label">The platform</p>
-            <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-lg">
-              A canvas with four distinct layers of resolution.
-            </h2>
-            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-lg">
-              Each layer brings something specific into focus. Together, they give you a complete picture of yourself, the moment, and the person across from you.
-            </p>
+          <div className="grid md:grid-cols-2 gap-12 items-end">
+            <div className="space-y-4">
+              <p className="label">The platform</p>
+              <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)]">
+                A canvas with four distinct layers of resolution.
+              </h2>
+              <p className="text-[15px] text-[var(--muted)] leading-relaxed">
+                Each layer brings something specific into focus. Together, they form a complete picture — of yourself, of the moment, and of the person across from you.
+              </p>
+            </div>
+            <div className="flex justify-end">
+              <LayerDiagram className="w-full max-w-[300px]" />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">

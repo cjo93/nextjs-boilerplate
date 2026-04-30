@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
 import { routes } from "@/lib/routes";
+import { CanvasDiagram } from "@/components/site/canvas-diagram";
 
 const pillars = [
   {
@@ -28,15 +29,22 @@ export default function ProductPage() {
     <PageShell>
 
       {/* ── HERO ── */}
-      <section className="border-b border-[var(--border)]">
+      <section className="border-b border-[var(--border)] overflow-hidden">
         <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
-          <p className="label mb-6 animate-fade-up">Platform overview</p>
-          <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
-            Three layers. One canvas.
-          </h1>
-          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[520px] animate-fade-up-d2">
-            Every place we get lost — inside ourselves, inside a moment, inside a relationship — has a picture underneath it. DEFRAG is the tool that makes that picture readable.
-          </p>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="label mb-6 animate-fade-up">Platform overview</p>
+              <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-2xl animate-fade-up-d1">
+                Three layers. One canvas.
+              </h1>
+              <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[460px] animate-fade-up-d2">
+                Every place we get lost — inside ourselves, inside a moment, inside a relationship — has a picture underneath it. DEFRAG makes that picture readable.
+              </p>
+            </div>
+            <div className="hidden md:flex justify-end animate-fade-in">
+              <CanvasDiagram className="w-full max-w-[400px]" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -45,15 +53,15 @@ export default function ProductPage() {
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-3">
           {pillars.map((p) => (
             <div key={p.n} className="card group flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-              <div className="shrink-0 flex items-start gap-5 md:w-48">
-                <span className="label pt-0.5 tabular-nums">{p.n}</span>
+              <div className="shrink-0 flex items-start gap-4 md:w-52">
+                <span className="label tabular-nums pt-0.5 shrink-0">{p.n}</span>
                 <div>
-                  <p className="label mb-0.5">{p.label}</p>
-                  <p className="text-[var(--foreground)] font-semibold text-[15px] tracking-tight mt-1">{p.title}</p>
+                  <p className="label mb-1 text-[var(--muted-2)]">{p.label}</p>
+                  <p className="text-[var(--foreground)] font-semibold text-[15px] tracking-[-0.01em] mt-1">{p.title}</p>
                 </div>
               </div>
               <div className="h-px md:h-auto md:w-px bg-[var(--border)] shrink-0" />
-              <p className="text-[var(--muted)] text-[15px] leading-relaxed flex-1">{p.body}</p>
+              <p className="text-[var(--muted)] text-[15px] leading-[1.7] flex-1">{p.body}</p>
             </div>
           ))}
         </div>

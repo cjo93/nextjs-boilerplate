@@ -244,6 +244,47 @@ a {
 }
 
 /* ─────────────────────────────────────────
+   FORM INPUTS
+───────────────────────────────────────── */
+input[type="date"],
+input[type="time"],
+input[type="text"] {
+  /* Ensure no browser default blue ring */
+  outline: none;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="text"]:focus {
+  border-color: var(--border-3);
+  box-shadow: 0 0 0 3px rgba(240,240,240,0.04);
+}
+
+/* ─────────────────────────────────────────
+   PRICING TIER — featured highlight
+───────────────────────────────────────── */
+.tier-featured {
+  background: var(--surface-2);
+  border-color: var(--border-3);
+  box-shadow:
+    0 0 0 1px var(--border-3),
+    0 12px 40px rgba(0,0,0,0.55),
+    0 1px 0 rgba(255,252,245,0.03) inset;
+}
+
+/* ─────────────────────────────────────────
+   NAV SEPARATOR
+───────────────────────────────────────── */
+.nav-sep {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--border-2);
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+/* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
 @keyframes fade-up {

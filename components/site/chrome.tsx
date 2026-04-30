@@ -13,10 +13,13 @@ export function SiteHeader() {
           DEFRAG
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7 flex-1">
+        <nav className="hidden md:flex items-center gap-6 flex-1">
           <Link href={routes.product}    className="nav-link">Product</Link>
+          <span className="w-px h-3 bg-[var(--border-2)]" aria-hidden />
           <Link href={routes.howItWorks} className="nav-link">How It Works</Link>
+          <span className="w-px h-3 bg-[var(--border-2)]" aria-hidden />
           <Link href={routes.useCases}   className="nav-link">Use Cases</Link>
+          <span className="w-px h-3 bg-[var(--border-2)]" aria-hidden />
           <Link href={routes.pricing}    className="nav-link">Pricing</Link>
         </nav>
 
