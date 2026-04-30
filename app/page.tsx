@@ -16,9 +16,9 @@ export default function Home() {
     <PageShell>
 
       {/* ── 1. HERO SECTION ───────────────────────────────────────────────────────── */}
-      <section className="border-b border-[var(--border)]" style={{ background: "var(--background)" }}>
-        <div className="max-w-6xl mx-auto px-6 md:px-12 pt-28 pb-20 md:pt-40 md:pb-32">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="border-b border-[var(--border-subtle)]" style={{ background: "var(--background)" }}>
+        <div className="max-w-6xl mx-auto px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-20">
+          <div className="grid md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-10 items-start">
 
             {/* Left: copy */}
             <div>
@@ -75,33 +75,37 @@ export default function Home() {
                 {/* Response rows */}
                 <div className="divide-y divide-[var(--border)]">
                   {[
-                    { label: "What's actually happening.", accent: false },
-                    { label: "How this might feel to them.", accent: false },
-                    { label: "One clean move.", accent: true },
+                    { label: "What's actually happening.", text: "You asked for more than they're used to giving. That scared them, not you.", accent: false },
+                    { label: "How this might feel to them.", text: "Like pressure and risk, not a simple question.", accent: false },
+                    { label: "One clean move.", text: "Wait 24 hours. Then send a short, honest check-in instead of a defense.", accent: true },
                   ].map((row, i) => (
                     <div key={i} className="px-5 py-3.5 flex gap-3 items-start group hover:bg-[var(--surface-3)] transition-colors">
                       <span
                         className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
                         style={{
-                          background: row.accent ? "var(--accent)" : "var(--border)",
+                          background: row.accent ? "var(--accent)" : "var(--border-subtle)",
                         }}
                       />
-                      <p style={{ fontSize: 12, color: row.accent ? "var(--accent)" : "var(--muted-2)", lineHeight: 1.5 }}>
-                        {row.label}
-                      </p>
+                      <div className="space-y-1">
+                        <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: row.accent ? "var(--accent)" : "var(--muted-2)" }}>
+                          {row.label}
+                        </p>
+                        <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5 }}>
+                          {row.text}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
 
       {/* ── 2. WHAT DEFRAG IS ─────────────────────────────────────────────────────── */}
-      <section className="border-b border-[var(--border)]" style={{ background: "var(--surface)" }}>
-        <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+      <section className="border-b border-[var(--border-subtle)]" style={{ background: "var(--background)" }}>
+        <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-20">
+          <div className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-6 md:px-10 py-10 md:py-12">
+          <div className="mb-14 reveal">
           <div className="mb-14 reveal">
             <h2
               className="font-serif"

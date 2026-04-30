@@ -17,14 +17,16 @@
   --muted-3:     #3A3A44;
 
   /* Borders — subtle dark greys */
-  --border:      #2A2A30;
-  --border-2:    #36363E;
-  --border-3:    #46464F;
+  --border-subtle: #1D1D22;
+  --border:        #2A2A30;
+  --border-2:      #36363E;
+  --border-3:      #46464F;
 
-  /* Accent — soft warm amber */
-  --accent:        #E1B98A;
-  --accent-dim:    rgba(225, 185, 138, 0.12);
-  --accent-border: rgba(225, 185, 138, 0.28);
+  /* Accent — metallic warm amber */
+  --accent:        #D69B5A;
+  --accent-soft:   #B37B3E;
+  --accent-dim:    rgba(214, 155, 90, 0.12);
+  --accent-border: rgba(214, 155, 90, 0.28);
 
   /* Rare highlight */
   --highlight:   rgba(225, 185, 138, 0.06);
@@ -114,22 +116,23 @@ a {
   height: 44px;
   padding: 0 24px;
   background: var(--accent);
-  color: #111112;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  border-radius: var(--radius);
-  border: 1px solid var(--accent);
+  color: var(--background);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 1px solid var(--accent-soft);
   cursor: pointer;
-  transition: background 150ms ease, box-shadow 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .btn-primary:hover {
-  background: #eac89a;
-  border-color: #eac89a;
-  box-shadow: 0 3px 16px rgba(225,185,138,0.22);
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
 }
 
 .btn-secondary {
