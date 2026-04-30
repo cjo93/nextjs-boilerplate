@@ -1,101 +1,111 @@
+import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
-import { SectionShell } from "@/components/system/section-shell";
+import { routes } from "@/lib/routes";
+
+const steps = [
+  {
+    n: "01",
+    title: "Map Your Nature",
+    body: "We use your birth details to find your natural starting point. No long quizzes or personality labels — just a clear look at how you were uniquely made to experience the world.",
+  },
+  {
+    n: "02",
+    title: "Pick Your Lens",
+    body: "Choose the focus that matches your need. Whether you are looking inward, reading a specific moment, or trying to understand a relationship, move into the part of the system that fits.",
+  },
+  {
+    n: "03",
+    title: "Find the Way Forward",
+    body: "DEFRAG gives you a simple, human explanation of the why and a clear path forward that feels right for everyone involved.",
+  },
+];
 
 export default function HowItWorksPage() {
-  const steps = [
-    {
-      number: "1",
-      title: "Map Your Nature",
-      description: "We use your birth details to find your natural starting point. No long quizzes or personality labels—just a clear look at how you were uniquely made to experience the world.",
-      color: "blue"
-    },
-    {
-      number: "2",
-      title: "Pick Your Lens",
-      description: "Choose the focus that matches your need. Whether you are looking inward, reading a specific moment, or trying to understand a relationship, move into the part of the system that fits.",
-      color: "purple"
-    },
-    {
-      number: "3",
-      title: "Find the Way Forward",
-      description: "DEFRAG gives you a simple, human explanation of the 'why' and a clear path forward that feels right for everyone involved.",
-      color: "blue"
-    }
-  ];
-
   return (
     <PageShell>
-      {/* HERO SECTION */}
-      <SectionShell className="text-center py-20">
-        <div className="space-y-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-glow animate-fade-in-up">
+
+      {/* ── HERO ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
+          <p className="label mb-6 animate-fade-up">How it works</p>
+          <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
             From confusion to clarity.
           </h1>
-          <p className="text-lg md:text-xl text-neutral-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[480px] animate-fade-up-d2">
             DEFRAG takes the complexity of human interaction and turns it into simple, honest guidance you can use immediately.
           </p>
         </div>
-      </SectionShell>
+      </section>
 
-      {/* VERTICAL STEPPER */}
-      <SectionShell className="space-y-12 relative">
-        {/* Vertical connecting line background */}
-        <div className="absolute left-[50%] md:left-[25%] top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-blue-500 opacity-30 hidden md:block" />
-
-        {steps.map((step, index) => (
-          <div
-            key={step.number}
-            className={`flex gap-8 items-start md:gap-12 animate-fade-in-up ${
-              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-            }`}
-            style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-          >
-            {/* Step indicator */}
-            <div className="flex-shrink-0 flex flex-col items-center">
-              <div
-                className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl ${
-                  step.color === "blue"
-                    ? "bg-blue-600 text-white glow-blue animate-glow-pulse"
-                    : "bg-purple-600 text-white glow-purple animate-glow-pulse"
-                }`}
-              >
-                {step.number}
+      {/* ── STEPS ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="grid md:grid-cols-3 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
+            {steps.map((s) => (
+              <div key={s.n} className="cell bg-[var(--surface)] flex flex-col gap-5">
+                <span className="label tabular-nums">{s.n}</span>
+                <h3 className="text-[var(--foreground)] text-lg font-semibold tracking-tight">{s.title}</h3>
+                <p className="text-[var(--muted)] text-sm leading-relaxed flex-1">{s.body}</p>
               </div>
-              {index < steps.length - 1 && (
-                <div className="w-1 h-20 bg-gradient-to-b from-gray-500 to-transparent mt-4 opacity-50" />
-              )}
-            </div>
-
-            {/* Step content */}
-            <div
-              className={`glass p-8 rounded-xl hover:scale-105 transition-all duration-300 flex-1 ${
-                step.color === "blue" ? "hover:glow-blue" : "hover:glow-purple"
-              }`}
-            >
-              <h3 className={`text-2xl font-bold mb-4 ${
-                step.color === "blue" ? "text-blue-400" : "text-purple-400"
-              }`}>
-                {step.title}
-              </h3>
-              <p className="text-neutral-300 text-lg leading-relaxed">
-                {step.description}
-              </p>
-            </div>
+            ))}
           </div>
-        ))}
-      </SectionShell>
-
-      {/* CLOSING SECTION */}
-      <SectionShell className="text-center py-16">
-        <div className="space-y-6 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            A calmer way to work with what is happening.
-          </h2>
-          <p className="text-lg text-neutral-300">
-            Whether you need self-understanding, timing support, or relationship clarity, DEFRAG is designed to help you move with more precision and less confusion.
-          </p>
         </div>
-      </SectionShell>
+      </section>
+
+      {/* ── DEEPER DETAIL ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
+          <div className="space-y-3">
+            <p className="label">What makes it different</p>
+            <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-lg">
+              No labels. No jargon. Just clarity.
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-3">
+            {[
+              {
+                title: "Built on your actual nature",
+                body: "Your baseline is derived from your birth data — a precise starting point that is unique to you, not a category you are sorted into."
+              },
+              {
+                title: "Real-time, not just retrospective",
+                body: "The Now workspace helps you read a moment as it is happening, not just understand it after the fact."
+              },
+              {
+                title: "Designed for both sides",
+                body: "Every insight accounts for the other person. You see yourself clearly and you see them clearly — at the same time."
+              },
+              {
+                title: "Language you can actually use",
+                body: "DEFRAG translates what it finds into plain language. No interpretation required."
+              }
+            ].map((item) => (
+              <div key={item.title} className="card">
+                <h3 className="text-[var(--foreground)] font-semibold text-[15px] mb-2 tracking-tight">{item.title}</h3>
+                <p className="text-[var(--muted)] text-sm leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section>
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32 flex flex-col md:flex-row md:items-end justify-between gap-10">
+          <div>
+            <p className="label mb-4">Ready</p>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)] max-w-sm leading-tight">
+              A calmer way to work with what is happening.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-3 shrink-0">
+            <Link href={routes.start} className="btn-primary">Start Your Baseline</Link>
+            <Link href={routes.pricing} className="btn-secondary">View Pricing</Link>
+          </div>
+        </div>
+      </section>
+
     </PageShell>
   );
 }

@@ -1,93 +1,80 @@
 import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
-import { SectionShell } from "@/components/system/section-shell";
 import { routes } from "@/lib/routes";
 
-export default function ProductPage() {
-  const pillars = [
-    {
-      number: "1",
-      title: "The Baseline | Your Nature",
-      description: "Understand the truth of who you are. See what makes you feel alive, what makes you shut down, and how to find your way back to center when things get intense.",
-      color: "blue"
-    },
-    {
-      number: "2",
-      title: "The Now | The Moment",
-      description: "Get a clear read on what is happening right this second. Stop the overthinking and find the move that actually fits the situation.",
-      color: "purple"
-    },
-    {
-      number: "3",
-      title: "The Relationships | The Connection",
-      description: "Understand the person across from you. See the world through their eyes so you can stop fighting their nature and start building a real connection.",
-      color: "blue"
-    }
-  ];
+const pillars = [
+  {
+    n: "01",
+    label: "The Baseline",
+    title: "Your Nature",
+    body: "Understand the truth of who you are. See what makes you feel alive, what makes you shut down, and how to find your way back to center when things get intense.",
+  },
+  {
+    n: "02",
+    label: "The Now",
+    title: "The Moment",
+    body: "Get a clear read on what is happening right this second. Stop the overthinking and find the move that actually fits the situation.",
+  },
+  {
+    n: "03",
+    label: "The Relationships",
+    title: "The Connection",
+    body: "Understand the person across from you. See the world through their eyes so you can stop fighting their nature and start building a real connection.",
+  },
+];
 
+export default function ProductPage() {
   return (
     <PageShell>
-      {/* HERO SECTION */}
-      <SectionShell className="text-center py-20">
-        <div className="space-y-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-glow animate-fade-in-up">
+
+      {/* ── HERO ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
+          <p className="label mb-6 animate-fade-up">Platform overview</p>
+          <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
             A simpler way to navigate your life.
           </h1>
-          <p className="text-lg md:text-xl text-neutral-300 leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            DEFRAG doesn&apos;t give you more to-do lists. It gives you a clear way to navigate the three areas where we get lost most: ourselves, our timing, and our people.
+          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[520px] animate-fade-up-d2">
+            DEFRAG gives you a clear way to navigate the three areas where we get lost most: ourselves, our timing, and our people.
           </p>
         </div>
-      </SectionShell>
+      </section>
 
-      {/* THREE PILLARS - VERTICAL STACK */}
-      <SectionShell className="space-y-12">
-        {pillars.map((pillar, index) => (
-          <div
-            key={pillar.number}
-            className={`glass p-12 rounded-xl hover:scale-105 transition-all duration-300 ${
-              pillar.color === "blue" ? "hover:glow-blue" : "hover:glow-purple"
-            } animate-fade-in-up`}
-            style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-          >
-            <div className="flex gap-8 items-start">
-              <div className={`text-5xl font-bold ${pillar.color === "blue" ? "text-blue-400" : "text-purple-400"} animate-soft-pulse`}>
-                {pillar.number}.
+      {/* ── THREE PILLARS ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-3">
+          {pillars.map((p) => (
+            <div key={p.n} className="card group flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+              <div className="shrink-0 flex items-start gap-5 md:w-48">
+                <span className="label pt-0.5 tabular-nums">{p.n}</span>
+                <div>
+                  <p className="label mb-0.5">{p.label}</p>
+                  <p className="text-[var(--foreground)] font-semibold text-[15px] tracking-tight mt-1">{p.title}</p>
+                </div>
               </div>
-              <div className="space-y-3 flex-1">
-                <h2 className="text-2xl font-bold text-white">
-                  {pillar.title}
-                </h2>
-                <p className="text-neutral-300 text-lg leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
+              <div className="h-px md:h-auto md:w-px bg-[var(--border)] shrink-0" />
+              <p className="text-[var(--muted)] text-[15px] leading-relaxed flex-1">{p.body}</p>
             </div>
-          </div>
-        ))}
-      </SectionShell>
+          ))}
+        </div>
+      </section>
 
-      {/* FOOTER SECTION */}
-      <SectionShell className="text-center py-16">
-        <div className="space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Move into the part of the system that matches your need.
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={routes.start}
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 glow-blue hover:scale-105 animate-glow-pulse"
-            >
-              Start Here
-            </Link>
-            <Link
-              href={routes.app}
-              className="px-8 py-3 border border-neutral-400 text-neutral-200 rounded-lg font-semibold hover:border-blue-400 hover:text-blue-300 transition-all duration-300 glass"
-            >
-              Go to App
-            </Link>
+      {/* ── CTA ── */}
+      <section>
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32 flex flex-col md:flex-row md:items-end justify-between gap-10">
+          <div>
+            <p className="label mb-4">Get started</p>
+            <h2 className="text-3xl md:text-[44px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-md">
+              Move into the part of the system that matches your need.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-3 shrink-0">
+            <Link href={routes.start} className="btn-primary">Start Here</Link>
+            <Link href={routes.app}   className="btn-secondary">Go to App</Link>
           </div>
         </div>
-      </SectionShell>
+      </section>
+
     </PageShell>
   );
 }
