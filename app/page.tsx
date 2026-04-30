@@ -98,6 +98,8 @@ export default function Home() {
           </div>
         </div>
         </div>
+          </div>
+        </div>
       </section>
 
       {/* ── 2. WHAT DEFRAG IS ─────────────────────────────────────────────────────── */}
