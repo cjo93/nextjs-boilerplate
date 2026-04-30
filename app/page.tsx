@@ -32,7 +32,6 @@ export default function Home() {
                   lineHeight: 1.08,
                   letterSpacing: "-0.02em",
                   color: "var(--foreground)",
-                  fontFamily: "var(--font-dm-serif)",
                 }}
               >
                 Healing isn&apos;t optional.<br />
@@ -108,14 +107,12 @@ export default function Home() {
             <div className="mb-14 reveal">
               <h2
                 className="font-serif"
-                style={{
-                  fontSize: "clamp(28px, 3.5vw, 44px)",
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.015em",
-                  color: "var(--foreground)",
-                  fontFamily: "var(--font-dm-serif)",
-                  maxWidth: "58ch",
-                }}
+              style={{
+                fontSize: "clamp(28px, 3.5vw, 44px)",
+                lineHeight: 1.12,
+                letterSpacing: "-0.015em",
+                color: "var(--foreground)",
+              }}
               >
                 A private AI for the parts of life you would never hand to ordinary AI.
               </h2>
@@ -165,10 +162,9 @@ export default function Home() {
               style={{
                 fontSize: "clamp(28px, 3.5vw, 44px)",
                 lineHeight: 1.12,
-                letterSpacing: "-0.015em",
-                color: "var(--foreground)",
-                fontFamily: "var(--font-dm-serif)",
-              }}
+                  letterSpacing: "-0.015em",
+                  color: "var(--foreground)",
+                }}
             >
               Three ways DEFRAG shows up for you.
             </h2>
@@ -227,10 +223,9 @@ export default function Home() {
               style={{
                 fontSize: "clamp(28px, 3.5vw, 44px)",
                 lineHeight: 1.12,
-                letterSpacing: "-0.015em",
-                color: "var(--foreground)",
-                fontFamily: "var(--font-dm-serif)",
-              }}
+                  letterSpacing: "-0.015em",
+                  color: "var(--foreground)",
+                }}
             >
               How DEFRAG works in the real world.
             </h2>
@@ -294,10 +289,9 @@ export default function Home() {
               style={{
                 fontSize: "clamp(28px, 3.5vw, 44px)",
                 lineHeight: 1.12,
-                letterSpacing: "-0.015em",
-                color: "var(--foreground)",
-                fontFamily: "var(--font-dm-serif)",
-              }}
+                  letterSpacing: "-0.015em",
+                  color: "var(--foreground)",
+                }}
             >
               Built for trust, not engagement hacks.
             </h2>
@@ -366,12 +360,14 @@ export default function Home() {
                 lineHeight: 1.12,
                 letterSpacing: "-0.015em",
                 color: "var(--foreground)",
-                fontFamily: "var(--font-dm-serif)",
                 marginBottom: 10,
               }}
             >
               You&apos;re here because something hurts.
             </h2>
+            <p className="text-[14px] text-[var(--muted-2)] max-w-xl">
+              You don&apos;t need ten frameworks. You need one clean move that doesn&apos;t make it worse.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 reveal reveal-d1">
@@ -420,7 +416,6 @@ export default function Home() {
               lineHeight: 1.12,
               letterSpacing: "-0.015em",
               color: "var(--foreground)",
-              fontFamily: "var(--font-dm-serif)",
             }}
           >
             You already know it hurts.<br />

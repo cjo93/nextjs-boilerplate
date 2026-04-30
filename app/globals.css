@@ -112,21 +112,31 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   height: 44px;
-  padding: 0 24px;
-  background: var(--accent);
-  color: var(--background);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 0 28px;
   border-radius: 3px;
   border: 1px solid var(--accent-soft);
-  cursor: pointer;
-  transition: background 150ms ease, border-color 150ms ease;
+  background: var(--accent);
+  color: var(--background);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease, transform 80ms ease;
   white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .btn-primary:hover {
