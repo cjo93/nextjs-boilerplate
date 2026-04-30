@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --text-secondary: #a0a0a0;
-  --text-tertiary: #666666;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-color-hover: rgba(255, 255, 255, 0.16);
-  --accent: #00e5ff;
-  --accent-alt: #6200ea;
+  --background: #0a0a0a;
+  --surface:    #111111;
+  --surface-2:  #1a1a1a;
+  --foreground: #ededed;
+  --muted:      #888888;
+  --muted-2:    #555555;
+  --border:     #222222;
+  --border-2:   #2e2e2e;
+  --radius:     0.375rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 }
 
 html {
@@ -18,9 +24,9 @@ html {
 
 body {
   background: var(--background);
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
   color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -28,196 +34,97 @@ a {
   text-decoration: none;
 }
 
-/* Esoteric Brutalism: Sharp corners, thin borders */
-* {
-  border-radius: 0;
-}
-
-/* Typography System */
-h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
-  font-weight: 900;
-}
-
-/* Headline Typography */
-.headline {
-  font-size: clamp(48px, 8vw, 72px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--foreground);
-}
-
-.subheadline {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-
-/* Section heading */
-.section-title {
-  font-size: clamp(36px, 6vw, 52px);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-/* Monospace accent for data/labels */
-.mono-label {
-  font-family: 'SF Mono', 'Monaco', monospace;
-  font-size: 12px;
+/* ── Typography ── */
+.label {
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--muted);
 }
 
-/* Buttons */
+/* ── Buttons ── */
 .btn-primary {
-  padding: 12px 32px;
-  height: 44px;
-  border: 1px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  background: var(--foreground);
+  color: var(--background);
   font-size: 14px;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: 1px solid var(--foreground);
   cursor: pointer;
-  transition: all 200ms ease-out;
-  position: relative;
-  overflow: hidden;
+  transition: opacity 150ms ease;
+  white-space: nowrap;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.1);
-  background: rgba(0, 229, 255, 0.05);
+  opacity: 0.88;
 }
 
 .btn-secondary {
-  padding: 12px 32px;
-  height: 44px;
-  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
   background: transparent;
   color: var(--foreground);
-  font-weight: 600;
   font-size: 14px;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-2);
   cursor: pointer;
-  transition: all 200ms ease-out;
+  transition: border-color 150ms ease, background 150ms ease;
+  white-space: nowrap;
 }
 
 .btn-secondary:hover {
-  border-color: var(--border-color-hover);
-  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  border-color: var(--muted-2);
 }
 
-/* Cards with brutalist borders */
-.card-brutalist {
-  border: 1px solid var(--border-color);
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.02);
-  transition: all 300ms ease-out;
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color 200ms ease;
 }
 
-.card-brutalist:hover {
-  border-color: var(--border-color-hover);
-  box-shadow: 0 0 24px rgba(0, 229, 255, 0.1);
+.card:hover {
+  border-color: var(--border-2);
 }
 
-/* Navigation */
+/* ── Nav ── */
 .nav-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: -0.01em;
-  position: relative;
-  transition: color 200ms ease-out;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  transition: color 150ms ease;
 }
 
 .nav-link:hover {
   color: var(--foreground);
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: translateX(-50%);
-  transition: width 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
 .brand-wordmark {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  letter-spacing: -0.03em;
   color: var(--foreground);
 }
 
-/* Animations */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── Animations ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fade-in-glow {
-  0% {
-    opacity: 0;
-    text-shadow: none;
-  }
-  100% {
-    opacity: 1;
-    text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
-  }
-}
-
-@keyframes border-trace {
-  from {
-    box-shadow: inset 0 0 0 rgba(0, 229, 255, 0), 0 0 0 rgba(0, 229, 255, 0);
-  }
-  to {
-    box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.1), 0 0 20px rgba(0, 229, 255, 0.3);
-  }
-}
-
-@keyframes grid-snap {
-  from {
-    opacity: 0.2;
-    filter: blur(8px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
-}
-
-.animate-fade-in-glow {
-  animation: fade-in-glow 0.8s ease-out forwards;
-}
-
-.animate-border-trace {
-  animation: border-trace 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.animate-grid-snap {
-  animation: grid-snap 0.4s ease-out forwards;
+.animate-fade-up {
+  animation: fade-up 0.45s ease-out both;
 }

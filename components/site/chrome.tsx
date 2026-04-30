@@ -3,18 +3,24 @@ import { routes } from "@/lib/routes";
 
 export function SiteHeader() {
   return (
-    <header className="w-full border-b border-[var(--border-color)] bg-[rgba(0,0,0,0.4)] backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur-md">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
         <Link href={routes.home} className="brand-wordmark">
           DEFRAG
         </Link>
-        <nav className="flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           <Link href={routes.product} className="nav-link">Product</Link>
           <Link href={routes.howItWorks} className="nav-link">How It Works</Link>
           <Link href={routes.useCases} className="nav-link">Use Cases</Link>
           <Link href={routes.pricing} className="nav-link">Pricing</Link>
-          <Link href={routes.login} className="nav-link">Sign In</Link>
         </nav>
+        <Link
+          href={routes.start}
+          className="btn-primary text-sm"
+          style={{ height: "34px", padding: "0 14px", fontSize: "13px" }}
+        >
+          Get Started
+        </Link>
       </div>
     </header>
   );
@@ -22,45 +28,26 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[var(--border-color)]">
-      <div className="max-w-7xl mx-auto px-8 py-16 space-y-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <p className="mono-label">Product</p>
-            <div className="space-y-2">
-              <Link href={routes.product} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">The Baseline</Link>
-              <Link href={routes.product} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">The Now</Link>
-              <Link href={routes.product} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">The Connection</Link>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <p className="mono-label">Resources</p>
-            <div className="space-y-2">
-              <Link href={routes.howItWorks} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">How It Works</Link>
-              <Link href={routes.useCases} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Use Cases</Link>
-              <Link href={routes.pricing} className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Pricing</Link>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <p className="mono-label">Company</p>
-            <div className="space-y-2">
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">About</Link>
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Blog</Link>
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Contact</Link>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <p className="mono-label">Legal</p>
-            <div className="space-y-2">
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Privacy</Link>
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Terms</Link>
-              <Link href="#" className="block text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors">Cookies</Link>
-            </div>
-          </div>
+    <footer className="border-t border-[var(--border)]">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="flex items-center gap-8">
+          <span className="brand-wordmark text-[var(--muted)]">DEFRAG</span>
+          <p className="text-xs text-[var(--muted-2)]">
+            &copy; {new Date().getFullYear()} DEFRAG. All rights reserved.
+          </p>
         </div>
-        <div className="border-t border-[var(--border-color)] pt-8">
-          <p className="text-sm text-[var(--text-tertiary)]">© 2024 DEFRAG. A clearer way to understand yourself and your relationships.</p>
-        </div>
+        <nav className="flex flex-wrap gap-6">
+          {[
+            { label: "Product",      href: routes.product },
+            { label: "How It Works", href: routes.howItWorks },
+            { label: "Pricing",      href: routes.pricing },
+            { label: "Sign In",      href: routes.login },
+          ].map(({ label, href }) => (
+            <Link key={label} href={href} className="text-xs text-[var(--muted-2)] hover:text-[var(--foreground)] transition-colors">
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );
@@ -68,7 +55,7 @@ export function SiteFooter() {
 
 export function Stage({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full border border-[var(--border-color)] p-8 bg-rgba(255, 255, 255, 0.02)">
+    <div className="w-full border border-[var(--border)] rounded-md p-8 bg-[var(--surface)]">
       {children}
     </div>
   );
