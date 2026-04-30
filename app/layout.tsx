@@ -4,9 +4,9 @@ import { SiteHeader, SiteFooter } from "@/components/site/chrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DEFRAG — The clarity layer for real life",
+  title: "DEFRAG — A personal canvas for clarity",
   description:
-    "Personal and relational clarity for understanding yourself, reading the moment, and navigating relationships with less confusion.",
+    "Understand how you are made. Read what a moment actually contains. See the world from the other side before the damage is done.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

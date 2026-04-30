@@ -48,10 +48,10 @@ export function SiteFooter() {
 
         {/* Top row */}
         <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">
-          <div className="max-w-xs">
-            <span className="brand-wordmark block mb-3">DEFRAG</span>
-            <p className="text-xs text-[var(--muted-2)] leading-relaxed">
-              A personal clarity platform for understanding yourself, reading the moment, and connecting with others.
+          <div className="max-w-[260px]">
+            <span className="brand-wordmark block mb-4">DEFRAG</span>
+            <p className="text-[12px] leading-[1.7]" style={{ color: "var(--muted-2)" }}>
+              A personal canvas for understanding how you are made, reading what a moment actually contains, and seeing the world from the other side of it.
             </p>
           </div>
 
@@ -88,8 +88,8 @@ export function SiteFooter() {
           <p className="text-xs text-[var(--muted-2)]">
             &copy; {new Date().getFullYear()} DEFRAG. All rights reserved.
           </p>
-          <p className="text-xs text-[var(--muted-2)]">
-            Built to help you see clearly.
+          <p className="text-xs" style={{ color: "var(--muted-2)" }}>
+            The canvas is already there.
           </p>
         </div>
 

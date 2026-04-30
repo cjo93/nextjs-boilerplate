@@ -29,13 +29,13 @@ export default function Home() {
         <div className="relative max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-32 md:pt-44 md:pb-44">
           <p className="label mb-8 animate-fade-up">Personal clarity platform</p>
           <h1
-            className="text-[clamp(44px,7vw,80px)] font-bold leading-[1.04] tracking-[-0.03em] text-[var(--foreground)] mb-8 max-w-3xl animate-fade-up-d1"
+            className="text-[clamp(44px,7vw,80px)] font-bold leading-[1.03] tracking-[-0.035em] text-[var(--foreground)] mb-8 max-w-3xl animate-fade-up-d1"
           >
             Healing isn&apos;t optional.<br />
             <span style={{ color: "var(--muted)" }}>The suffering is.</span>
           </h1>
-          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[500px] mb-12 animate-fade-up-d2" style={{ fontWeight: 400 }}>
-            DEFRAG is a personal canvas for understanding how you are made, reading what is actually happening in a moment, and seeing the world from the other side of it.
+          <p className="text-[17px] leading-[1.7] max-w-[500px] mb-12 animate-fade-up-d2" style={{ fontWeight: 400, color: "var(--muted)" }}>
+            DEFRAG is a personal canvas — a working surface for understanding how you are made, reading what is actually happening in a moment, and seeing it from the other side before the damage is done.
           </p>
           <div className="flex flex-wrap gap-3 animate-fade-up-d3">
             <Link href={routes.start} className="btn-primary">Establish Your Baseline</Link>
@@ -111,6 +111,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── SIGNAL STRIP ────────────────────── */}
+      <section className="border-b border-[var(--border)] bg-[var(--surface)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
+            {[
+              { stat: "3",       desc: "layers of resolution on a single canvas" },
+              { stat: "One",     desc: "precise baseline, derived once, applied everywhere" },
+              { stat: "Both",    desc: "sides of every conversation rendered simultaneously" },
+              { stat: "Plain",   desc: "language output — no interpretation required" },
+            ].map((s) => (
+              <div key={s.stat} className="cell bg-[var(--surface)]">
+                <p className="stat-number">{s.stat}</p>
+                <p className="stat-label">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── SCENARIOS ───────────────────────── */}
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
@@ -125,38 +144,36 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             {[
               {
                 moment: "You reschedule for the third time.",
                 miss:   "They read it as evidence that the relationship is not a priority.",
-                truth:  "You are overextended. They need a signal that they are still on the canvas. DEFRAG gives you the words that land on their side — not just words that feel honest on yours."
+                truth:  "You are overextended. They need a signal that they are still on the canvas. DEFRAG surfaces the words that land on their side — not just words that feel honest on yours."
               },
               {
                 moment: "They challenge your decision in front of others.",
                 miss:   "You read it as an attack on your authority and close off.",
-                truth:  "They need to understand before they can follow. You need room to lead without defending every step. DEFRAG shows you how both can be true at once."
+                truth:  "They need to understand before they can follow. You need room to lead without defending every step. DEFRAG shows you how both things can be true at once."
               },
               {
                 moment: "You commit to something and then feel yourself pulling back.",
-                miss:   "They feel the withdrawal before you say a word and start bracing for the worst.",
-                truth:  "You need to recalibrate. They need reassurance that the picture has not changed. DEFRAG helps you renegotiate without restarting from damage."
+                miss:   "They feel the withdrawal before you say a word and brace for impact.",
+                truth:  "You need to recalibrate. They need reassurance that the picture has not changed. DEFRAG gives you a way to renegotiate without restarting from damage."
               }
             ].map((s, i) => (
-              <div key={i} className="card group">
-                <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-                  <div>
-                    <p className="label mb-3">What happened</p>
-                    <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.moment}</p>
-                  </div>
-                  <div>
-                    <p className="label mb-3">What they read</p>
-                    <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.miss}</p>
-                  </div>
-                  <div>
-                    <p className="label mb-3">What DEFRAG sees</p>
-                    <p className="text-[15px] text-[var(--muted)] leading-relaxed">{s.truth}</p>
-                  </div>
+              <div key={i} className="scenario-row md:grid md:grid-cols-3">
+                <div className="scenario-col">
+                  <p className="label mb-3">What happened</p>
+                  <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.moment}</p>
+                </div>
+                <div className="scenario-col">
+                  <p className="label mb-3">What they read</p>
+                  <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.miss}</p>
+                </div>
+                <div className="scenario-col" style={{ borderRight: "none" }}>
+                  <p className="label mb-3">What DEFRAG sees</p>
+                  <p className="text-[15px] leading-relaxed" style={{ color: "var(--muted)" }}>{s.truth}</p>
                 </div>
               </div>
             ))}
