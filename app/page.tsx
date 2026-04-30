@@ -95,10 +95,8 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
+          </div>
           </div>
         </div>
       </section>
@@ -108,20 +106,20 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-20">
           <div className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-6 md:px-10 py-10 md:py-12">
             <div className="mb-14 reveal">
-            <h2
-              className="font-serif"
-              style={{
-                fontSize: "clamp(28px, 3.5vw, 44px)",
-                lineHeight: 1.12,
-                letterSpacing: "-0.015em",
-                color: "var(--foreground)",
-                fontFamily: "var(--font-dm-serif)",
-                maxWidth: "58ch",
-              }}
-            >
-              A private AI for the parts of life you would never hand to ordinary AI.
-            </h2>
-          </div>
+              <h2
+                className="font-serif"
+                style={{
+                  fontSize: "clamp(28px, 3.5vw, 44px)",
+                  lineHeight: 1.12,
+                  letterSpacing: "-0.015em",
+                  color: "var(--foreground)",
+                  fontFamily: "var(--font-dm-serif)",
+                  maxWidth: "58ch",
+                }}
+              >
+                A private AI for the parts of life you would never hand to ordinary AI.
+              </h2>
+            </div>
 
           {/* 3-card capability strip */}
           <div className="grid md:grid-cols-3 gap-4 reveal reveal-d1">
