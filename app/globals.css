@@ -4,31 +4,31 @@
    DESIGN TOKENS
 ───────────────────────────────────────── */
 :root {
-  /* Backgrounds — warm near-white */
-  --background:  #F7F3EE;
-  --surface:     #F0EAE1;
-  --surface-2:   #EAE0D3;
-  --surface-3:   #E2D4C2;
+  /* Backgrounds — deep charcoal, not pure black */
+  --background:  #111112;
+  --surface:     #18181B;
+  --surface-2:   #1E1E22;
+  --surface-3:   #26262C;
 
-  /* Text — deep charcoal + warm greys */
-  --foreground:  #1A1A1A;
-  --muted:       #4B433A;
-  --muted-2:     #8A7E74;
-  --muted-3:     #BDB0A4;
+  /* Text — off-white + soft greys */
+  --foreground:  #F5F5F6;
+  --muted:       #B3B3BC;
+  --muted-2:     #6B6B78;
+  --muted-3:     #3A3A44;
 
-  /* Borders — warm stone */
-  --border:      #DDD4C8;
-  --border-2:    #CFC5B8;
-  --border-3:    #BFB3A4;
+  /* Borders — subtle dark greys */
+  --border:      #2A2A30;
+  --border-2:    #36363E;
+  --border-3:    #46464F;
 
-  /* Accent — deep taupe / espresso */
-  --accent:        #6B5644;
-  --accent-dim:    rgba(107, 86, 68, 0.12);
-  --accent-border: rgba(107, 86, 68, 0.28);
+  /* Accent — soft warm amber */
+  --accent:        #E1B98A;
+  --accent-dim:    rgba(225, 185, 138, 0.12);
+  --accent-border: rgba(225, 185, 138, 0.28);
 
-  /* Soft beige highlight (rare) */
-  --highlight:   rgba(107, 86, 68, 0.06);
-  --highlight-2: rgba(107, 86, 68, 0.03);
+  /* Rare highlight */
+  --highlight:   rgba(225, 185, 138, 0.06);
+  --highlight-2: rgba(225, 185, 138, 0.03);
 
   --radius:      6px;
   --radius-lg:   12px;
@@ -114,7 +114,7 @@ a {
   height: 44px;
   padding: 0 24px;
   background: var(--accent);
-  color: #F7F3EE;
+  color: #111112;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.005em;
@@ -123,13 +123,13 @@ a {
   cursor: pointer;
   transition: background 150ms ease, box-shadow 150ms ease;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(107,86,68,0.25);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
 .btn-primary:hover {
-  background: #7a6352;
-  border-color: #7a6352;
-  box-shadow: 0 3px 12px rgba(107,86,68,0.3);
+  background: #eac89a;
+  border-color: #eac89a;
+  box-shadow: 0 3px 16px rgba(225,185,138,0.22);
 }
 
 .btn-secondary {
@@ -140,27 +140,27 @@ a {
   height: 44px;
   padding: 0 24px;
   background: transparent;
-  color: var(--accent);
+  color: var(--foreground);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.005em;
   border-radius: var(--radius);
-  border: 1px solid var(--accent-border);
+  border: 1px solid var(--border-2);
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease;
   white-space: nowrap;
 }
 
 .btn-secondary:hover {
-  background: var(--accent-dim);
-  border-color: var(--accent);
+  background: var(--surface-2);
+  border-color: var(--border-3);
 }
 
 /* ─────────────────────────────────────────
    CARDS
 ───────────────────────────────────────── */
 .card {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 32px 36px;
@@ -169,7 +169,7 @@ a {
 
 .card:hover {
   border-color: var(--border-2);
-  box-shadow: 0 4px 24px rgba(107,86,68,0.08);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.35);
 }
 
 /* Inset grid cell — flush, no independent rounding */
@@ -273,7 +273,7 @@ a {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: rgba(240,240,240,0.09);
+  color: rgba(245,245,246,0.09);
   font-variant-numeric: tabular-nums;
   user-select: none;
 }
@@ -335,11 +335,11 @@ input[type="text"]:focus {
    PRICING TIER — featured highlight
 ───────────────────────────────────────── */
 .tier-featured {
-  background: #fff;
+  background: var(--surface-2);
   border-color: var(--accent-border);
   box-shadow:
     0 0 0 1px var(--accent-border),
-    0 8px 32px rgba(107,86,68,0.12);
+    0 8px 40px rgba(0,0,0,0.5);
 }
 
 /* ─────────────────────────────────────────

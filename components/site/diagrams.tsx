@@ -15,56 +15,56 @@ export function BridgeDiagram({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 420 220" fill="none" className={className} aria-hidden>
 
       {/* Corner registration marks */}
-      <path d="M 8 8 L 8 18 M 8 8 L 18 8"   stroke="rgba(107,86,68,0.2)" strokeWidth="0.75" />
-      <path d="M 412 8 L 412 18 M 412 8 L 402 8" stroke="rgba(107,86,68,0.2)" strokeWidth="0.75" />
-      <path d="M 8 212 L 8 202 M 8 212 L 18 212" stroke="rgba(107,86,68,0.2)" strokeWidth="0.75" />
-      <path d="M 412 212 L 412 202 M 412 212 L 402 212" stroke="rgba(107,86,68,0.2)" strokeWidth="0.75" />
+      <path d="M 8 8 L 8 18 M 8 8 L 18 8"   stroke="rgba(225,185,138,0.2)" strokeWidth="0.75" />
+      <path d="M 412 8 L 412 18 M 412 8 L 402 8" stroke="rgba(225,185,138,0.2)" strokeWidth="0.75" />
+      <path d="M 8 212 L 8 202 M 8 212 L 18 212" stroke="rgba(225,185,138,0.2)" strokeWidth="0.75" />
+      <path d="M 412 212 L 412 202 M 412 212 L 402 212" stroke="rgba(225,185,138,0.2)" strokeWidth="0.75" />
 
       {/* Left circle — your intent */}
-      <circle cx="105" cy="110" r="72" stroke="rgba(26,26,26,0.12)" strokeWidth="0.75" />
-      <circle cx="105" cy="110" r="50" stroke="rgba(26,26,26,0.06)" strokeWidth="0.5" strokeDasharray="3 5" />
-      <circle cx="105" cy="110" r="6"  fill="rgba(26,26,26,0.28)" />
+      <circle cx="105" cy="110" r="72" stroke="rgba(245,245,246,0.14)" strokeWidth="0.75" />
+      <circle cx="105" cy="110" r="50" stroke="rgba(245,245,246,0.07)" strokeWidth="0.5" strokeDasharray="3 5" />
+      <circle cx="105" cy="110" r="6"  fill="rgba(245,245,246,0.3)" />
       {[0,45,90,135,180,225,270,315].map((deg, i) => {
         const rad = (deg * Math.PI) / 180;
         return (
           <line key={i}
             x1={105 + 68 * Math.cos(rad)} y1={110 + 68 * Math.sin(rad)}
             x2={105 + 72 * Math.cos(rad)} y2={110 + 72 * Math.sin(rad)}
-            stroke="rgba(26,26,26,0.2)" strokeWidth="0.5"
+            stroke="rgba(245,245,246,0.18)" strokeWidth="0.5"
           />
         );
       })}
-      <text x="105" y="96" textAnchor="middle" fill="rgba(26,26,26,0.35)" fontSize="7.5" fontFamily="inherit" letterSpacing="0.1em">YOUR INTENT</text>
+      <text x="105" y="96" textAnchor="middle" fill="rgba(245,245,246,0.3)" fontSize="7.5" fontFamily="inherit" letterSpacing="0.1em">YOUR INTENT</text>
 
       {/* Right circle — their perception */}
-      <circle cx="315" cy="110" r="72" stroke="rgba(26,26,26,0.08)" strokeWidth="0.75" />
-      <circle cx="315" cy="110" r="50" stroke="rgba(26,26,26,0.05)" strokeWidth="0.5" strokeDasharray="3 5" />
-      <circle cx="315" cy="110" r="6"  fill="rgba(26,26,26,0.16)" />
+      <circle cx="315" cy="110" r="72" stroke="rgba(245,245,246,0.08)" strokeWidth="0.75" />
+      <circle cx="315" cy="110" r="50" stroke="rgba(245,245,246,0.05)" strokeWidth="0.5" strokeDasharray="3 5" />
+      <circle cx="315" cy="110" r="6"  fill="rgba(245,245,246,0.18)" />
       {[0,45,90,135,180,225,270,315].map((deg, i) => {
         const rad = (deg * Math.PI) / 180;
         return (
           <line key={i}
             x1={315 + 68 * Math.cos(rad)} y1={110 + 68 * Math.sin(rad)}
             x2={315 + 72 * Math.cos(rad)} y2={110 + 72 * Math.sin(rad)}
-            stroke="rgba(26,26,26,0.14)" strokeWidth="0.5"
+            stroke="rgba(245,245,246,0.12)" strokeWidth="0.5"
           />
         );
       })}
-      <text x="315" y="96" textAnchor="middle" fill="rgba(26,26,26,0.22)" fontSize="7.5" fontFamily="inherit" letterSpacing="0.1em">THEIR PERCEPTION</text>
+      <text x="315" y="96" textAnchor="middle" fill="rgba(245,245,246,0.2)" fontSize="7.5" fontFamily="inherit" letterSpacing="0.1em">THEIR PERCEPTION</text>
 
       {/* Bridge / overlap zone */}
       <path
         d="M 177 74 Q 210 60 243 74 Q 228 110 210 126 Q 192 110 177 74 Z"
-        fill="rgba(107,86,68,0.06)"
-        stroke="rgba(107,86,68,0.22)"
+        fill="rgba(225,185,138,0.08)"
+        stroke="rgba(225,185,138,0.35)"
         strokeWidth="0.75"
       />
-      <text x="210" y="105" textAnchor="middle" fill="rgba(107,86,68,0.7)" fontSize="7" fontFamily="inherit" letterSpacing="0.14em" fontWeight="600">DEFRAG</text>
-      <text x="210" y="116" textAnchor="middle" fill="rgba(107,86,68,0.38)" fontSize="6" fontFamily="inherit" letterSpacing="0.08em">bridges the space</text>
+      <text x="210" y="105" textAnchor="middle" fill="rgba(225,185,138,0.85)" fontSize="7" fontFamily="inherit" letterSpacing="0.14em" fontWeight="600">DEFRAG</text>
+      <text x="210" y="116" textAnchor="middle" fill="rgba(225,185,138,0.4)" fontSize="6" fontFamily="inherit" letterSpacing="0.08em">bridges the space</text>
 
       {/* Connector dashes */}
-      <line x1="155" y1="110" x2="178" y2="110" stroke="rgba(26,26,26,0.15)" strokeWidth="0.5" strokeDasharray="2 3" />
-      <line x1="242" y1="110" x2="265" y2="110" stroke="rgba(26,26,26,0.1)"  strokeWidth="0.5" strokeDasharray="2 3" />
+      <line x1="155" y1="110" x2="178" y2="110" stroke="rgba(245,245,246,0.12)" strokeWidth="0.5" strokeDasharray="2 3" />
+      <line x1="242" y1="110" x2="265" y2="110" stroke="rgba(245,245,246,0.08)"  strokeWidth="0.5" strokeDasharray="2 3" />
     </svg>
   );
 }
@@ -72,7 +72,7 @@ export function BridgeDiagram({ className = "" }: { className?: string }) {
 /* ─── Capability Icons ───────────────────────────────────────────────────────
    Warm charcoal strokes — render correctly on light background.
 ────────────────────────────────────────────────────────────────────────────── */
-const S = "rgba(26,26,26,0.55)"; // standard stroke
+const S = "rgba(245,245,246,0.65)"; // standard stroke — off-white on dark
 
 export function IconNature() {
   return (
@@ -115,7 +115,7 @@ export function IconLanguage() {
    IconNow:      gentle wave animation on the radial lines
    IconConnection: two circles drifting closer
 ────────────────────────────────────────────────────────────────────────────── */
-const A = "rgba(107,86,68,0.7)"; // accent stroke
+const A = "rgba(225,185,138,0.8)"; // accent stroke — warm amber on dark
 
 export function IconBaseline() {
   return (

@@ -5,7 +5,7 @@ export function SiteHeader() {
   return (
     <header
       className="sticky top-0 z-50 w-full border-b border-[var(--border)]"
-      style={{ background: "rgba(247,243,238,0.92)", backdropFilter: "blur(16px) saturate(180%)" }}
+      style={{ background: "rgba(17,17,18,0.88)", backdropFilter: "blur(20px) saturate(180%)" }}
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12 h-[56px] flex items-center justify-between gap-8">
 

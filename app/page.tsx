@@ -36,7 +36,7 @@ export default function Home() {
                 }}
               >
                 Healing isn&apos;t optional.<br />
-                <span style={{ color: "var(--accent)" }}>But the pain is.</span>
+                <span style={{ color: "var(--accent)", opacity: 0.85 }}>But the pain is.</span>
               </h1>
               <p className="mb-10 animate-fade-up-d2" style={{ fontSize: 17, lineHeight: 1.72, color: "var(--muted)", maxWidth: "42ch" }}>
                 We all have to grow. But we don&apos;t have to suffer through the friction of being misunderstood. DEFRAG helps you see how you&apos;re made, how to read a tough moment, and how to see what the person across from you is really seeing.
@@ -95,7 +95,7 @@ export default function Home() {
                 key={col.tag}
                 className="cell flex flex-col gap-4"
                 style={{
-                  background: col.accent ? "#fff" : "var(--surface)",
+                  background: col.accent ? "var(--surface-2)" : "var(--surface)",
                   borderLeft: col.accent ? `2px solid var(--accent-border)` : undefined,
                 }}
               >
@@ -204,16 +204,16 @@ export default function Home() {
                   { label: "Them", y: 160 },
                 ].map((n) => (
                   <g key={n.label}>
-                    <rect x="8" y={n.y - 13} width="68" height="26" rx="4" fill="#fff" stroke="var(--border)" strokeWidth="1" />
+                    <rect x="8" y={n.y - 13} width="68" height="26" rx="4" fill="var(--surface-2)" stroke="var(--border)" strokeWidth="1" />
                     <text x="42" y={n.y + 4.5} textAnchor="middle" fill="var(--muted)" fontSize="10" fontFamily="inherit">{n.label}</text>
                     <line x1="76" y1={n.y} x2="112" y2={n.y} stroke="var(--border-2)" strokeWidth="0.75" strokeDasharray="3 3" />
                     <line x1="112" y1={n.y} x2="140" y2="100" stroke="var(--border-2)" strokeWidth="0.75" />
                   </g>
                 ))}
                 {/* Central DEFRAG node */}
-                <rect x="140" y="78" width="72" height="44" rx="6" fill="var(--accent)" />
-                <text x="176" y="97" textAnchor="middle" fill="#F7F3EE" fontSize="9" fontFamily="inherit" fontWeight="600" letterSpacing="0.1em">DEFRAG</text>
-                <text x="176" y="110" textAnchor="middle" fill="rgba(247,243,238,0.6)" fontSize="7.5" fontFamily="inherit">intelligence layer</text>
+                <rect x="140" y="78" width="72" height="44" rx="6" fill="var(--surface-3)" stroke="var(--accent-border)" strokeWidth="1" />
+                <text x="176" y="97" textAnchor="middle" fill="var(--accent)" fontSize="9" fontFamily="inherit" fontWeight="600" letterSpacing="0.1em">DEFRAG</text>
+                <text x="176" y="110" textAnchor="middle" fill="var(--muted-2)" fontSize="7.5" fontFamily="inherit">intelligence layer</text>
                 {/* Output nodes */}
                 {[
                   { label: "Clear Read", y: 60 },
@@ -222,7 +222,7 @@ export default function Home() {
                   <g key={n.label}>
                     <line x1="212" y1="100" x2="218" y2={n.y} stroke="var(--border-2)" strokeWidth="0.75" />
                     <line x1="218" y1={n.y} x2="228" y2={n.y} stroke="var(--border-2)" strokeWidth="0.75" strokeDasharray="3 3" />
-                    <rect x="228" y={n.y - 13} width="44" height="26" rx="4" fill="#fff" stroke="var(--border)" strokeWidth="1" />
+                    <rect x="228" y={n.y - 13} width="44" height="26" rx="4" fill="var(--surface-2)" stroke="var(--border)" strokeWidth="1" />
                     <text x="250" y={n.y + 4.5} textAnchor="middle" fill="var(--foreground)" fontSize="9" fontFamily="inherit">{n.label}</text>
                   </g>
                 ))}
@@ -506,7 +506,7 @@ export default function Home() {
             <div className="reveal reveal-d1">
               <div
                 className="rounded-[var(--radius-lg)] overflow-hidden"
-                style={{ border: "1px solid var(--border)", background: "#fff" }}
+                style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
               >
                 <div className="px-7 pt-7 pb-5" style={{ borderBottom: "1px solid var(--border)" }}>
                   <p className="label mb-1.5">Three coordinates</p>
