@@ -32,14 +32,14 @@ export default function Home() {
             className="text-[clamp(44px,7vw,80px)] font-bold leading-[1.04] tracking-[-0.03em] text-[var(--foreground)] mb-8 max-w-3xl animate-fade-up-d1"
           >
             Healing isn&apos;t optional.<br />
-            <span style={{ color: "var(--muted)" }}>But the pain is.</span>
+            <span style={{ color: "var(--muted)" }}>The suffering is.</span>
           </h1>
-          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[480px] mb-12 animate-fade-up-d2" style={{ fontWeight: 400 }}>
-            DEFRAG is a personal clarity platform that helps you understand how you are made, read the tension in a moment, and finally see the world from the other person&apos;s side.
+          <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[500px] mb-12 animate-fade-up-d2" style={{ fontWeight: 400 }}>
+            DEFRAG is a personal canvas for understanding how you are made, reading what is actually happening in a moment, and seeing the world from the other side of it.
           </p>
           <div className="flex flex-wrap gap-3 animate-fade-up-d3">
-            <Link href={routes.start} className="btn-primary">Start Your Baseline</Link>
-            <Link href={routes.product} className="btn-secondary">How It Works</Link>
+            <Link href={routes.start} className="btn-primary">Establish Your Baseline</Link>
+            <Link href={routes.product} className="btn-secondary">See the Platform</Link>
           </div>
         </div>
       </section>
@@ -48,19 +48,22 @@ export default function Home() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
 
-          <div className="space-y-2">
-            <p className="label">The clarity gap</p>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-[var(--foreground)] max-w-xl">
-              We suffer in the space between what we meant and what they heard.
+          <div className="space-y-4">
+            <p className="label">The canvas problem</p>
+            <h2 className="text-2xl md:text-[32px] font-semibold tracking-[-0.02em] text-[var(--foreground)] max-w-2xl leading-snug">
+              Most conflict happens because two people are painting on the same canvas without knowing it.
             </h2>
+            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-xl">
+              You see your strokes. They see theirs. Neither of you is wrong about what you painted. You are just standing at different angles.
+            </p>
           </div>
 
           {/* 3-column grid strip */}
           <div className="grid md:grid-cols-3 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
             {[
-              { tag: "The Moment", copy: "You ask for a little more time to finish a task." },
-              { tag: "The Miss",   copy: "They hear a lack of commitment and start to worry." },
-              { tag: "The Truth",  copy: "You aren\u2019t failing. They aren\u2019t being difficult. You\u2019re seeing the same moment from two sides." }
+              { tag: "What happened", copy: "You asked for a little more time to finish the work you were already inside of." },
+              { tag: "What they heard", copy: "A withdrawal. A signal that the thing between you was less important than the thing in front of you." },
+              { tag: "What was true", copy: "You were both right about what you experienced. Neither of you had the full picture." }
             ].map((item, i) => (
               <div key={i} className="cell bg-[var(--surface)]">
                 <p className="label mb-4">{item.tag}</p>
@@ -70,7 +73,7 @@ export default function Home() {
           </div>
 
           <p className="text-[var(--muted-2)] text-sm">
-            DEFRAG shows you the bridge between them.
+            DEFRAG gives you the angle they are standing at.
           </p>
         </div>
       </section>
@@ -79,19 +82,22 @@ export default function Home() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-12">
 
-          <div className="space-y-3">
-            <p className="label">How it works</p>
+          <div className="space-y-4">
+            <p className="label">The platform</p>
             <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-lg">
-              Understand why people do what they do.
+              A canvas with four distinct layers of resolution.
             </h2>
+            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-lg">
+              Each layer brings something specific into focus. Together, they give you a complete picture of yourself, the moment, and the person across from you.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-px bg-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
             {[
-              { n: "01", title: "Know Your Nature",  body: "See how you were made to handle the world and what you need to feel clear." },
-              { n: "02", title: "Read the Moment",   body: "Recognize the tension in a room before it turns into a regret." },
-              { n: "03", title: "See Their Side",    body: "Understand why someone else reacts the way they do — without guesswork." },
-              { n: "04", title: "Find the Response", body: "Know exactly what to say when it matters most." }
+              { n: "01", title: "Your Nature",       body: "The first layer is you — how you were made to handle the world, what you need to feel clear, and what pulls you away from it." },
+              { n: "02", title: "The Moment",        body: "The second layer is the present. What is actually happening right now, beneath the reaction and the noise." },
+              { n: "03", title: "Their Perspective", body: "The third layer is the person across from you — rendered without assumption, drawn from the same precision used to map your own." },
+              { n: "04", title: "The Path Forward",  body: "The fourth layer is language. What to say, and how to say it, in a way that lands on their side of the canvas." }
             ].map((item) => (
               <div key={item.n} className="cell bg-[var(--surface)] flex gap-5">
                 <span className="label pt-0.5 shrink-0 tabular-nums">{item.n}</span>
@@ -109,43 +115,46 @@ export default function Home() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
 
-          <div className="space-y-3">
-            <p className="label">When it matters most</p>
+          <div className="space-y-4">
+            <p className="label">Situations</p>
             <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-xl">
-              Made for the moments that change things.
+              The moments where the picture needs to be clearer.
             </h2>
+            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-lg">
+              These are ordinary situations. The damage they cause is not. DEFRAG gives you what the moment actually contains — before the reaction writes the ending.
+            </p>
           </div>
 
           <div className="space-y-3">
             {[
               {
                 moment: "You reschedule for the third time.",
-                miss:   "They decide you don\u2019t respect them.",
-                truth:  "You\u2019re overwhelmed. They need reliability. DEFRAG gives you the words to reset the relationship, not just the calendar."
+                miss:   "They read it as evidence that the relationship is not a priority.",
+                truth:  "You are overextended. They need a signal that they are still on the canvas. DEFRAG gives you the words that land on their side — not just words that feel honest on yours."
               },
               {
-                moment: "They question your decision publicly.",
-                miss:   "You hear it as a threat and armor up.",
-                truth:  "They want clarity. You want autonomy. DEFRAG shows you how to lead together instead of apart."
+                moment: "They challenge your decision in front of others.",
+                miss:   "You read it as an attack on your authority and close off.",
+                truth:  "They need to understand before they can follow. You need room to lead without defending every step. DEFRAG shows you how both can be true at once."
               },
               {
-                moment: "You commit, then feel like pulling back.",
-                miss:   "They experience betrayal and brace for impact.",
-                truth:  "You need recalibration. They need reassurance. DEFRAG helps you renegotiate the future instead of repeating the past."
+                moment: "You commit to something and then feel yourself pulling back.",
+                miss:   "They feel the withdrawal before you say a word and start bracing for the worst.",
+                truth:  "You need to recalibrate. They need reassurance that the picture has not changed. DEFRAG helps you renegotiate without restarting from damage."
               }
             ].map((s, i) => (
               <div key={i} className="card group">
                 <div className="grid md:grid-cols-3 gap-6 md:gap-10">
                   <div>
-                    <p className="label mb-3">The Moment</p>
+                    <p className="label mb-3">What happened</p>
                     <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.moment}</p>
                   </div>
                   <div>
-                    <p className="label mb-3">The Miss</p>
+                    <p className="label mb-3">What they read</p>
                     <p className="text-[15px] text-[var(--foreground)] leading-relaxed">{s.miss}</p>
                   </div>
                   <div>
-                    <p className="label mb-3">The Truth</p>
+                    <p className="label mb-3">What DEFRAG sees</p>
                     <p className="text-[15px] text-[var(--muted)] leading-relaxed">{s.truth}</p>
                   </div>
                 </div>
@@ -170,12 +179,12 @@ export default function Home() {
 
         <div className="relative max-w-5xl mx-auto px-6 md:px-12 py-28 md:py-40 flex flex-col md:flex-row md:items-end md:justify-between gap-12">
           <div>
-            <p className="label mb-5">Get started</p>
+            <p className="label mb-5">Begin</p>
             <h2 className="text-3xl md:text-[52px] font-bold tracking-[-0.03em] leading-[1.06] text-[var(--foreground)] max-w-md">
-              Ready to find your clarity?
+              The canvas is already there. You just need a clearer view of it.
             </h2>
             <p className="text-[var(--muted)] text-[16px] mt-5 max-w-sm leading-relaxed">
-              Your baseline takes minutes. The clarity it gives you lasts.
+              Your baseline takes minutes to establish. What it reveals tends to change how you work with everything after it.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">

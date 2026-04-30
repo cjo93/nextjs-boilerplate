@@ -5,35 +5,35 @@ import { routes } from "@/lib/routes";
 const tiers = [
   {
     name: "Baseline",
-    subtitle: "For those who want to understand how they are uniquely made.",
+    subtitle: "Your personal canvas, rendered in full. Understand how you were built to move through the world — your decision style, what steadies you, and what pulls you off center.",
     features: [
-      "Your natural way of being and decision style.",
-      "How you handle intense moments.",
-      "Guidance on returning to clarity.",
+      "Your nature and decision style",
+      "How you process intensity",
+      "What returns you to clarity",
     ],
     cta: "Start with Baseline",
     featured: false,
   },
   {
     name: "Premium",
-    subtitle: "For those who want guidance when life gets loud.",
+    subtitle: "Everything in Baseline, with the canvas extended into the present. Read what is actually happening in real time — before the moment becomes a regret.",
     features: [
-      "Everything in Baseline.",
-      "The Now workspace for real-time reads.",
-      "Live support for timing and reactions.",
-      "Saved history of your insights.",
+      "Everything in Baseline",
+      "The Now workspace for real-time reads",
+      "Situational guidance and timing support",
+      "Saved history of your insights",
     ],
     cta: "Choose Premium",
     featured: true,
   },
   {
     name: "Signature",
-    subtitle: "For those who want to heal their relationships.",
+    subtitle: "The complete canvas — yourself, the moment, and the person across from you — rendered simultaneously. For those doing the harder work of repair and connection.",
     features: [
-      "Everything in Premium.",
-      "The Relationship workspace for deep connection.",
-      "Support for your hardest conversations.",
-      "Mapping the shared patterns between you and another.",
+      "Everything in Premium",
+      "The Relationship workspace",
+      "Support for your most difficult conversations",
+      "Shared pattern mapping between two people",
     ],
     cta: "Choose Signature",
     featured: false,
@@ -49,10 +49,10 @@ export default function PricingPage() {
         <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-20 md:pt-36 md:pb-24">
           <p className="label mb-6 animate-fade-up">Pricing</p>
           <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-2xl animate-fade-up-d1">
-            Choose the level of clarity that matches your needs.
+            Start with the layer you need. Expand as the work deepens.
           </h1>
           <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-md animate-fade-up-d2">
-            Start where you are. Move deeper as your clarity needs evolve.
+            Each tier extends the canvas. You begin with yourself and, when you are ready, bring the full picture into view.
           </p>
         </div>
       </section>
@@ -119,11 +119,11 @@ export default function PricingPage() {
           <div>
             <p className="label mb-4">No commitment needed</p>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)] max-w-sm leading-tight">
-              Start with the level that matches your need.
+              No commitment to the full picture. Start with what you need today.
             </h2>
           </div>
           <p className="text-sm text-[var(--muted)] max-w-xs leading-relaxed">
-            You can move deeper into the system as your clarity needs evolve. Every tier builds on the last.
+            Every tier builds on the last. The canvas grows as you do.
           </p>
         </div>
       </section>

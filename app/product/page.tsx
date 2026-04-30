@@ -7,19 +7,19 @@ const pillars = [
     n: "01",
     label: "The Baseline",
     title: "Your Nature",
-    body: "Understand the truth of who you are. See what makes you feel alive, what makes you shut down, and how to find your way back to center when things get intense.",
+    body: "The first layer of the canvas is you. Not a personality type or a label — a precise picture of how you were built to process the world, what you need to stay clear, and what pulls you away from it when things get dense.",
   },
   {
     n: "02",
     label: "The Now",
     title: "The Moment",
-    body: "Get a clear read on what is happening right this second. Stop the overthinking and find the move that actually fits the situation.",
+    body: "The second layer is the present situation in full resolution. DEFRAG reads what is actually happening — the tension beneath the surface — so you can respond to the moment as it is, not as you feared it might be.",
   },
   {
     n: "03",
     label: "The Relationships",
     title: "The Connection",
-    body: "Understand the person across from you. See the world through their eyes so you can stop fighting their nature and start building a real connection.",
+    body: "The third layer brings the other person into focus. Their nature, their current state, and the gap between you — rendered with the same precision used to map your own. When you can see both sides of the canvas at once, the conflict stops feeling inevitable.",
   },
 ];
 
@@ -32,10 +32,10 @@ export default function ProductPage() {
         <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
           <p className="label mb-6 animate-fade-up">Platform overview</p>
           <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
-            A simpler way to navigate your life.
+            Three layers. One canvas.
           </h1>
           <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[520px] animate-fade-up-d2">
-            DEFRAG gives you a clear way to navigate the three areas where we get lost most: ourselves, our timing, and our people.
+            Every place we get lost — inside ourselves, inside a moment, inside a relationship — has a picture underneath it. DEFRAG is the tool that makes that picture readable.
           </p>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function ProductPage() {
           <div>
             <p className="label mb-4">Get started</p>
             <h2 className="text-3xl md:text-[44px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-md">
-              Move into the part of the system that matches your need.
+              Start with the layer that matches where you are right now.
             </h2>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">

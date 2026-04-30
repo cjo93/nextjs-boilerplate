@@ -6,17 +6,17 @@ const steps = [
   {
     n: "01",
     title: "Map Your Nature",
-    body: "We use your birth details to find your natural starting point. No long quizzes or personality labels — just a clear look at how you were uniquely made to experience the world.",
+    body: "DEFRAG begins with your birth data — not to sort you into a category, but to find the precise configuration that is unique to you. This becomes the baseline layer of your canvas: how you were made to move through the world, and what you need to stay clear inside it.",
   },
   {
     n: "02",
-    title: "Pick Your Lens",
-    body: "Choose the focus that matches your need. Whether you are looking inward, reading a specific moment, or trying to understand a relationship, move into the part of the system that fits.",
+    title: "Choose Your Layer",
+    body: "From your baseline, you move into the layer that fits the moment. Looking inward, reading a situation in real time, or trying to understand the person across from you — each brings a different part of the canvas into focus.",
   },
   {
     n: "03",
-    title: "Find the Way Forward",
-    body: "DEFRAG gives you a simple, human explanation of the why and a clear path forward that feels right for everyone involved.",
+    title: "Read What Is Actually There",
+    body: "DEFRAG gives you a plain account of what it finds — not a reframe, not a reinterpretation. The canvas as it is, rendered in language you can use immediately, on both sides of the conversation.",
   },
 ];
 
@@ -29,10 +29,10 @@ export default function HowItWorksPage() {
         <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
           <p className="label mb-6 animate-fade-up">How it works</p>
           <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
-            From confusion to clarity.
+            Every interaction has a picture underneath it.
           </h1>
           <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[480px] animate-fade-up-d2">
-            DEFRAG takes the complexity of human interaction and turns it into simple, honest guidance you can use immediately.
+            DEFRAG reads the canvas — what is actually there, beneath the reaction — and gives you something you can work with immediately.
           </p>
         </div>
       </section>
@@ -55,30 +55,33 @@ export default function HowItWorksPage() {
       {/* ── DEEPER DETAIL ── */}
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-10">
-          <div className="space-y-3">
+          <div className="space-y-4">
             <p className="label">What makes it different</p>
             <h2 className="text-3xl md:text-[42px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-lg">
-              No labels. No jargon. Just clarity.
+              Precision without jargon.
             </h2>
+            <p className="text-[15px] text-[var(--muted)] leading-relaxed max-w-lg">
+              Most tools give you a framework and ask you to do the work of applying it. DEFRAG does the application for you.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-3">
             {[
               {
-                title: "Built on your actual nature",
-                body: "Your baseline is derived from your birth data — a precise starting point that is unique to you, not a category you are sorted into."
+                title: "Your baseline is unique to you",
+                body: "It is derived from your birth data — a specific, unrepeatable configuration, not a category you share with millions of other people."
               },
               {
-                title: "Real-time, not just retrospective",
-                body: "The Now workspace helps you read a moment as it is happening, not just understand it after the fact."
+                title: "The canvas updates in real time",
+                body: "The Now workspace reads the current moment as it is unfolding. Not a retrospective analysis. Not a prediction. What is actually present."
               },
               {
-                title: "Designed for both sides",
-                body: "Every insight accounts for the other person. You see yourself clearly and you see them clearly — at the same time."
+                title: "Both sides of the canvas are visible",
+                body: "Every insight is rendered with the other person in frame. You see yourself and you see them — simultaneously, with the same level of resolution."
               },
               {
-                title: "Language you can actually use",
-                body: "DEFRAG translates what it finds into plain language. No interpretation required."
+                title: "The output is language, not theory",
+                body: "DEFRAG gives you something to say. Specific words, calibrated to how the other person is made and what they can receive in this moment."
               }
             ].map((item) => (
               <div key={item.title} className="card">
@@ -96,7 +99,7 @@ export default function HowItWorksPage() {
           <div>
             <p className="label mb-4">Ready</p>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)] max-w-sm leading-tight">
-              A calmer way to work with what is happening.
+              A more precise way to work with what the moment actually contains.
             </h2>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">

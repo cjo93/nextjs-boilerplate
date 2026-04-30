@@ -6,32 +6,32 @@ const useCases = [
   {
     n: "01",
     title: "Before you send the message",
-    body: "Check if your timing and tone match the moment before you commit to a direction.",
+    body: "The canvas looks different at 11pm than it does at 9am. DEFRAG reads the moment so you know whether your timing and tone are going to land — before you commit.",
   },
   {
     n: "02",
-    title: "When a conversation loops",
-    body: "Understand the pattern that keeps you and another person stuck and find the first move out.",
+    title: "When a conversation keeps repeating",
+    body: "The same argument returning is not a failure of effort. It is a picture neither person can fully see. DEFRAG shows you what is actually in the frame so you can find the first move out.",
   },
   {
     n: "03",
-    title: "When something feels off",
-    body: "Name the tension you are feeling so you can address it clearly instead of reacting to it.",
+    title: "When something is off but you cannot name it",
+    body: "Tension has a shape. DEFRAG helps you identify it precisely — so you can address what is there instead of reacting to your interpretation of it.",
   },
   {
     n: "04",
-    title: "When you want to be heard",
-    body: "Learn how to speak in a way the other person can actually receive, given how they are made.",
+    title: "When you need to be understood",
+    body: "Being heard is not about speaking louder. It is about knowing how the other person receives. DEFRAG gives you the words that reach their side of the canvas.",
   },
   {
     n: "05",
-    title: "When you need to lead",
-    body: "Move with self-possession and clarity in high-stakes environments where precision matters.",
+    title: "When the stakes are high",
+    body: "High-stakes moments require more precision, not more effort. DEFRAG gives you a clear read on both sides before you act.",
   },
   {
     n: "06",
-    title: "When you are ready to repair",
-    body: "Find the path back to someone after distance or damage — without pretending it did not happen.",
+    title: "When you are trying to come back",
+    body: "Repair is harder than the initial break because the canvas has changed. DEFRAG helps you find the path back to someone without pretending the distance was not real.",
   },
 ];
 
@@ -42,12 +42,12 @@ export default function UseCasesPage() {
       {/* ── HERO ── */}
       <section className="border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
-          <p className="label mb-6 animate-fade-up">Use cases</p>
+          <p className="label mb-6 animate-fade-up">Situations</p>
           <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-3xl animate-fade-up-d1">
-            For the moments that matter.
+            Six places where a clearer picture changes the outcome.
           </h1>
           <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[440px] animate-fade-up-d2">
-            DEFRAG is for the times when you need to be sure.
+            The situations below are ordinary. The cost of navigating them without enough information is not.
           </p>
         </div>
       </section>
@@ -73,10 +73,10 @@ export default function UseCasesPage() {
           <div>
             <p className="label mb-4">Get started</p>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)] max-w-sm leading-tight">
-              Clarity when it matters most.
+              The picture is already there. DEFRAG just makes it readable.
             </h2>
             <p className="text-sm text-[var(--muted)] mt-4 max-w-xs leading-relaxed">
-              Use DEFRAG whenever you need to move from confusion toward certainty.
+              Start with your baseline. From there, every situation has a clearer entry point.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">
