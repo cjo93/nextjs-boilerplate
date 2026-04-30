@@ -5,7 +5,7 @@ export function SiteHeader() {
   return (
     <header
       className="sticky top-0 z-50 w-full border-b border-[var(--border)]"
-      style={{ background: "rgba(8,8,8,0.85)", backdropFilter: "blur(16px) saturate(180%)" }}
+      style={{ background: "rgba(247,243,238,0.92)", backdropFilter: "blur(16px) saturate(180%)" }}
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12 h-[56px] flex items-center justify-between gap-8">
 
@@ -13,7 +13,7 @@ export function SiteHeader() {
           DEFRAG
           <span
             className="block w-[5px] h-[5px] rounded-full shrink-0 mb-[1px]"
-            style={{ background: "rgba(240,240,240,0.35)" }}
+            style={{ background: "var(--accent)", opacity: 0.6 }}
             aria-hidden
           />
         </Link>
@@ -51,7 +51,7 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--surface)]">
+    <footer className="border-t border-[var(--border)]" style={{ background: "var(--surface)" }}>
       <div className="max-w-5xl mx-auto px-6 md:px-12 py-14">
 
         {/* Top row */}
@@ -59,7 +59,7 @@ export function SiteFooter() {
           <div className="max-w-[260px]">
             <span className="brand-wordmark block mb-4">DEFRAG</span>
             <p className="text-[12px] leading-[1.7]" style={{ color: "var(--muted-2)" }}>
-              A personal canvas for understanding how you are made, reading what a moment actually contains, and seeing the world from the other side of it.
+              A human intelligence platform. We map the hidden dynamics of how people work so you can move through relationships with precision, empathy, and absolute clarity.
             </p>
           </div>
 
