@@ -10,21 +10,28 @@ export function BranchingPath({
     <ArtifactStage>
       <ArtifactFrame>
         <ArtifactFocal>
-          <p className="font-medium">Choose your path</p>
-          <p>Start where the moment is most active.</p>
+          Start where the moment is most active.
         </ArtifactFocal>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-3">
           {paths.map((p) => (
-            <Link key={p.title} href={p.href} className="border rounded-xl p-4 space-y-1">
-              <p className="font-medium">{p.title}</p>
-              <p className="text-sm text-neutral-500">{p.description}</p>
+            <Link
+              key={p.title}
+              href={p.href}
+              className="group flex flex-col gap-2 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--surface-2)] p-5 hover:border-[var(--border-3)] hover:bg-[var(--surface-3)] transition-colors"
+            >
+              <p className="text-[14px] font-semibold tracking-tight text-[var(--foreground)]">
+                {p.title}
+              </p>
+              <p className="text-[13px] text-[var(--muted)] leading-relaxed">
+                {p.description}
+              </p>
             </Link>
           ))}
         </div>
 
         <ArtifactSupport>
-          <p>You can move between paths as your understanding evolves.</p>
+          You can move between layers as your understanding becomes more precise.
         </ArtifactSupport>
       </ArtifactFrame>
     </ArtifactStage>
