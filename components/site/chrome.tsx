@@ -63,31 +63,18 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-            <div>
-              <p className="label mb-3">Platform</p>
-              <div className="space-y-2">
-                <Link href={routes.product}    className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">The Baseline</Link>
-                <Link href={routes.product}    className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">The Moment</Link>
-                <Link href={routes.product}    className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">The Connection</Link>
-              </div>
-            </div>
-            <div>
-              <p className="label mb-3">Resources</p>
-              <div className="space-y-2">
-                <Link href={routes.howItWorks} className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">How It Works</Link>
-                <Link href={routes.useCases}   className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">Use Cases</Link>
-                <Link href={routes.pricing}    className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">Pricing</Link>
-              </div>
-            </div>
-            <div>
-              <p className="label mb-3">Company</p>
-              <div className="space-y-2">
-                <Link href="#" className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">About</Link>
-                <Link href="#" className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">Privacy</Link>
-                <Link href="#" className="block text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">Terms</Link>
-              </div>
-            </div>
+          <div className="flex flex-wrap gap-x-8 gap-y-2 items-start md:pt-1">
+            {[
+              { label: "How It Works", href: routes.howItWorks },
+              { label: "Pricing",      href: routes.pricing },
+              { label: "Start",        href: routes.start },
+              { label: "Developers",   href: "#" },
+            ].map((l) => (
+              <Link key={l.label} href={l.href}
+                className="text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
+                {l.label}
+              </Link>
+            ))}
           </div>
         </div>
 

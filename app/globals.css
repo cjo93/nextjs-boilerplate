@@ -270,6 +270,29 @@ a {
 }
 
 /* ─────────────────────────────────────────
+   MOBILE / IOS
+───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary {
+    height: 48px;
+    font-size: 15px;
+    padding: 0 24px;
+    width: 100%;
+    justify-content: center;
+  }
+  .cell {
+    padding: 24px;
+  }
+  .card {
+    padding: 24px 24px;
+  }
+  .scenario-col {
+    padding: 20px 24px;
+  }
+}
+
+/* ─────────────────────────────────────────
    FORM INPUTS
 ───────────────────────────────────────── */
 input[type="date"],
