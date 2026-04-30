@@ -7,31 +7,81 @@ import { routes } from "@/lib/routes";
 export default function Home() {
   return (
     <PageShell>
-      {/* HERO SECTION */}
-      <SectionShell className="text-center py-32 md:py-40">
-        <div className="space-y-8 max-w-3xl mx-auto">
-          <h1 className="headline text-white animate-fade-in-up">
+      {/* HERO SECTION - 70vh height with visual elements */}
+      <div className="relative min-h-screen md:h-[70vh] flex items-center justify-center overflow-hidden py-20 md:py-0">
+        {/* Animated gradient blob - background */}
+        <div className="gradient-blob animate-blob-move absolute top-1/3 -left-32 w-96 h-96 pointer-events-none" />
+        <div className="gradient-blob animate-blob-move absolute -bottom-32 right-1/4 w-96 h-96 pointer-events-none" style={{ animationDelay: "2s" }} />
+        
+        {/* Subtle scanline effect overlay */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none animate-scanlines bg-gradient-to-b from-transparent via-white to-transparent" />
+
+        {/* Main content */}
+        <SectionShell className="relative z-10 text-center max-w-3xl mx-auto space-y-8">
+          <h1 className="headline headline-gradient animate-fade-in-up">
             Healing isn&apos;t optional. But the pain is.
           </h1>
-          <p className="subheadline text-[var(--text-secondary)] leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+          <p className="subheadline max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             Life requires us to grow, but it doesn&apos;t require us to suffer through the friction of being misunderstood. DEFRAG is a personal clarity platform that helps you understand how you are made, read the tension in a moment, and finally see the world from the other person&apos;s side.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <Link
               href={routes.start}
-              className="btn-primary"
+              className="btn-primary text-sm"
             >
               Start Your Baseline
             </Link>
             <Link
               href={routes.howItWorks}
-              className="btn-secondary"
+              className="btn-secondary text-sm"
             >
               See How It Works
             </Link>
           </div>
-        </div>
-      </SectionShell>
+        </SectionShell>
+      </div>
+
+      {/* VISUAL SHOWCASE SECTION - Animated bento-style grid */}
+      <div className="relative py-24 md:py-32 overflow-hidden">
+        <SectionShell>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {/* Large feature card - spans 2 columns */}
+            <div className="md:col-span-2 md:row-span-2 border border-[var(--border-color)] bg-white/[0.02] rounded-lg p-8 flex flex-col justify-between hover:border-[var(--border-color-hover)] transition-all duration-300 animate-fade-in-up group" style={{ animationDelay: "0.1s" }}>
+              <div>
+                <p className="text-xs uppercase text-[var(--text-tertiary)] mb-4 font-medium">Foundation</p>
+                <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">Understand your nature</h3>
+                <p className="text-sm text-[var(--text-secondary)]">See how you were uniquely made to experience the world.</p>
+              </div>
+              <div className="mt-8 h-24 bg-gradient-to-br from-purple-500/10 to-magenta-500/10 rounded-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            {/* Small feature cards */}
+            <div className="border border-[var(--border-color)] bg-white/[0.02] rounded-lg p-6 hover:border-[var(--border-color-hover)] transition-all duration-300 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+              <p className="text-xs uppercase text-[var(--text-tertiary)] mb-2 font-medium">Timing</p>
+              <h4 className="text-sm font-semibold text-white">Read the moment</h4>
+              <div className="mt-4 h-12 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded opacity-40" />
+            </div>
+
+            <div className="border border-[var(--border-color)] bg-white/[0.02] rounded-lg p-6 hover:border-[var(--border-color-hover)] transition-all duration-300 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+              <p className="text-xs uppercase text-[var(--text-tertiary)] mb-2 font-medium">Connection</p>
+              <h4 className="text-sm font-semibold text-white">See their side</h4>
+              <div className="mt-4 h-12 bg-gradient-to-r from-magenta-500/5 to-purple-500/5 rounded opacity-40" />
+            </div>
+
+            <div className="border border-[var(--border-color)] bg-white/[0.02] rounded-lg p-6 hover:border-[var(--border-color-hover)] transition-all duration-300 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+              <p className="text-xs uppercase text-[var(--text-tertiary)] mb-2 font-medium">Clarity</p>
+              <h4 className="text-sm font-semibold text-white">Find the response</h4>
+              <div className="mt-4 h-12 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded opacity-40" />
+            </div>
+
+            <div className="border border-[var(--border-color)] bg-white/[0.02] rounded-lg p-6 hover:border-[var(--border-color-hover)] transition-all duration-300 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
+              <p className="text-xs uppercase text-[var(--text-tertiary)] mb-2 font-medium">Resilience</p>
+              <h4 className="text-sm font-semibold text-white">Stay grounded</h4>
+              <div className="mt-4 h-12 bg-gradient-to-r from-purple-500/5 to-magenta-500/5 rounded opacity-40" />
+            </div>
+          </div>
+        </SectionShell>
+      </div>
 
       {/* DIVIDER */}
       <div className="h-px bg-[var(--border-color)] my-24" />
