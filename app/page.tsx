@@ -47,58 +47,6 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
-            {/* Right: app preview panel */}
-            <div className="hidden md:flex items-center justify-center animate-fade-in">
-              <div
-                className="w-full max-w-[340px] rounded-[var(--radius-lg)] border border-[var(--border)] overflow-hidden"
-                style={{
-                  background: "var(--surface-2)",
-                  boxShadow: "0 12px 48px rgba(0,0,0,0.4)",
-                }}
-              >
-                {/* Panel header */}
-                <div className="px-5 py-4 border-b border-[var(--border)]">
-                  <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", color: "var(--muted-2)", textTransform: "uppercase" }}>
-                    DEFRAG · What happened?
-                  </p>
-                </div>
-
-                {/* User message */}
-                <div className="px-5 py-4 border-b border-[var(--border)]">
-                  <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.6 }}>
-                    I asked for more time on the project. They got quiet.
-                  </p>
-                </div>
-
-                {/* Response rows */}
-                <div className="divide-y divide-[var(--border)]">
-                  {[
-                    { label: "What's actually happening.", text: "You asked for more than they're used to giving. That scared them, not you.", accent: false },
-                    { label: "How this might feel to them.", text: "Like pressure and risk, not a simple question.", accent: false },
-                    { label: "One clean move.", text: "Wait 24 hours. Then send a short, honest check-in instead of a defense.", accent: true },
-                  ].map((row, i) => (
-                    <div key={i} className="px-5 py-3.5 flex gap-3 items-start group hover:bg-[var(--surface-3)] transition-colors">
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
-                        style={{
-                          background: row.accent ? "var(--accent)" : "var(--border-subtle)",
-                        }}
-                      />
-                      <div className="space-y-1">
-                        <p className="text-[11px] uppercase tracking-[0.14em]" style={{ color: row.accent ? "var(--accent)" : "var(--muted-2)" }}>
-                          {row.label}
-                        </p>
-                        <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.5 }}>
-                          {row.text}
-                        </p>
-                      </div>
-                    </div>
-            ))}
-          </div>
-        </div>
-        </div>
-          </div>
         </div>
       </section>
 
@@ -151,6 +99,7 @@ export default function Home() {
                 </p>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </section>
