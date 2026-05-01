@@ -22,16 +22,27 @@ export default async function LoginPage({
 
   return (
     <PageShell>
-      <SectionShell>
-        <h1 className="text-3xl font-semibold">Sign in to DEFRAG</h1>
-        <p className="text-neutral-600 max-w-2xl">
-  Sign in with Apple or your email.
-        </p>
-      </SectionShell>
+      <div className="min-h-[calc(100vh-56px)] flex items-center justify-center px-6 py-16">
+        <div className="w-full max-w-sm space-y-8 animate-fade-up">
 
-      <SectionShell className="max-w-xl">
-        <LoginPanel redirectTo={redirectTo} />
-      </SectionShell>
+          {/* Header */}
+          <div className="space-y-2">
+            <p className="label">Welcome back</p>
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
+              Sign in to DEFRAG
+            </h1>
+            <p className="text-sm text-[var(--muted)]">
+              Sign in with Apple or your email.
+            </p>
+          </div>
+
+          {/* Panel */}
+          <div className="border border-[var(--border)] rounded-[var(--radius-lg)] bg-[var(--surface)] p-6">
+            <LoginPanel redirectTo={redirectTo} />
+          </div>
+
+        </div>
+      </div>
     </PageShell>
   );
 }

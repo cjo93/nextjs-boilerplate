@@ -1,73 +1,88 @@
 import Link from "next/link";
 import { PageShell } from "@/components/system/page-shell";
-import { SectionShell } from "@/components/system/section-shell";
 import { routes } from "@/lib/routes";
-import { siteCopy } from "@/lib/site-copy";
+import { CanvasDiagram } from "@/components/site/canvas-diagram";
+
+const pillars = [
+  {
+    n: "01",
+    label: "The Baseline",
+    title: "Your Nature",
+    body: "The first layer of the canvas is you. Not a personality type or a label — a precise picture of how you were built to process the world, what you need to stay clear, and what pulls you away from it when things get dense.",
+  },
+  {
+    n: "02",
+    label: "The Now",
+    title: "The Moment",
+    body: "The second layer is the present situation in full resolution. DEFRAG reads what is actually happening — the tension beneath the surface — so you can respond to the moment as it is, not as you feared it might be.",
+  },
+  {
+    n: "03",
+    label: "The Relationships",
+    title: "The Connection",
+    body: "The third layer brings the other person into focus. Their nature, their current state, and the gap between you — rendered with the same precision used to map your own. When you can see both sides of the canvas at once, the conflict stops feeling inevitable.",
+  },
+];
 
 export default function ProductPage() {
   return (
     <PageShell>
-      <SectionShell>
-        <h1 className="text-3xl font-semibold">
-          {siteCopy.productPage.heroTitle}
-        </h1>
-        <p className="text-neutral-600 max-w-2xl">
-          {siteCopy.productPage.heroBody}
-        </p>
-      </SectionShell>
 
-      <SectionShell>
-        <h2 className="text-2xl font-semibold">
-          {siteCopy.productPage.overviewTitle}
-        </h2>
-        <p className="text-neutral-600 max-w-2xl">
-          {siteCopy.productPage.overviewBody}
-        </p>
-      </SectionShell>
-
-      <SectionShell>
-        <div className="grid md:grid-cols-3 gap-6">
-          {siteCopy.productCards.map((card) => (
-            <Link
-              key={card.title}
-              href={card.href}
-              className="border rounded-xl p-6 space-y-2"
-            >
-              <h3 className="font-medium">{card.title}</h3>
-              <p className="text-sm text-neutral-500">{card.body}</p>
-              <span className="text-sm">{card.cta} →</span>
-            </Link>
-          ))}
+      {/* ── HERO ── */}
+      <section className="border-b border-[var(--border)] overflow-hidden">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 pt-28 pb-24 md:pt-36 md:pb-32">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="label mb-6 animate-fade-up">Platform overview</p>
+              <h1 className="text-[clamp(38px,6vw,68px)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--foreground)] mb-6 max-w-2xl animate-fade-up-d1">
+                Three layers. One canvas.
+              </h1>
+              <p className="text-[17px] text-[var(--muted)] leading-relaxed max-w-[460px] animate-fade-up-d2">
+                Every place we get lost — inside ourselves, inside a moment, inside a relationship — has a picture underneath it. DEFRAG makes that picture readable.
+              </p>
+            </div>
+            <div className="hidden md:flex justify-end animate-fade-in">
+              <CanvasDiagram className="w-full max-w-[400px]" />
+            </div>
+          </div>
         </div>
-      </SectionShell>
+      </section>
 
-      <SectionShell>
-        <div className="grid md:grid-cols-3 gap-6">
-          {siteCopy.productPage.sections.map((section) => (
-            <div key={section.title} className="space-y-2">
-              <h3 className="font-medium">{section.title}</h3>
-              <p className="text-sm text-neutral-500">{section.body}</p>
+      {/* ── THREE PILLARS ── */}
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-3">
+          {pillars.map((p) => (
+            <div key={p.n} className="card group flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+              <div className="shrink-0 flex items-start gap-4 md:w-52">
+                <span className="label tabular-nums pt-0.5 shrink-0">{p.n}</span>
+                <div>
+                  <p className="label mb-1 text-[var(--muted-2)]">{p.label}</p>
+                  <p className="text-[var(--foreground)] font-semibold text-[15px] tracking-[-0.01em] mt-1">{p.title}</p>
+                </div>
+              </div>
+              <div className="h-px md:h-auto md:w-px bg-[var(--border)] shrink-0" />
+              <p className="text-[var(--muted)] text-[15px] leading-[1.7] flex-1">{p.body}</p>
             </div>
           ))}
         </div>
-      </SectionShell>
+      </section>
 
-      <SectionShell className="text-center">
-        <h2 className="text-2xl font-semibold">
-          {siteCopy.productPage.closingTitle}
-        </h2>
-        <p className="text-neutral-600 max-w-2xl mx-auto">
-          {siteCopy.productPage.closingBody}
-        </p>
-        <div className="flex justify-center gap-4 mt-4">
-          <Link href={routes.start} className="px-5 py-3 bg-black text-white rounded-lg">
-            Start Your Baseline
-          </Link>
-          <Link href={routes.app} className="px-5 py-3 border rounded-lg">
-            Go to App
-          </Link>
+      {/* ── CTA ── */}
+      <section>
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32 flex flex-col md:flex-row md:items-end justify-between gap-10">
+          <div>
+            <p className="label mb-4">Get started</p>
+            <h2 className="text-3xl md:text-[44px] font-bold tracking-[-0.025em] leading-tight text-[var(--foreground)] max-w-md">
+              Start with the layer that matches where you are right now.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-3 shrink-0">
+            <Link href={routes.start} className="btn-primary">Start Here</Link>
+            <Link href={routes.app}   className="btn-secondary">Go to App</Link>
+          </div>
         </div>
-      </SectionShell>
+      </section>
+
     </PageShell>
   );
 }

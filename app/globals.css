@@ -1,26 +1,401 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds — deep charcoal, not pure black */
+  --background:  #111112;
+  --surface:     #18181B;
+  --surface-2:   #1E1E22;
+  --surface-3:   #26262C;
+
+  /* Text — off-white + soft greys */
+  --foreground:  #F5F5F6;
+  --muted:       #B3B3BC;
+  --muted-2:     #6B6B78;
+  --muted-3:     #3A3A44;
+
+  /* Borders — subtle dark greys */
+  --border-subtle: #1D1D22;
+  --border:        #2A2A30;
+  --border-2:      #36363E;
+  --border-3:      #46464F;
+
+  /* Accent — metallic warm amber */
+  --accent:        #D69B5A;
+  --accent-soft:   #B37B3E;
+  --accent-dim:    rgba(214, 155, 90, 0.12);
+  --accent-border: rgba(214, 155, 90, 0.28);
+
+  /* Rare highlight */
+  --highlight:   rgba(225, 185, 138, 0.06);
+  --highlight-2: rgba(225, 185, 138, 0.03);
+
+  --radius:      6px;
+  --radius-lg:   12px;
+
+  /* Spacing rhythm */
+  --section-y:   clamp(80px, 10vw, 120px);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: var(--font-dm-serif), Georgia, "Times New Roman", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─────────────────────────────────────────
+   BASE
+───────────────────────────────────────── */
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY
+───────────────────────────────────────── */
+
+/* Eyebrow label */
+.label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scroll-triggered reveal — applied via IntersectionObserver in JS */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+
+/* Running prose — body paragraphs with maximum legibility */
+.prose-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 52ch;
+}
+
+/* ─────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 28px;
+  border-radius: 3px;
+  border: 1px solid var(--accent-soft);
+  background: var(--accent);
+  color: var(--background);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease, transform 80ms ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 24px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-2);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-2);
+  border-color: var(--border-3);
+}
+
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.card:hover {
+  border-color: var(--border-2);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.35);
+}
+
+/* Inset grid cell — flush, no independent rounding */
+.cell {
+  background: var(--surface);
+  padding: 36px;
+  transition: background 220ms ease;
+}
+
+.cell:hover {
+  background: var(--surface-2);
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+.nav-link {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  transition: color 150ms ease;
+  letter-spacing: 0em;
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+}
+
+.brand-wordmark {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+/* ─────────────────────────────────────────
+   DIVIDERS
+───────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─────────────────────────────────────────
+   INLINE CALLOUT — narrative aside
+───────────────────────────────────────── */
+.callout {
+  border-left: 1px solid var(--border-2);
+  padding: 0 0 0 20px;
+}
+
+/* ─────────────────────────────────────────
+   STAT BLOCK — large number + descriptor
+───────────────────────────────────────── */
+.stat-number {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--foreground);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ─────────────────────────────────────────
+   SCENARIO ROW — three-part narrative card
+───────────────────────────────────────── */
+.scenario-row {
+  display: grid;
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 220ms ease;
+}
+
+.scenario-row:hover {
+  border-color: var(--border-2);
+}
+
+.scenario-col {
+  padding: 28px 32px;
+  border-right: 1px solid var(--border);
+}
+
+.scenario-col:last-child {
+  border-right: none;
+}
+
+/* ─────────────────────────────────────────
+   DISPLAY NUMBERS — large editorial indices
+───────────────────────────────────────── */
+.display-num {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(245,245,246,0.09);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* ─────────────────────────────────────────
+   SCENARIO COLUMN — mobile stacking fix
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .scenario-col {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-col:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ─────────────────────────────────────────
+   MOBILE / IOS
+───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary {
+    height: 48px;
+    font-size: 15px;
+    padding: 0 24px;
+    width: 100%;
+    justify-content: center;
+  }
+  .cell {
+    padding: 24px;
+  }
+  .card {
+    padding: 24px 24px;
+  }
+  .scenario-col {
+    padding: 20px 24px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   FORM INPUTS
+───────────────────────────────────────── */
+input[type="date"],
+input[type="time"],
+input[type="text"] {
+  /* Ensure no browser default blue ring */
+  outline: none;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="text"]:focus {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* ─────────────────────────────────────────
+   PRICING TIER — featured highlight
+───────────────────────────────────────── */
+.tier-featured {
+  background: var(--surface-2);
+  border-color: var(--accent-border);
+  box-shadow:
+    0 0 0 1px var(--accent-border),
+    0 8px 40px rgba(0,0,0,0.5);
+}
+
+/* ─────────────────────────────────────────
+   NAV SEPARATOR
+───────────────────────────────────────── */
+.nav-sep {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--border-2);
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d1 {
+  animation: fade-up 0.55s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d2 {
+  animation: fade-up 0.55s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-d3 {
+  animation: fade-up 0.55s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.7s ease both;
 }
