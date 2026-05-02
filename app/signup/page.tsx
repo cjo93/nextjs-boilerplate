@@ -2,34 +2,37 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirectTo') || '/app';
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
-    
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
     try {
-      // TODO: Wire up Supabase authentication here
-      // const { data, error } = await supabase.auth.signInWithPassword({
+      // TODO: Wire up Supabase registration here
+      // const { data, error } = await supabase.auth.signUp({
       //   email,
       //   password,
       // });
       // if (error) throw error;
-      // router.push(redirectTo);
-      console.log('[v0] Login attempt:', { email, redirectTo });
+      // router.push('/app');
+      console.log('[v0] Signup attempt:', { email });
     } catch (err) {
-      setError('Authentication failed. Verify credentials and retry.');
+      setError('Registration failed. Try again.');
     } finally {
       setLoading(false);
     }
@@ -47,7 +50,7 @@ export default function LoginPage() {
               fontFamily: '"JetBrains Mono", monospace',
             }}
           >
-            [ INITIALIZE ]
+            [ REGISTER ]
           </h1>
           <p 
             className="text-sm"
@@ -58,7 +61,7 @@ export default function LoginPage() {
               letterSpacing: '0.08em',
             }}
           >
-            AUTHENTICATION_REQUIRED
+            SYSTEM_ACCESS_REQUIRED
           </p>
         </div>
 
@@ -104,6 +107,26 @@ export default function LoginPage() {
             />
           </div>
 
+          {/* Confirm Password */}
+          <div>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="> CONFIRM_PASSWORD..."
+              required
+              className="w-full px-4 py-3 bg-transparent border text-white placeholder-[#666666] focus:outline-none transition-colors"
+              style={{
+                borderColor: '#333333',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '13px',
+                letterSpacing: '0.02em',
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#ffffff'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#333333'}
+            />
+          </div>
+
           {/* Error */}
           {error && (
             <p 
@@ -130,7 +153,7 @@ export default function LoginPage() {
               fontWeight: 500,
             }}
           >
-            {loading ? '[ INITIALIZING... ]' : '[ SIGN IN ]'}
+            {loading ? '[ REGISTERING... ]' : '[ CREATE ACCESS ]'}
           </button>
         </form>
 
@@ -169,7 +192,7 @@ export default function LoginPage() {
               e.currentTarget.style.color = '#ffffff';
             }}
           >
-            &gt; INITIALIZE_VIA_GITHUB
+            &gt; REGISTER_VIA_GITHUB
           </button>
           <button
             type="button"
@@ -189,7 +212,7 @@ export default function LoginPage() {
               e.currentTarget.style.color = '#ffffff';
             }}
           >
-            &gt; INITIALIZE_VIA_GOOGLE
+            &gt; REGISTER_VIA_GOOGLE
           </button>
         </div>
 
@@ -202,13 +225,13 @@ export default function LoginPage() {
               fontFamily: '"JetBrains Mono", monospace',
             }}
           >
-            No account?{' '}
+            Already have access?{' '}
             <Link 
-              href="/signup"
+              href="/login"
               className="hover:text-[#00E5FF] transition-colors"
               style={{ color: '#00E5FF' }}
             >
-              &gt; REGISTER_SYSTEM_ACCESS
+              &gt; INITIALIZE_SESSION
             </Link>
           </p>
         </div>
