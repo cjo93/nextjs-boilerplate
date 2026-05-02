@@ -132,7 +132,7 @@ export default function Home() {
               fontFamily: "var(--font-geist-sans), sans-serif",
             }}
           >
-            DEFRAG is a private AI for relationships, emotional recovery, and hard decisions — without turning your inner life into training data.
+            Defrag is a private AI for relationships, emotional recovery, and hard decisions — without turning your inner life into training data.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -265,7 +265,7 @@ export default function Home() {
               {
                 index: "02",
                 name: "DEFRAG",
-                desc: "Relationship synthesis. See the gap between what was said and what was meant — then close it.",
+                desc: "Relational synthesis. See the gap between what was said and what was meant — then close it.",
               },
               {
                 index: "03",
@@ -348,7 +348,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
             {[
               { n: "01", title: "Input the tension", body: "Describe what actually happened. No performance required." },
-              { n: "02", title: "Read the gap", body: "DEFRAG maps intent, reaction, and the actual pattern — in plain language." },
+              { n: "02", title: "Read the gap", body: "Defrag maps intent, reaction, and the actual pattern — in plain language." },
               { n: "03", title: "Execute one move", body: "One posture. One next step. Nothing else." },
             ].map((step, i) => (
               <div
