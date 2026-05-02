@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { createSupabaseBrowserClient } from '@/lib/supabase/browser';
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirectTo') || '/app';
+  const redirectTo = searchParams.get('redirectTo') || '/defrag';
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,17 +21,38 @@ export default function LoginPage() {
     setError('');
     
     try {
-      // TODO: Wire up Supabase authentication here
-      // const { data, error } = await supabase.auth.signInWithPassword({
-      //   email,
-      //   password,
-      // });
-      // if (error) throw error;
-      // router.push(redirectTo);
-      console.log('[v0] Login attempt:', { email, redirectTo });
-    } catch (err) {
-      setError('Authentication failed. Verify credentials and retry.');
+      const supabase = createSupabaseBrowserClient();
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      if (authError) throw authError;
+      
+      // Successful handshake. Route to the Engine.
+      router.push(redirectTo);
+    } catch (err: any) {
+      setError(err.message || 'AUTHENTICATION_FAILED. VERIFY_CREDENTIALS.');
+      console.log('[v0] Login error:', err.message);
     } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOAuth = async (provider: 'github' | 'google') => {
+    setLoading(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`,
+        },
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err.message || 'OAUTH_INITIALIZATION_FAILED.');
+      console.log('[v0] OAuth error:', err.message);
       setLoading(false);
     }
   };
@@ -153,7 +175,9 @@ export default function LoginPage() {
         <div className="space-y-3">
           <button
             type="button"
-            className="w-full px-4 py-3 border text-white transition-colors"
+            onClick={() => handleOAuth('github')}
+            disabled={loading}
+            className="w-full px-4 py-3 border text-white transition-colors disabled:opacity-50"
             style={{
               borderColor: '#333333',
               fontFamily: '"JetBrains Mono", monospace',
@@ -173,7 +197,9 @@ export default function LoginPage() {
           </button>
           <button
             type="button"
-            className="w-full px-4 py-3 border text-white transition-colors"
+            onClick={() => handleOAuth('google')}
+            disabled={loading}
+            className="w-full px-4 py-3 border text-white transition-colors disabled:opacity-50"
             style={{
               borderColor: '#333333',
               fontFamily: '"JetBrains Mono", monospace',

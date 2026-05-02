@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { createSupabaseBrowserClient } from '@/lib/supabase/browser';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -17,26 +18,256 @@ export default function SignupPage() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError('CREDENTIAL_MISMATCH. VERIFY_INPUT.');
       return;
     }
 
     setLoading(true);
     try {
-      // TODO: Wire up Supabase registration here
-      // const { data, error } = await supabase.auth.signUp({
-      //   email,
-      //   password,
-      // });
-      // if (error) throw error;
-      // router.push('/app');
-      console.log('[v0] Signup attempt:', { email });
-    } catch (err) {
-      setError('Registration failed. Try again.');
+      const supabase = createSupabaseBrowserClient();
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      
+      if (signUpError) throw signUpError;
+
+      // Direct routing upon successful baseline creation
+      router.push('/defrag');
+    } catch (err: any) {
+      setError(err.message || 'INITIALIZATION_FAILED. RETRY.');
+      console.log('[v0] Signup error:', err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  const handleOAuth = async (provider: 'github' | 'google') => {
+    setLoading(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      setError(err.message || 'OAUTH_INITIALIZATION_FAILED.');
+      console.log('[v0] OAuth error:', err.message);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="w-full h-screen flex items-center justify-center" style={{ background: '#000000' }}>
+      <div className="w-full max-w-md px-6">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 
+            className="text-4xl font-bold mb-2 tracking-[-0.04em]"
+            style={{ 
+              color: '#00E5FF',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}
+          >
+            [ REGISTER ]
+          </h1>
+          <p 
+            className="text-sm"
+            style={{ 
+              color: '#ffffff',
+              fontFamily: '"JetBrains Mono", monospace',
+              opacity: 0.6,
+              letterSpacing: '0.08em',
+            }}
+          >
+            SYSTEM_ACCESS_REQUIRED
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email */}
+          <div>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="> ENTER_EMAIL..."
+              required
+              className="w-full px-4 py-3 bg-transparent border text-white placeholder-[#666666] focus:outline-none transition-colors"
+              style={{
+                borderColor: '#333333',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '13px',
+                letterSpacing: '0.02em',
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#ffffff'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#333333'}
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="> ENTER_PASSWORD..."
+              required
+              className="w-full px-4 py-3 bg-transparent border text-white placeholder-[#666666] focus:outline-none transition-colors"
+              style={{
+                borderColor: '#333333',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '13px',
+                letterSpacing: '0.02em',
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#ffffff'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#333333'}
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="> CONFIRM_PASSWORD..."
+              required
+              className="w-full px-4 py-3 bg-transparent border text-white placeholder-[#666666] focus:outline-none transition-colors"
+              style={{
+                borderColor: '#333333',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '13px',
+                letterSpacing: '0.02em',
+              }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#ffffff'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#333333'}
+            />
+          </div>
+
+          {/* Error */}
+          {error && (
+            <p 
+              className="text-xs"
+              style={{ 
+                color: '#ff4444',
+                fontFamily: '"JetBrains Mono", monospace',
+              }}
+            >
+              [ ERROR ] {error}
+            </p>
+          )}
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full px-4 py-3 border border-white text-white font-mono hover:bg-white hover:text-black transition-colors disabled:opacity-50"
+            style={{
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '13px',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              fontWeight: 500,
+            }}
+          >
+            {loading ? '[ REGISTERING... ]' : '[ CREATE ACCESS ]'}
+          </button>
+        </form>
+
+        {/* Divider */}
+        <div className="my-8 flex items-center gap-4">
+          <div className="flex-1 h-px" style={{ background: '#333333' }}></div>
+          <span 
+            className="text-xs"
+            style={{ 
+              color: '#666666',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}
+          >
+            OR
+          </span>
+          <div className="flex-1 h-px" style={{ background: '#333333' }}></div>
+        </div>
+
+        {/* OAuth */}
+        <div className="space-y-3">
+          <button
+            type="button"
+            onClick={() => handleOAuth('github')}
+            disabled={loading}
+            className="w-full px-4 py-3 border text-white transition-colors disabled:opacity-50"
+            style={{
+              borderColor: '#333333',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '12px',
+              letterSpacing: '0.08em',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#00E5FF';
+              e.currentTarget.style.color = '#00E5FF';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#333333';
+              e.currentTarget.style.color = '#ffffff';
+            }}
+          >
+            &gt; REGISTER_VIA_GITHUB
+          </button>
+          <button
+            type="button"
+            onClick={() => handleOAuth('google')}
+            disabled={loading}
+            className="w-full px-4 py-3 border text-white transition-colors disabled:opacity-50"
+            style={{
+              borderColor: '#333333',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '12px',
+              letterSpacing: '0.08em',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#00E5FF';
+              e.currentTarget.style.color = '#00E5FF';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#333333';
+              e.currentTarget.style.color = '#ffffff';
+            }}
+          >
+            &gt; REGISTER_VIA_GOOGLE
+          </button>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-10 text-center">
+          <p 
+            className="text-xs"
+            style={{ 
+              color: '#666666',
+              fontFamily: '"JetBrains Mono", monospace',
+            }}
+          >
+            Already have access?{' '}
+            <Link 
+              href="/login"
+              className="hover:text-[#00E5FF] transition-colors"
+              style={{ color: '#00E5FF' }}
+            >
+              &gt; INITIALIZE_SESSION
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="w-full h-screen flex items-center justify-center" style={{ background: '#000000' }}>
