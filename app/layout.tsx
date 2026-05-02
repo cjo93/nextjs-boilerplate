@@ -1,38 +1,35 @@
-import type { Metadata } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SiteHeader, SiteFooter } from "@/components/site/chrome";
 import "./globals.css";
 
-const inter = Inter({
+const geistSans = Geist({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-geist-sans",
 });
 
-const dmSerifDisplay = DM_Serif_Display({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-dm-serif",
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
-  title: "DEFRAG — Human Intelligence Platform",
+  title: "DEFRAG — Sovereign Intelligence Platform",
   description:
-    "Healing isn't optional. But the pain is. DEFRAG helps you understand the why behind every interaction — your nature, the moment, and the person across from you.",
+    "Private relational intelligence. Understand any situation. See the gap. Get one clean move.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`bg-background ${inter.variable} ${dmSerifDisplay.variable}`}>
-      <body className="min-h-screen flex flex-col bg-background text-foreground font-sans">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+    <html lang="en" className={`bg-background ${geistSans.variable} ${geistMono.variable}`}>
+      <body className="min-h-screen bg-black text-white font-sans antialiased">
+        {children}
         <SpeedInsights />
       </body>
     </html>

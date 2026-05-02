@@ -1,49 +1,51 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────
-   DESIGN TOKENS
+   ESOTERIC BRUTALISM — DESIGN TOKENS
 ───────────────────────────────────────── */
 :root {
-  /* Backgrounds — deep charcoal, not pure black */
-  --background:  #111112;
-  --surface:     #18181B;
-  --surface-2:   #1E1E22;
-  --surface-3:   #26262C;
+  /* Pure void */
+  --background:  #000000;
+  --surface:     #0a0a0a;
+  --surface-2:   #111111;
+  --surface-3:   #1a1a1a;
 
-  /* Text — off-white + soft greys */
-  --foreground:  #F5F5F6;
-  --muted:       #B3B3BC;
-  --muted-2:     #6B6B78;
-  --muted-3:     #3A3A44;
+  /* Signal */
+  --foreground:  #ffffff;
+  --muted:       #999999;
+  --muted-2:     #555555;
+  --muted-3:     #333333;
 
-  /* Borders — subtle dark greys */
-  --border-subtle: #1D1D22;
-  --border:        #2A2A30;
-  --border-2:      #36363E;
-  --border-3:      #46464F;
+  /* Borders — 1px stark lines */
+  --border-subtle: #1a1a1a;
+  --border:        #222222;
+  --border-2:      #333333;
+  --border-3:      #444444;
 
-  /* Accent — metallic warm amber */
-  --accent:        #D69B5A;
-  --accent-soft:   #B37B3E;
-  --accent-dim:    rgba(214, 155, 90, 0.12);
-  --accent-border: rgba(214, 155, 90, 0.28);
+  /* Oxygen Blue — the only accent */
+  --accent:        #00E5FF;
+  --accent-soft:   #00b8cc;
+  --accent-dim:    rgba(0, 229, 255, 0.08);
+  --accent-border: rgba(0, 229, 255, 0.25);
 
-  /* Rare highlight */
-  --highlight:   rgba(225, 185, 138, 0.06);
-  --highlight-2: rgba(225, 185, 138, 0.03);
+  /* Highlight */
+  --highlight:   rgba(0, 229, 255, 0.04);
+  --highlight-2: rgba(0, 229, 255, 0.02);
 
-  --radius:      6px;
-  --radius-lg:   12px;
+  /* Zero rounding — brutalist */
+  --radius:      0px;
+  --radius-lg:   0px;
 
-  /* Spacing rhythm */
-  --section-y:   clamp(80px, 10vw, 120px);
+  /* Spacing */
+  --section-y: clamp(80px, 10vw, 120px);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: var(--font-dm-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", "Courier New", monospace;
+  --font-serif: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* ─────────────────────────────────────────
@@ -57,7 +59,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -71,13 +73,14 @@ a {
    TYPOGRAPHY
 ───────────────────────────────────────── */
 
-/* Eyebrow label */
+/* Eyebrow label — monospace system tag */
 .label {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.13em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted-2);
+  color: var(--accent);
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
   font-variant-numeric: tabular-nums;
 }
 
@@ -114,35 +117,28 @@ a {
   justify-content: center;
   height: 44px;
   padding: 0 28px;
-  border-radius: 3px;
-  border: 1px solid var(--accent-soft);
-  background: var(--accent);
-  color: var(--background);
-  font-size: 13px;
+  border-radius: 0;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 150ms ease, border-color 150ms ease, transform 80ms ease;
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+  transition: background 120ms ease, color 120ms ease;
   white-space: nowrap;
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-primary:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-soft);
-  box-shadow: 0 4px 12px rgba(214,155,90,0.25);
+  opacity: 0.85;
 }
 
 .btn-secondary {
@@ -153,20 +149,22 @@ a {
   height: 44px;
   padding: 0 24px;
   background: transparent;
-  color: var(--foreground);
-  font-size: 14px;
+  color: var(--muted);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.005em;
-  border-radius: var(--radius);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
+  border-radius: 0;
   border: 1px solid var(--border-2);
   cursor: pointer;
-  transition: background 150ms ease, border-color 150ms ease;
+  transition: color 120ms ease, border-color 120ms ease;
   white-space: nowrap;
 }
 
 .btn-secondary:hover {
-  background: var(--surface-2);
-  border-color: var(--border-3);
+  color: var(--foreground);
+  border-color: var(--foreground);
 }
 
 /* ─────────────────────────────────────────
@@ -175,14 +173,13 @@ a {
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   padding: 32px 36px;
-  transition: border-color 220ms ease, box-shadow 220ms ease;
+  transition: border-color 180ms ease;
 }
 
 .card:hover {
-  border-color: var(--border-2);
-  box-shadow: 0 4px 28px rgba(0,0,0,0.35);
+  border-color: var(--border-3);
 }
 
 /* Inset grid cell — flush, no independent rounding */
@@ -200,11 +197,13 @@ a {
    NAV
 ───────────────────────────────────────── */
 .nav-link {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--muted);
-  transition: color 150ms ease;
-  letter-spacing: 0em;
+  transition: color 120ms ease;
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
 }
 
 .nav-link:hover {
@@ -212,10 +211,12 @@ a {
 }
 
 .brand-wordmark {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--foreground);
+  font-family: var(--font-geist-mono), "JetBrains Mono", monospace;
 }
 
 /* ─────────────────────────────────────────
